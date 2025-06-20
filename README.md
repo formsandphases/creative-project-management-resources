@@ -12,10 +12,9 @@ Great art deserves great project management. We bridge the gap between corporate
 
 ### Articles & Guides
 Practical insights and methodologies for creative project management:
-- **Risk Responsiveness**: How to anticipate and adapt to the unexpected in creative projects
-- **Vision to V1**: Strategies for taking ambitious creative ideas to a shippable first version
-- **Resource Planning for Creatives**: Balancing artistic vision with realistic timelines and budgets
-- And more!
+- **[Cultivating the Creative Middle Ground](articles/cultivating-the-creative-middle-ground.md)** - Tools for balancing creativity and structure
+- **[Building a Risk-Responsive Culture](articles/building-a-risk-responsive-culture.md)** - Risk awareness frameworks for creative teams
+- and more!
 
 ### Templates
 Ready-to-use project management tools designed specifically for creative production:
