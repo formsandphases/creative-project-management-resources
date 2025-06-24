@@ -20,12 +20,10 @@ Practical insights and methodologies for creative project management:
 Ready-to-use project management tools designed specifically for creative production:
 - Coming soon!
 
-### Interactive Assessments
-Self-service tools that give you a taste of professional production consulting:
-- **Project Health Assessment**: Identify potential bottlenecks and risks in active projects
-- **Publishing Assessments**: Should you pursue a publishing partnership? And how?
+### Interactive Tools
+Self-serve evaluations that mimic our consulting methodology to give you actionable insights in 10 minutes or less. Assess project health, publishing readiness, and strategic decisions with tools designed for creative teams.
 
-*These assessments are designed to mimic our consulting approach, giving you actionable recommendations based on proven methodologies.*
+**[Explore All Interactive Tools →](self-serve-assessments/)**
 
 ## 🚀 Getting Started
 
