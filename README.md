@@ -39,15 +39,6 @@ Self-serve evaluations that mimic our consulting methodology to give you actiona
 - **Studios & Agencies**: Leverage our risk management approaches and team optimization strategies
 - **Producers & PMs**: Adapt our methodologies to improve your creative project outcomes
 
-## 📖 File Organization
-
-```
-/articles/          - In-depth guides and methodology explanations
-/templates/         - Downloadable planning and management templates  
-/assessments/       - Interactive HTML tools for self-evaluation
-/resources/         - Additional tools, checklists, and reference materials
-```
-
 ## 🎮 Industries We Serve
 
 - **Video Games**: From indie studios to AAA development teams
