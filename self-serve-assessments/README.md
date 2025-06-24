@@ -16,7 +16,7 @@ Evaluate the overall health of your current project across key areas that determ
 ### Publisher Readiness Series
 *For game developers considering publishing partnerships*
 
-**[📋 Publishing Path Evaluation →](https://formsandphases.github.io/creative-project-management-resources/self-serve-assessments/publisher-path-evaluation.html)**  
+**[📋 Publishing Path Evaluation →](https://formsandphases.github.io/creative-project-management-resources/self-serve-assessments/publishing-path-evaluation.html)**  
 Should you pursue publishing partnerships or are you better suited for independence?
 
 **[📈 Publisher Readiness Evaluation →](https://formsandphases.github.io/creative-project-management-resources/self-serve-assessments/publisher-readiness-evaluation.html)**  
