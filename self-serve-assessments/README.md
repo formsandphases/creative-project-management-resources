@@ -1,4 +1,4 @@
-v# Self-Serve Tools Hub
+# Self-Serve Tools Hub
 
 *Get actionable insights on your creative projects in 10 minutes or less!*
 
