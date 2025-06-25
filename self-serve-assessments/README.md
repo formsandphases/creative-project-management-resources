@@ -22,13 +22,13 @@ Should you pursue publishing partnerships or are you better suited for independe
 **[📈 Publisher Readiness Evaluation →](https://formsandphases.github.io/creative-project-management-resources/self-serve-assessments/publisher-readiness-evaluation.html)**  
 Which areas of publisher readiness are you strong in? Which need development before pursuing partnerships?
 
-**[📝 Publisher Submission Self-Review → Coming Soon!](your-link-here)**  
+**[📝 Publisher Submission Self-Review → Coming Soon!]**  
 Are your submission materials and approach demonstrating readiness for the evaluation phase?
 
-**[🔍 Publisher Evaluation Readiness Assessment → Coming Soon!](your-link-here)**  
+**[🔍 Publisher Evaluation Readiness Assessment → Coming Soon!]**  
 Are you prepared for the deeper questions that come up during publisher evaluation?
 
-**[🤝 Publisher Collaboration Readiness Assessment → Coming Soon!](your-link-here)**  
+**[🤝 Publisher Collaboration Readiness Assessment → Coming Soon!]**  
 Are you mentally, emotionally, and physically prepared for a publishing partnership once you secure one?
 
 ---
