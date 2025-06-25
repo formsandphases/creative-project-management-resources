@@ -45,8 +45,8 @@ These free resources are just the beginning. Forms + Phases offers:
 - **Specialized Services**: Project kick-offs, documentation support, risk management, team optimization, financial planning, and more
 
 **Ready to take your creative project to the next level?**
-**[📧 Contact us](https://www.formsandphases.com/)**
-**[🌐 Website](https://www.formsandphases.com/)**
+- **[📧 Contact us](https://www.formsandphases.com/)**
+- **[🌐 Website](https://www.formsandphases.com/)**
 
 ## 📝 License & Usage
 
