@@ -25,16 +25,16 @@ Philosophical, educational, and actionable articles, blogs, and guides written b
 
 **[Explore All Articles →](articles/)**
 
-### Templates
-Ready-to-use project management tools designed specifically for creative production:
-- Coming soon!
-
 ### Interactive Tools
 Self-serve evaluations that mimic our consulting approach to give you actionable insights in 10 minutes or less. Assess project health, readiness, and strategic decisions with tools designed for creative teams.
 
 [Try our project health assessment to evaluate your current project across 5 dimensions →](https://ali-ip20vxic.scoreapp.com)
 
 **[Explore All Interactive Tools →](self-serve-assessments/)**
+
+### Templates
+Ready-to-use project management tools designed specifically for creative production:
+- Coming soon!
 
 ## 🤝 Need More Support?
 
