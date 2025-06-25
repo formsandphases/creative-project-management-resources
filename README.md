@@ -8,43 +8,33 @@ Welcome to the Forms + Phases resource library! We're a creative project managem
 
 Great art deserves great project management. We bridge the gap between corporate PM best practices and the fluid, iterative nature of creative work, because every creative vision should have the structure and support it needs to reach its audience.
 
-## 📚 What's Available
-
-### Articles & Guides
-Practical insights and methodologies for creative project management:
-- **[Cultivating the Creative Middle Ground](articles/cultivating-the-creative-middle-ground.md)** - Tools for balancing creativity and structure
-- **[Building a Risk-Responsive Culture](articles/building-a-risk-responsive-culture.md)** - Risk awareness frameworks for creative teams
-- and more!
-
-### Templates
-Ready-to-use project management tools designed specifically for creative production:
-- Coming soon!
-
-### Interactive Tools
-Self-serve evaluations that mimic our consulting methodology to give you actionable insights in 10 minutes or less. Assess project health, publishing readiness, and strategic decisions with tools designed for creative teams.
-
-**[Explore All Interactive Tools →](self-serve-assessments/)**
-
-## 🚀 Getting Started
-
-1. **Browse the folders** to find resources relevant to your current needs
-2. **Start with the articles** to understand our approach
-3. **Try the interactive assessments** to get personalized insights for your projects
-4. **Use the templates** to implement structured approaches in your work
-
-## 💡 How to Use These Resources
-
-- **Solo Creators**: Use our planning templates and self-assessments to bring structure to your creative process
-- **Small Teams**: Implement our communication frameworks and resource planning tools
-- **Studios & Agencies**: Leverage our risk management approaches and team optimization strategies
-- **Producers & PMs**: Adapt our methodologies to improve your creative project outcomes
-
 ## 🎮 Industries We Serve
 
 - **Video Games**: From indie studios to AAA development teams
 - **Animation & Film**: Short films, features, and commercial production
 - **Interactive Media**: VR/AR experiences, installations, and digital art
 - **Experiential Design**: Events, exhibitions, and immersive experiences
+
+## 📚 What's Available
+
+### Articles, Blogs & Guides
+Philosophical, educational, and actionable articles, blogs, and guides written by our founder:
+- **[Cultivating the Creative Middle Ground](articles/cultivating-the-creative-middle-ground.md)** - Tools for balancing creativity and structure
+- **[Building a Risk-Responsive Culture](articles/building-a-risk-responsive-culture.md)** - Risk awareness frameworks for creative teams
+- and more!
+
+**[Explore All Articles →](articles/)**
+
+### Templates
+Ready-to-use project management tools designed specifically for creative production:
+- Coming soon!
+
+### Interactive Tools
+Self-serve evaluations that mimic our consulting approach to give you actionable insights in 10 minutes or less. Assess project health, readiness, and strategic decisions with tools designed for creative teams.
+
+**[Try our project health assessment to evaluate your current project across 5 dimensions →] (https://ali-ip20vxic.scoreapp.com)**
+
+**[Explore All Interactive Tools →](self-serve-assessments/)**
 
 ## 🤝 Need More Support?
 
@@ -55,8 +45,8 @@ These free resources are just the beginning. Forms + Phases offers:
 - **Specialized Services**: Project kick-offs, documentation support, risk management, team optimization, financial planning, and more
 
 **Ready to take your creative project to the next level?**
-- 📧 Contact us: [contact@formsandphases.com]
-- 🌐 Website: [https://www.formsandphases.com/]
+- [📧 Contact us] (https://www.formsandphases.com/)
+- [🌐 Website] (https://www.formsandphases.com/)
 
 ## 📝 License & Usage
 
