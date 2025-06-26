@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Publisher Readiness Assessment</title>
+    <title>Professional Collaboration Readiness Assessment - Forms + Phases</title>
     <style>
         * {
             margin: 0;
@@ -11,11 +11,50 @@
             box-sizing: border-box;
         }
 
+        /* Accessibility: Respect user motion preferences */
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+
+        /* High contrast mode support */
+        @media (prefers-contrast: high) {
+            .assessment-card { border: 2px solid; }
+            .btn { border: 2px solid; }
+            .option { border: 2px solid; }
+        }
+
+        /* Skip link styling */
+        .skip-link {
+            position: absolute;
+            top: -40px;
+            left: 6px;
+            background: #000;
+            color: #fff;
+            padding: 8px;
+            text-decoration: none;
+            z-index: 1000;
+            border-radius: 4px;
+        }
+        .skip-link:focus {
+            top: 6px;
+        }
+
+        /* Focus indicators */
+        *:focus {
+            outline: 2px solid #6630E3;
+            outline-offset: 2px;
+        }
+
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #FFCB8E 0%, #FE7C84 25%, #F759B7 49%, #A545E5 72%, #6630E3 100%);
+            font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(0deg, #FFCB8E 0%, #FE7C84 25%, #F759B7 49%, #A545E5 72%, #6630E3 100%);
             min-height: 100vh;
-            color: #333;
+            color: #020528;
+            line-height: 1.5;
         }
 
         .container {
@@ -38,12 +77,14 @@
             font-size: 2.5rem;
             font-weight: 700;
             margin-bottom: 10px;
+            letter-spacing: -0.5px;
         }
 
         .header p {
             font-size: 1.1rem;
             opacity: 0.9;
             margin-bottom: 20px;
+            line-height: 1.6;
         }
 
         .brand-credit {
@@ -53,61 +94,68 @@
         }
 
         .progress-container {
-            background: white;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
             border-radius: 12px;
             padding: 20px;
             margin-bottom: 30px;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
         }
 
         .progress-bar {
             width: 100%;
             height: 12px;
-            background: #e0e0e0;
-            border-radius: 6px;
+            background: rgba(6, 48, 35, 0.1);
+            border-radius: 8px;
             overflow: hidden;
             margin-bottom: 15px;
         }
 
         .progress-fill {
             height: 100%;
-            background: linear-gradient(90deg, #A545E5, #6630E3);
+            background: linear-gradient(0deg, #FFCB8E 0%, #FE7C84 25%, #F759B7 49%, #A545E5 72%, #6630E3 100%);
             width: 0%;
             transition: width 0.3s ease;
-            border-radius: 6px;
+            border-radius: 8px;
         }
 
         .progress-text {
             text-align: center;
             font-weight: 600;
-            color: #333;
+            color: #020528;
         }
 
         .assessment-card {
-            background: white;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
             border-radius: 12px;
             padding: 30px;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
             margin-bottom: 20px;
         }
 
         .section-title {
-            font-size: 1.8rem;
-            font-weight: 700;
+            font-size: 2rem;
+            font-weight: 800;
             color: #6630E3;
             margin-bottom: 25px;
             text-align: center;
+            letter-spacing: -0.5px;
+        }
+
+        .question-fieldset {
+            margin-bottom: 30px;
+            border: none;
+            padding: 0;
         }
 
         .question {
-            margin-bottom: 30px;
+            background: white;
             padding: 20px;
-            border: 2px solid #f0f0f0;
             border-radius: 8px;
-            transition: border-color 0.3s ease;
-            width: 100%;
-            max-width: 100%;
-            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            border: 2px solid transparent;
+            transition: all 0.3s ease;
         }
 
         .question.answered {
@@ -115,15 +163,12 @@
             background: #f8f6ff;
         }
 
-        .question-title {
+        .question-legend {
             font-size: 1.2rem;
             font-weight: 600;
             margin-bottom: 15px;
-            color: #333;
-            word-wrap: break-word;
-            overflow-wrap: break-word;
-            hyphens: auto;
-            max-width: 100%;
+            color: #020528;
+            width: 100%;
         }
 
         .options {
@@ -140,14 +185,14 @@
             cursor: pointer;
             transition: all 0.3s ease;
             background: white;
-            width: 100%;
-            max-width: 100%;
-            overflow: hidden;
+            min-height: 44px;
         }
 
         .option:hover {
             border-color: #A545E5;
             background: #faf9ff;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(165, 69, 229, 0.2);
         }
 
         .option.selected {
@@ -164,11 +209,7 @@
             cursor: pointer;
             flex: 1;
             font-weight: 500;
-            word-wrap: break-word;
-            overflow-wrap: break-word;
-            hyphens: auto;
-            max-width: 100%;
-            min-width: 0;
+            line-height: 1.4;
         }
 
         .navigation {
@@ -181,7 +222,7 @@
         .btn {
             padding: 12px 24px;
             border: none;
-            border-radius: 8px;
+            border-radius: 25px;
             font-size: 1rem;
             font-weight: 600;
             cursor: pointer;
@@ -189,25 +230,29 @@
             text-decoration: none;
             display: inline-block;
             text-align: center;
+            min-height: 44px;
         }
 
         .btn-primary {
-            background: linear-gradient(135deg, #A545E5, #6630E3);
+            background: #6630E3;
             color: white;
         }
 
         .btn-primary:hover {
             transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(165, 69, 229, 0.4);
+            box-shadow: 0 6px 20px rgba(102, 48, 227, 0.4);
         }
 
         .btn-secondary {
-            background: #f0f0f0;
-            color: #333;
+            background: rgba(255, 255, 255, 0.8);
+            color: #020528;
+            backdrop-filter: blur(10px);
         }
 
         .btn-secondary:hover {
-            background: #e0e0e0;
+            background: rgba(255, 255, 255, 0.9);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
         }
 
         .btn:disabled {
@@ -234,17 +279,20 @@
         }
 
         .section-result {
-            background: #f8f6ff;
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(10px);
             padding: 20px;
             border-radius: 8px;
             border-left: 4px solid #6630E3;
             margin-bottom: 25px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
         }
 
         .section-result h3 {
             color: #6630E3;
             margin-bottom: 10px;
             font-size: 1.3rem;
+            font-weight: 700;
         }
 
         .result-status {
@@ -286,6 +334,7 @@
             color: #f57c00;
             margin-bottom: 10px;
             font-size: 1rem;
+            font-weight: 700;
         }
 
         .specific-actions ul {
@@ -342,19 +391,115 @@
             color: #2e7d32;
             margin-bottom: 10px;
             font-size: 1rem;
+            font-weight: 700;
         }
 
         .overall-guidance {
-            background: #fff3e0;
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(10px);
             padding: 20px;
             border-radius: 8px;
             border-left: 4px solid #f57c00;
             margin-top: 30px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
         }
 
         .overall-guidance h3 {
             color: #f57c00;
             margin-bottom: 15px;
+            font-weight: 700;
+        }
+
+        .footer {
+            margin-top: 40px;
+            padding: 30px;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 12px;
+            text-align: center;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        .footer h3 {
+            color: #6630E3;
+            margin-bottom: 15px;
+            font-weight: 700;
+        }
+
+        .footer p {
+            color: #020528;
+            margin-bottom: 20px;
+        }
+
+        .footer-links {
+            margin: 20px 0;
+        }
+
+        .footer-links a {
+            display: inline-block;
+            margin: 5px;
+            padding: 10px 20px;
+            color: white;
+            text-decoration: none;
+            border-radius: 25px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            min-height: 44px;
+            line-height: 1.4;
+        }
+
+        .footer-links a:first-child {
+            background: #6630E3;
+        }
+
+        .footer-links a:nth-child(2) {
+            background: #A545E5;
+        }
+
+        .footer-links a:last-child {
+            background: #F759B7;
+        }
+
+        .footer-links a:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .footer hr {
+            margin: 20px 0;
+            border: none;
+            height: 1px;
+            background: rgba(6, 48, 35, 0.1);
+        }
+
+        .footer .company-info {
+            margin: 0;
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        .error-message {
+            color: #e74c3c;
+            text-align: center;
+            margin: 15px 0;
+            font-weight: 600;
+            background: rgba(231, 76, 60, 0.1);
+            padding: 10px;
+            border-radius: 8px;
+            border-left: 4px solid #e74c3c;
+        }
+
+        /* Status updates for screen readers */
+        .sr-only {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            white-space: nowrap;
+            border: 0;
         }
 
         @media (max-width: 768px) {
@@ -379,7 +524,7 @@
                 width: 100%;
             }
 
-            .question-title {
+            .question-legend {
                 font-size: 1.1rem;
                 line-height: 1.4;
                 word-wrap: break-word;
@@ -398,21 +543,22 @@
                 word-wrap: break-word;
                 overflow-wrap: break-word;
             }
-        }
 
-        .error-message {
-            color: #e74c3c;
-            text-align: center;
-            margin: 15px 0;
-            font-weight: 600;
+            .footer-links a {
+                display: block;
+                margin: 5px 0;
+                width: 100%;
+            }
         }
     </style>
 </head>
 <body>
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+    
     <div class="container">
         <div class="header">
-            <h1>Publisher Readiness Assessment</h1>
-            <p>Curious about publisher partnerships? This assessment helps you understand your working style and capabilities across the four key areas that matter most to publishers. You'll discover your current strengths and explore areas where you might want to build skills or find collaborators.</p>
+            <h1>Professional Collaboration Readiness Assessment</h1>
+            <p>How strong are your professional collaboration skills? This comprehensive assessment helps you understand your working style and capabilities across the four areas essential for successful partnerships in game development. Whether you're considering publishers, investors, co-developers, or just want to work more professionally, you'll discover your strengths and get targeted advice for growth.</p>
             <div class="brand-credit">Created by Forms + Phases</div>
         </div>
 
@@ -420,505 +566,573 @@
             <div class="progress-bar">
                 <div class="progress-fill" id="progressFill"></div>
             </div>
-            <div class="progress-text" id="progressText">0 of 20 questions completed</div>
+            <div class="progress-text" 
+                 role="progressbar" 
+                 aria-valuenow="0" 
+                 aria-valuemin="0" 
+                 aria-valuemax="20" 
+                 id="progressText">0 of 20 questions completed</div>
         </div>
 
-        <div class="assessment-card">
-            <!-- Section 1: Communication Systems -->
-            <div class="section active" id="section1">
-                <h2 class="section-title">Section 1: Communication Systems</h2>
-                
-                <div class="question" data-question="1">
-                    <div class="question-title">1. How do you currently document your game's concept and progress for people outside your team?</div>
-                    <div class="options">
-                        <div class="option">
-                            <input type="radio" name="q1" value="strong" id="q1a">
-                            <label for="q1a">I keep clear, detailed records that anyone can pick up and understand</label>
-                        </div>
-                        <div class="option">
-                            <input type="radio" name="q1" value="developing" id="q1b">
-                            <label for="q1b">I document things well for my team and could share them with others</label>
-                        </div>
-                        <div class="option">
-                            <input type="radio" name="q1" value="developing" id="q1c">
-                            <label for="q1c">My notes work great for us, but they're written with my team in mind</label>
-                        </div>
-                        <div class="option">
-                            <input type="radio" name="q1" value="growth" id="q1d">
-                            <label for="q1d">I mostly keep things in my head and talk through ideas rather than writing them down</label>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="question" data-question="2">
-                    <div class="question-title">2. When explaining your game to industry professionals or potential partners:</div>
-                    <div class="options">
-                        <div class="option">
-                            <input type="radio" name="q2" value="strong" id="q2a">
-                            <label for="q2a">I'm prepared for any questions - from creative vision to business potential</label>
-                        </div>
-                        <div class="option">
-                            <input type="radio" name="q2" value="developing" id="q2b">
-                            <label for="q2b">I can explain the game well and handle most follow-up questions</label>
-                        </div>
-                        <div class="option">
-                            <input type="radio" name="q2" value="developing" id="q2c">
-                            <label for="q2c">I'm great at explaining the creative side, but business questions can catch me off guard</label>
-                        </div>
-                        <div class="option">
-                            <input type="radio" name="q2" value="growth" id="q2d">
-                            <label for="q2d">I'd rather show the game in action - talking about business stuff feels awkward</label>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="question" data-question="3">
-                    <div class="question-title">3. Your approach to professional written communication (emails, updates, proposals) is:</div>
-                    <div class="options">
-                        <div class="option">
-                            <input type="radio" name="q3" value="strong" id="q3a">
-                            <label for="q3a">I write professionally while staying authentic - people know they can count on my updates</label>
-                        </div>
-                        <div class="option">
-                            <input type="radio" name="q3" value="developing" id="q3b">
-                            <label for="q3b">I communicate clearly and can shift to a more professional tone when needed</label>
-                        </div>
-                        <div class="option">
-                            <input type="radio" name="q3" value="developing" id="q3c">
-                            <label for="q3c">I focus on getting my point across clearly, usually in a pretty casual way</label>
-                        </div>
-                        <div class="option">
-                            <input type="radio" name="q3" value="growth" id="q3d">
-                            <label for="q3d">I keep things informal - formal business writing doesn't feel like me</label>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="question" data-question="4">
-                    <div class="question-title">4. How do you handle it when people don't immediately understand your game or ask for clarification?</div>
-                    <div class="options">
-                        <div class="option">
-                            <input type="radio" name="q4" value="strong" id="q4a">
-                            <label for="q4a">I have several ways to explain it and enjoy finding what clicks for each person</label>
-                        </div>
-                        <div class="option">
-                            <input type="radio" name="q4" value="developing" id="q4b">
-                            <label for="q4b">I try different approaches and ask questions to understand what they need</label>
-                        </div>
-                        <div class="option">
-                            <input type="radio" name="q4" value="developing" id="q4c">
-                            <label for="q4c">I keep trying different explanations until something works</label>
-                        </div>
-                        <div class="option">
-                            <input type="radio" name="q4" value="growth" id="q4d">
-                            <label for="q4d">It can be frustrating when my vision doesn't come across right away</label>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="question" data-question="5">
-                    <div class="question-title">5. Your visual materials (screenshots, trailers, presentation slides) are currently:</div>
-                    <div class="options">
-                        <div class="option">
-                            <input type="radio" name="q5" value="strong" id="q5a">
-                            <label for="q5a">Polished and ready to share with anyone - they really sell the game's potential</label>
-                        </div>
-                        <div class="option">
-                            <input type="radio" name="q5" value="developing" id="q5b">
-                            <label for="q5b">Good quality materials that show what the game is about</label>
-                        </div>
-                        <div class="option">
-                            <input type="radio" name="q5" value="developing" id="q5c">
-                            <label for="q5c">They get the basic idea across but could use more polish</label>
-                        </div>
-                        <div class="option">
-                            <input type="radio" name="q5" value="growth" id="q5d">
-                            <label for="q5d">Early development materials that work for us but aren't presentation-ready</label>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="navigation">
-                    <div></div>
-                    <button class="btn btn-primary" onclick="nextSection(1)">Next Section</button>
-                </div>
-                <div class="error-message" id="error1" style="display: none;">Please answer all questions in this section before continuing.</div>
-            </div>
-
-            <!-- Section 2: Development Workflows -->
-            <div class="section" id="section2">
-                <h2 class="section-title">Section 2: Development Workflows</h2>
-                
-                <div class="question" data-question="6">
-                    <div class="question-title">6. If someone asked you to show them what you've accomplished this month on your game, you would:</div>
-                    <div class="options">
-                        <div class="option">
-                            <input type="radio" name="q6" value="strong" id="q6a">
-                            <label for="q6a">Easily pull up organized records showing exactly what got done and what's coming next</label>
-                        </div>
-                        <div class="option">
-                            <input type="radio" name="q6" value="developing" id="q6b">
-                            <label for="q6b">Have good notes that would need minimal organizing to share clearly</label>
-                        </div>
-                        <div class="option">
-                            <input type="radio" name="q6" value="developing" id="q6c">
-                            <label for="q6c">Be able to walk them through what happened, pulling from various notes and memory</label>
-                        </div>
-                        <div class="option">
-                            <input type="radio" name="q6" value="growth" id="q6d">
-                            <label for="q6d">Need to think about it and piece together what got done from memory</label>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="question" data-question="7">
-                    <div class="question-title">7. When you receive feedback or suggestions about your game, you typically:</div>
-                    <div class="options">
-                        <div class="option">
-                            <input type="radio" name="q7" value="strong" id="q7a">
-                            <label for="q7a">Have a clear process for evaluating feedback, and people understand how we handle input</label>
-                        </div>
-                        <div class="option">
-                            <input type="radio" name="q7" value="developing" id="q7b">
-                            <label for="q7b">Talk it through as a team and have good ways to incorporate valuable ideas</label>
-                        </div>
-                        <div class="option">
-                            <input type="radio" name="q7" value="developing" id="q7c">
-                            <label for="q7c">Consider it carefully, though our process is more gut instinct than formal</label>
-                        </div>
-                        <div class="option">
-                            <input type="radio" name="q7" value="growth" id="q7d">
-                            <label for="q7d">Listen politely but generally trust our own creative judgment</label>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="question" data-question="8">
-                    <div class="question-title">8. When something takes longer than expected or you need to change direction on your game:</div>
-                    <div class="options">
-                        <div class="option">
-                            <input type="radio" name="q8" value="strong" id="q8a">
-                            <label for="q8a">You have good processes for deciding what to do and would communicate changes clearly to anyone involved</label>
-                        </div>
-                        <div class="option">
-                            <input type="radio" name="q8" value="developing" id="q8b">
-                            <label for="q8b">You adapt well and naturally keep relevant people informed about what's happening</label>
-                        </div>
-                        <div class="option">
-                            <input type="radio" name="q8" value="developing" id="q8c">
-                            <label for="q8c">You handle changes as they come and communicate when it feels significant</label>
-                        </div>
-                        <div class="option">
-                            <input type="radio" name="q8" value="growth" id="q8d">
-                            <label for="q8d">You work through problems internally first, then update people once you have solutions</label>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="question" data-question="9">
-                    <div class="question-title">9. If you had a collaborator who needed regular updates and input opportunities, your development style would:</div>
-                    <div class="options">
-                        <div class="option">
-                            <input type="radio" name="q9" value="strong" id="q9a">
-                            <label for="q9a">Work well with natural check-in points that accommodate their schedule</label>
-                        </div>
-                        <div class="option">
-                            <input type="radio" name="q9" value="developing" id="q9b">
-                            <label for="q9b">Have a rhythm that could easily include their input and timing needs</label>
-                        </div>
-                        <div class="option">
-                            <input type="radio" name="q9" value="developing" id="q9c">
-                            <label for="q9c">Be flexible enough to accommodate their needs when necessary</label>
-                        </div>
-                        <div class="option">
-                            <input type="radio" name="q9" value="growth" id="q9d">
-                            <label for="q9d">Require some adjustment since you prioritize creative flow over scheduled coordination</label>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="question" data-question="10">
-                    <div class="question-title">10. When development challenges or setbacks happen, you typically:</div>
-                    <div class="options">
-                        <div class="option">
-                            <input type="radio" name="q10" value="strong" id="q10a">
-                            <label for="q10a">Have clear approaches for handling issues and would keep collaborators informed throughout</label>
-                        </div>
-                        <div class="option">
-                            <input type="radio" name="q10" value="developing" id="q10b">
-                            <label for="q10b">Work through problems efficiently while keeping relevant people in the loop</label>
-                        </div>
-                        <div class="option">
-                            <input type="radio" name="q10" value="developing" id="q10c">
-                            <label for="q10c">Focus on solving issues first, then communicate about outcomes</label>
-                        </div>
-                        <div class="option">
-                            <input type="radio" name="q10" value="growth" id="q10d">
-                            <label for="q10d">Handle challenges internally and share updates once you have clarity</label>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="navigation">
-                    <button class="btn btn-secondary" onclick="prevSection(2)">Previous</button>
-                    <button class="btn btn-primary" onclick="nextSection(2)">Next Section</button>
-                </div>
-                <div class="error-message" id="error2" style="display: none;">Please answer all questions in this section before continuing.</div>
-            </div>
-
-            <!-- Section 3: Business Confidence Systems -->
-            <div class="section" id="section3">
-                <h2 class="section-title">Section 3: Business Confidence Systems</h2>
-                
-                <div class="question" data-question="11">
-                    <div class="question-title">11. If someone new joined your project, how quickly could they understand who does what?</div>
-                    <div class="options">
-                        <div class="option">
-                            <input type="radio" name="q11" value="strong" id="q11a">
-                            <label for="q11a">Very quickly - roles and responsibilities are clearly defined and easy to understand</label>
-                        </div>
-                        <div class="option">
-                            <input type="radio" name="q11" value="developing" id="q11b">
-                            <label for="q11b">Pretty easily - you could explain the team structure and who handles what</label>
-                        </div>
-                        <div class="option">
-                            <input type="radio" name="q11" value="developing" id="q11c">
-                            <label for="q11c">It would take some explaining since roles are more flexible than formal</label>
-                        </div>
-                        <div class="option">
-                            <input type="radio" name="q11" value="growth" id="q11d">
-                            <label for="q11d">They'd need to work with you for a while to see how you collaborate and divide tasks</label>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="question" data-question="12">
-                    <div class="question-title">12. If you had a business partner who wanted regular updates on your game's progress, you would:</div>
-                    <div class="options">
-                        <div class="option">
-                            <input type="radio" name="q12" value="strong" id="q12a">
-                            <label for="q12a">Easily maintain a predictable update schedule they could count on</label>
-                        </div>
-                        <div class="option">
-                            <input type="radio" name="q12" value="developing" id="q12b">
-                            <label for="q12b">Be able to establish and maintain regular communication when needed</label>
-                        </div>
-                        <div class="option">
-                            <input type="radio" name="q12" value="developing" id="q12c">
-                            <label for="q12c">Update them when there's meaningful progress or important news to share</label>
-                        </div>
-                        <div class="option">
-                            <input type="radio" name="q12" value="growth" id="q12d">
-                            <label for="q12d">Prefer to focus on the work and share updates when there are big developments</label>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="question" data-question="13">
-                    <div class="question-title">13. Imagine someone considering investing time or money in your game wanted to understand where things stand. You would:</div>
-                    <div class="options">
-                        <div class="option">
-                            <input type="radio" name="q13" value="strong" id="q13a">
-                            <label for="q13a">Have clear, accessible information ready that helps them understand and make decisions</label>
-                        </div>
-                        <div class="option">
-                            <input type="radio" name="q13" value="developing" id="q13b">
-                            <label for="q13b">Be able to provide clear status updates and answer their questions well</label>
-                        </div>
-                        <div class="option">
-                            <input type="radio" name="q13" value="developing" id="q13c">
-                            <label for="q13c">Share what you know, though some details might need follow-up</label>
-                        </div>
-                        <div class="option">
-                            <input type="radio" name="q13" value="growth" id="q13d">
-                            <label for="q13d">Prefer to wait until you have concrete milestones or achievements to report</label>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="question" data-question="14">
-                    <div class="question-title">14. How do you approach business discussions about market potential, audience, and strategy?</div>
-                    <div class="options">
-                        <div class="option">
-                            <input type="radio" name="q14" value="strong" id="q14a">
-                            <label for="q14a">I research these topics and enjoy exploring different business perspectives</label>
-                        </div>
-                        <div class="option">
-                            <input type="radio" name="q14" value="developing" id="q14b">
-                            <label for="q14b">I have good instincts about my audience and can engage in strategy conversations</label>
-                        </div>
-                        <div class="option">
-                            <input type="radio" name="q14" value="developing" id="q14c">
-                            <label for="q14c">I understand my game's appeal but focus more on creating than analyzing markets</label>
-                        </div>
-                        <div class="option">
-                            <input type="radio" name="q14" value="growth" id="q14d">
-                            <label for="q14d">I believe good games find their audience - I don't want to overthink the business side</label>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="question" data-question="15">
-                    <div class="question-title">15. Your team's approach to decision-making with external input is:</div>
-                    <div class="options">
-                        <div class="option">
-                            <input type="radio" name="q15" value="strong" id="q15a">
-                            <label for="q15a">We have clear ways to incorporate external perspectives while keeping our vision</label>
-                        </div>
-                        <div class="option">
-                            <input type="radio" name="q15" value="developing" id="q15b">
-                            <label for="q15b">We balance outside input with our creative instincts and can explain our choices</label>
-                        </div>
-                        <div class="option">
-                            <input type="radio" name="q15" value="developing" id="q15c">
-                            <label for="q15c">We consider outside input but prioritize our creative vision and team judgment</label>
-                        </div>
-                        <div class="option">
-                            <input type="radio" name="q15" value="growth" id="q15d">
-                            <label for="q15d">We listen respectfully but generally trust our internal creative process</label>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="navigation">
-                    <button class="btn btn-secondary" onclick="prevSection(3)">Previous</button>
-                    <button class="btn btn-primary" onclick="nextSection(3)">Next Section</button>
-                </div>
-                <div class="error-message" id="error3" style="display: none;">Please answer all questions in this section before continuing.</div>
-            </div>
-
-            <!-- Section 4: Operational Discipline -->
-            <div class="section" id="section4">
-                <h2 class="section-title">Section 4: Operational Discipline</h2>
-                
-                <div class="question" data-question="16">
-                    <div class="question-title">16. How would your team typically approach project timelines and deadlines?</div>
-                    <div class="options">
-                        <div class="option">
-                            <input type="radio" name="q16" value="strong" id="q16a">
-                            <label for="q16a">You would set realistic timelines with breathing room and consistently meet your commitments</label>
-                        </div>
-                        <div class="option">
-                            <input type="radio" name="q16" value="developing" id="q16b">
-                            <label for="q16b">You would plan carefully and usually hit your targets, with good communication when things change</label>
-                        </div>
-                        <div class="option">
-                            <input type="radio" name="q16" value="developing" id="q16c">
-                            <label for="q16c">You would set goals that work for your team, though timelines sometimes shift as you learn</label>
-                        </div>
-                        <div class="option">
-                            <input type="radio" name="q16" value="growth" id="q16d">
-                            <label for="q16d">You would focus on quality over specific timelines and adjust deadlines based on what the game needs</label>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="question" data-question="17">
-                    <div class="question-title">17. How would your team's quality checking and review processes work?</div>
-                    <div class="options">
-                        <div class="option">
-                            <input type="radio" name="q17" value="strong" id="q17a">
-                            <label for="q17a">They would be reliable and systematic - external partners could count on your quality standards</label>
-                        </div>
-                        <div class="option">
-                            <input type="radio" name="q17" value="developing" id="q17b">
-                            <label for="q17b">They would be thorough and effective using methods that work well for your team</label>
-                        </div>
-                        <div class="option">
-                            <input type="radio" name="q17" value="developing" id="q17c">
-                            <label for="q17c">They would be solid through regular testing and team review, though pretty informal</label>
-                        </div>
-                        <div class="option">
-                            <input type="radio" name="q17" value="growth" id="q17d">
-                            <label for="q17d">They would focus on core functionality with polish happening closer to major milestones</label>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="question" data-question="18">
-                    <div class="question-title">18. If you promised someone a playable build or specific deliverable by a certain date:</div>
-                    <div class="options">
-                        <div class="option">
-                            <input type="radio" name="q18" value="strong" id="q18a">
-                            <label for="q18a">They could rely on your commitment and trust your follow-through</label>
-                        </div>
-                        <div class="option">
-                            <input type="radio" name="q18" value="developing" id="q18b">
-                            <label for="q18b">You'd follow through consistently and communicate early if anything changed</label>
-                        </div>
-                        <div class="option">
-                            <input type="radio" name="q18" value="developing" id="q18c">
-                            <label for="q18c">You'd work hard to meet the commitment and let them know if adjustments were needed</label>
-                        </div>
-                        <div class="option">
-                            <input type="radio" name="q18" value="growth" id="q18d">
-                            <label for="q18d">You'd prefer to under-promise and over-deliver rather than commit to specific things</label>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="question" data-question="19">
-                    <div class="question-title">19. How would your team handle changes to the game plan or feature adjustments during development?</div>
-                    <div class="options">
-                        <div class="option">
-                            <input type="radio" name="q19" value="strong" id="q19a">
-                            <label for="q19a">You would have clear processes for evaluating changes and communicating impacts to everyone</label>
-                        </div>
-                        <div class="option">
-                            <input type="radio" name="q19" value="developing" id="q19b">
-                            <label for="q19b">You would manage changes thoughtfully and keep relevant people informed about decisions</label>
-                        </div>
-                        <div class="option">
-                            <input type="radio" name="q19" value="developing" id="q19c">
-                            <label for="q19c">You would adapt to necessary changes while trying to maintain your overall vision and timeline</label>
-                        </div>
-                        <div class="option">
-                            <input type="radio" name="q19" value="growth" id="q19d">
-                            <label for="q19d">You would make changes as needed to serve the game and communicate about them afterward</label>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="question" data-question="20">
-                    <div class="question-title">20. How would you approach professional accountability and follow-through?</div>
-                    <div class="options">
-                        <div class="option">
-                            <input type="radio" name="q20" value="strong" id="q20a">
-                            <label for="q20a">You would take professional commitments seriously and have systems to ensure reliable follow-through</label>
-                        </div>
-                        <div class="option">
-                            <input type="radio" name="q20" value="developing" id="q20b">
-                            <label for="q20b">You would be reliable and communicate well when circumstances require adjustments to plans</label>
-                        </div>
-                        <div class="option">
-                            <input type="radio" name="q20" value="developing" id="q20c">
-                            <label for="q20c">You would work hard to meet expectations while balancing multiple priorities and creative needs</label>
-                        </div>
-                        <div class="option">
-                            <input type="radio" name="q20" value="growth" id="q20d">
-                            <label for="q20d">You would focus on doing quality work and prefer flexibility over rigid commitments</label>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="navigation">
-                    <button class="btn btn-secondary" onclick="prevSection(4)">Previous</button>
-                    <button class="btn btn-primary" onclick="calculateResults()">Get My Results</button>
-                </div>
-                <div class="error-message" id="error4" style="display: none;">Please answer all questions in this section before continuing.</div>
-            </div>
-
-            <!-- Results Section -->
-            <div class="section" id="results">
-                <div class="results">
-                    <h2 class="section-title">Your Publisher Readiness Profile</h2>
-                    <div id="resultsContent"></div>
+        <main id="main-content">
+            <div class="assessment-card">
+                <!-- Section 1: Communication Systems -->
+                <div class="section active" id="section1">
+                    <h2 class="section-title">Section 1: Communication Systems</h2>
                     
-                    <button class="btn btn-primary" onclick="restartAssessment()" style="margin-top: 30px;">Take Assessment Again</button>
+                    <fieldset class="question-fieldset">
+                        <legend class="question-legend">1. How do you currently document your game's concept and progress for people outside your team?</legend>
+                        <div class="question" data-question="1">
+                            <div class="options" role="radiogroup" aria-labelledby="q1-legend">
+                                <div class="option">
+                                    <input type="radio" name="q1" value="strong" id="q1a" aria-required="true">
+                                    <label for="q1a">I keep clear, detailed records that anyone can pick up and understand</label>
+                                </div>
+                                <div class="option">
+                                    <input type="radio" name="q1" value="developing" id="q1b" aria-required="true">
+                                    <label for="q1b">I document things well for my team and could share them with others</label>
+                                </div>
+                                <div class="option">
+                                    <input type="radio" name="q1" value="developing" id="q1c" aria-required="true">
+                                    <label for="q1c">My notes work great for us, but they're written with my team in mind</label>
+                                </div>
+                                <div class="option">
+                                    <input type="radio" name="q1" value="growth" id="q1d" aria-required="true">
+                                    <label for="q1d">I mostly keep things in my head and talk through ideas rather than writing them down</label>
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
+
+                    <fieldset class="question-fieldset">
+                        <legend class="question-legend">2. When explaining your game to industry professionals or potential partners:</legend>
+                        <div class="question" data-question="2">
+                            <div class="options" role="radiogroup" aria-labelledby="q2-legend">
+                                <div class="option">
+                                    <input type="radio" name="q2" value="strong" id="q2a" aria-required="true">
+                                    <label for="q2a">I'm prepared for any questions - from creative vision to business potential</label>
+                                </div>
+                                <div class="option">
+                                    <input type="radio" name="q2" value="developing" id="q2b" aria-required="true">
+                                    <label for="q2b">I can explain the game well and handle most follow-up questions</label>
+                                </div>
+                                <div class="option">
+                                    <input type="radio" name="q2" value="developing" id="q2c" aria-required="true">
+                                    <label for="q2c">I'm great at explaining the creative side, but business questions can catch me off guard</label>
+                                </div>
+                                <div class="option">
+                                    <input type="radio" name="q2" value="growth" id="q2d" aria-required="true">
+                                    <label for="q2d">I'd rather show the game in action - talking about business stuff feels awkward</label>
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
+
+                    <fieldset class="question-fieldset">
+                        <legend class="question-legend">3. Your approach to professional written communication (emails, updates, proposals) is:</legend>
+                        <div class="question" data-question="3">
+                            <div class="options" role="radiogroup" aria-labelledby="q3-legend">
+                                <div class="option">
+                                    <input type="radio" name="q3" value="strong" id="q3a" aria-required="true">
+                                    <label for="q3a">I write professionally while staying authentic - people know they can count on my updates</label>
+                                </div>
+                                <div class="option">
+                                    <input type="radio" name="q3" value="developing" id="q3b" aria-required="true">
+                                    <label for="q3b">I communicate clearly and can shift to a more professional tone when needed</label>
+                                </div>
+                                <div class="option">
+                                    <input type="radio" name="q3" value="developing" id="q3c" aria-required="true">
+                                    <label for="q3c">I focus on getting my point across clearly, usually in a pretty casual way</label>
+                                </div>
+                                <div class="option">
+                                    <input type="radio" name="q3" value="growth" id="q3d" aria-required="true">
+                                    <label for="q3d">I keep things informal - formal business writing doesn't feel like me</label>
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
+
+                    <fieldset class="question-fieldset">
+                        <legend class="question-legend">4. How do you handle it when people don't immediately understand your game or ask for clarification?</legend>
+                        <div class="question" data-question="4">
+                            <div class="options" role="radiogroup" aria-labelledby="q4-legend">
+                                <div class="option">
+                                    <input type="radio" name="q4" value="strong" id="q4a" aria-required="true">
+                                    <label for="q4a">I have several ways to explain it and enjoy finding what clicks for each person</label>
+                                </div>
+                                <div class="option">
+                                    <input type="radio" name="q4" value="developing" id="q4b" aria-required="true">
+                                    <label for="q4b">I try different approaches and ask questions to understand what they need</label>
+                                </div>
+                                <div class="option">
+                                    <input type="radio" name="q4" value="developing" id="q4c" aria-required="true">
+                                    <label for="q4c">I keep trying different explanations until something works</label>
+                                </div>
+                                <div class="option">
+                                    <input type="radio" name="q4" value="growth" id="q4d" aria-required="true">
+                                    <label for="q4d">It can be frustrating when my vision doesn't come across right away</label>
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
+
+                    <fieldset class="question-fieldset">
+                        <legend class="question-legend">5. Your visual materials (screenshots, trailers, presentation slides) are currently:</legend>
+                        <div class="question" data-question="5">
+                            <div class="options" role="radiogroup" aria-labelledby="q5-legend">
+                                <div class="option">
+                                    <input type="radio" name="q5" value="strong" id="q5a" aria-required="true">
+                                    <label for="q5a">Polished and ready to share with anyone - they really sell the game's potential</label>
+                                </div>
+                                <div class="option">
+                                    <input type="radio" name="q5" value="developing" id="q5b" aria-required="true">
+                                    <label for="q5b">Good quality materials that show what the game is about</label>
+                                </div>
+                                <div class="option">
+                                    <input type="radio" name="q5" value="developing" id="q5c" aria-required="true">
+                                    <label for="q5c">They get the basic idea across but could use more polish</label>
+                                </div>
+                                <div class="option">
+                                    <input type="radio" name="q5" value="growth" id="q5d" aria-required="true">
+                                    <label for="q5d">Early development materials that work for us but aren't presentation-ready</label>
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
+
+                    <nav class="navigation" aria-label="Assessment navigation">
+                        <div></div>
+                        <button class="btn btn-primary" onclick="nextSection(1)">Next Section</button>
+                    </nav>
+                    <div class="error-message" id="error1" style="display: none;" role="alert" aria-describedby="error1">Please answer all questions in this section before continuing.</div>
+                </div>
+
+                <!-- Section 2: Development Workflows -->
+                <div class="section" id="section2">
+                    <h2 class="section-title">Section 2: Development Workflows</h2>
+                    
+                    <fieldset class="question-fieldset">
+                        <legend class="question-legend">6. If someone asked you to show them what you've accomplished this month on your game, you would:</legend>
+                        <div class="question" data-question="6">
+                            <div class="options" role="radiogroup" aria-labelledby="q6-legend">
+                                <div class="option">
+                                    <input type="radio" name="q6" value="strong" id="q6a" aria-required="true">
+                                    <label for="q6a">Easily pull up organized records showing exactly what got done and what's coming next</label>
+                                </div>
+                                <div class="option">
+                                    <input type="radio" name="q6" value="developing" id="q6b" aria-required="true">
+                                    <label for="q6b">Have good notes that would need minimal organizing to share clearly</label>
+                                </div>
+                                <div class="option">
+                                    <input type="radio" name="q6" value="developing" id="q6c" aria-required="true">
+                                    <label for="q6c">Be able to walk them through what happened, pulling from various notes and memory</label>
+                                </div>
+                                <div class="option">
+                                    <input type="radio" name="q6" value="growth" id="q6d" aria-required="true">
+                                    <label for="q6d">Need to think about it and piece together what got done from memory</label>
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
+
+                    <fieldset class="question-fieldset">
+                        <legend class="question-legend">7. When you receive feedback or suggestions about your game, you typically:</legend>
+                        <div class="question" data-question="7">
+                            <div class="options" role="radiogroup" aria-labelledby="q7-legend">
+                                <div class="option">
+                                    <input type="radio" name="q7" value="strong" id="q7a" aria-required="true">
+                                    <label for="q7a">Have a clear process for evaluating feedback, and people understand how we handle input</label>
+                                </div>
+                                <div class="option">
+                                    <input type="radio" name="q7" value="developing" id="q7b" aria-required="true">
+                                    <label for="q7b">Talk it through as a team and have good ways to incorporate valuable ideas</label>
+                                </div>
+                                <div class="option">
+                                    <input type="radio" name="q7" value="developing" id="q7c" aria-required="true">
+                                    <label for="q7c">Consider it carefully, though our process is more gut instinct than formal</label>
+                                </div>
+                                <div class="option">
+                                    <input type="radio" name="q7" value="growth" id="q7d" aria-required="true">
+                                    <label for="q7d">Listen politely but generally trust our own creative judgment</label>
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
+
+                    <fieldset class="question-fieldset">
+                        <legend class="question-legend">8. When something takes longer than expected or you need to change direction on your game:</legend>
+                        <div class="question" data-question="8">
+                            <div class="options" role="radiogroup" aria-labelledby="q8-legend">
+                                <div class="option">
+                                    <input type="radio" name="q8" value="strong" id="q8a" aria-required="true">
+                                    <label for="q8a">You have good processes for deciding what to do and would communicate changes clearly to anyone involved</label>
+                                </div>
+                                <div class="option">
+                                    <input type="radio" name="q8" value="developing" id="q8b" aria-required="true">
+                                    <label for="q8b">You adapt well and naturally keep relevant people informed about what's happening</label>
+                                </div>
+                                <div class="option">
+                                    <input type="radio" name="q8" value="developing" id="q8c" aria-required="true">
+                                    <label for="q8c">You handle changes as they come and communicate when it feels significant</label>
+                                </div>
+                                <div class="option">
+                                    <input type="radio" name="q8" value="growth" id="q8d" aria-required="true">
+                                    <label for="q8d">You work through problems internally first, then update people once you have solutions</label>
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
+
+                    <fieldset class="question-fieldset">
+                        <legend class="question-legend">9. If you had a collaborator who needed regular updates and input opportunities, your development style would:</legend>
+                        <div class="question" data-question="9">
+                            <div class="options" role="radiogroup" aria-labelledby="q9-legend">
+                                <div class="option">
+                                    <input type="radio" name="q9" value="strong" id="q9a" aria-required="true">
+                                    <label for="q9a">Work well with natural check-in points that accommodate their schedule</label>
+                                </div>
+                                <div class="option">
+                                    <input type="radio" name="q9" value="developing" id="q9b" aria-required="true">
+                                    <label for="q9b">Have a rhythm that could easily include their input and timing needs</label>
+                                </div>
+                                <div class="option">
+                                    <input type="radio" name="q9" value="developing" id="q9c" aria-required="true">
+                                    <label for="q9c">Be flexible enough to accommodate their needs when necessary</label>
+                                </div>
+                                <div class="option">
+                                    <input type="radio" name="q9" value="growth" id="q9d" aria-required="true">
+                                    <label for="q9d">Require some adjustment since you prioritize creative flow over scheduled coordination</label>
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
+
+                    <fieldset class="question-fieldset">
+                        <legend class="question-legend">10. When development challenges or setbacks happen, you typically:</legend>
+                        <div class="question" data-question="10">
+                            <div class="options" role="radiogroup" aria-labelledby="q10-legend">
+                                <div class="option">
+                                    <input type="radio" name="q10" value="strong" id="q10a" aria-required="true">
+                                    <label for="q10a">Have clear approaches for handling issues and would keep collaborators informed throughout</label>
+                                </div>
+                                <div class="option">
+                                    <input type="radio" name="q10" value="developing" id="q10b" aria-required="true">
+                                    <label for="q10b">Work through problems efficiently while keeping relevant people in the loop</label>
+                                </div>
+                                <div class="option">
+                                    <input type="radio" name="q10" value="developing" id="q10c" aria-required="true">
+                                    <label for="q10c">Focus on solving issues first, then communicate about outcomes</label>
+                                </div>
+                                <div class="option">
+                                    <input type="radio" name="q10" value="growth" id="q10d" aria-required="true">
+                                    <label for="q10d">Handle challenges internally and share updates once you have clarity</label>
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
+
+                    <nav class="navigation" aria-label="Assessment navigation">
+                        <button class="btn btn-secondary" onclick="prevSection(2)">Previous</button>
+                        <button class="btn btn-primary" onclick="nextSection(2)">Next Section</button>
+                    </nav>
+                    <div class="error-message" id="error2" style="display: none;" role="alert" aria-describedby="error2">Please answer all questions in this section before continuing.</div>
+                </div>
+
+                <!-- Section 3: Business Confidence Systems -->
+                <div class="section" id="section3">
+                    <h2 class="section-title">Section 3: Business Confidence Systems</h2>
+                    
+                    <fieldset class="question-fieldset">
+                        <legend class="question-legend">11. If someone new joined your project, how quickly could they understand who does what?</legend>
+                        <div class="question" data-question="11">
+                            <div class="options" role="radiogroup" aria-labelledby="q11-legend">
+                                <div class="option">
+                                    <input type="radio" name="q11" value="strong" id="q11a" aria-required="true">
+                                    <label for="q11a">Very quickly - roles and responsibilities are clearly defined and easy to understand</label>
+                                </div>
+                                <div class="option">
+                                    <input type="radio" name="q11" value="developing" id="q11b" aria-required="true">
+                                    <label for="q11b">Pretty easily - you could explain the team structure and who handles what</label>
+                                </div>
+                                <div class="option">
+                                    <input type="radio" name="q11" value="developing" id="q11c" aria-required="true">
+                                    <label for="q11c">It would take some explaining since roles are more flexible than formal</label>
+                                </div>
+                                <div class="option">
+                                    <input type="radio" name="q11" value="growth" id="q11d" aria-required="true">
+                                    <label for="q11d">They'd need to work with you for a while to see how you collaborate and divide tasks</label>
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
+
+                    <fieldset class="question-fieldset">
+                        <legend class="question-legend">12. If you had a business partner who wanted regular updates on your game's progress, you would:</legend>
+                        <div class="question" data-question="12">
+                            <div class="options" role="radiogroup" aria-labelledby="q12-legend">
+                                <div class="option">
+                                    <input type="radio" name="q12" value="strong" id="q12a" aria-required="true">
+                                    <label for="q12a">Easily maintain a predictable update schedule they could count on</label>
+                                </div>
+                                <div class="option">
+                                    <input type="radio" name="q12" value="developing" id="q12b" aria-required="true">
+                                    <label for="q12b">Be able to establish and maintain regular communication when needed</label>
+                                </div>
+                                <div class="option">
+                                    <input type="radio" name="q12" value="developing" id="q12c" aria-required="true">
+                                    <label for="q12c">Update them when there's meaningful progress or important news to share</label>
+                                </div>
+                                <div class="option">
+                                    <input type="radio" name="q12" value="growth" id="q12d" aria-required="true">
+                                    <label for="q12d">Prefer to focus on the work and share updates when there are big developments</label>
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
+
+                    <fieldset class="question-fieldset">
+                        <legend class="question-legend">13. Imagine someone considering investing time or money in your game wanted to understand where things stand. You would:</legend>
+                        <div class="question" data-question="13">
+                            <div class="options" role="radiogroup" aria-labelledby="q13-legend">
+                                <div class="option">
+                                    <input type="radio" name="q13" value="strong" id="q13a" aria-required="true">
+                                    <label for="q13a">Have clear, accessible information ready that helps them understand and make decisions</label>
+                                </div>
+                                <div class="option">
+                                    <input type="radio" name="q13" value="developing" id="q13b" aria-required="true">
+                                    <label for="q13b">Be able to provide clear status updates and answer their questions well</label>
+                                </div>
+                                <div class="option">
+                                    <input type="radio" name="q13" value="developing" id="q13c" aria-required="true">
+                                    <label for="q13c">Share what you know, though some details might need follow-up</label>
+                                </div>
+                                <div class="option">
+                                    <input type="radio" name="q13" value="growth" id="q13d" aria-required="true">
+                                    <label for="q13d">Prefer to wait until you have concrete milestones or achievements to report</label>
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
+
+                    <fieldset class="question-fieldset">
+                        <legend class="question-legend">14. How do you approach business discussions about market potential, audience, and strategy?</legend>
+                        <div class="question" data-question="14">
+                            <div class="options" role="radiogroup" aria-labelledby="q14-legend">
+                                <div class="option">
+                                    <input type="radio" name="q14" value="strong" id="q14a" aria-required="true">
+                                    <label for="q14a">I research these topics and enjoy exploring different business perspectives</label>
+                                </div>
+                                <div class="option">
+                                    <input type="radio" name="q14" value="developing" id="q14b" aria-required="true">
+                                    <label for="q14b">I have good instincts about my audience and can engage in strategy conversations</label>
+                                </div>
+                                <div class="option">
+                                    <input type="radio" name="q14" value="developing" id="q14c" aria-required="true">
+                                    <label for="q14c">I understand my game's appeal but focus more on creating than analyzing markets</label>
+                                </div>
+                                <div class="option">
+                                    <input type="radio" name="q14" value="growth" id="q14d" aria-required="true">
+                                    <label for="q14d">I believe good games find their audience - I don't want to overthink the business side</label>
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
+
+                    <fieldset class="question-fieldset">
+                        <legend class="question-legend">15. Your team's approach to decision-making with external input is:</legend>
+                        <div class="question" data-question="15">
+                            <div class="options" role="radiogroup" aria-labelledby="q15-legend">
+                                <div class="option">
+                                    <input type="radio" name="q15" value="strong" id="q15a" aria-required="true">
+                                    <label for="q15a">We have clear ways to incorporate external perspectives while keeping our vision</label>
+                                </div>
+                                <div class="option">
+                                    <input type="radio" name="q15" value="developing" id="q15b" aria-required="true">
+                                    <label for="q15b">We balance outside input with our creative instincts and can explain our choices</label>
+                                </div>
+                                <div class="option">
+                                    <input type="radio" name="q15" value="developing" id="q15c" aria-required="true">
+                                    <label for="q15c">We consider outside input but prioritize our creative vision and team judgment</label>
+                                </div>
+                                <div class="option">
+                                    <input type="radio" name="q15" value="growth" id="q15d" aria-required="true">
+                                    <label for="q15d">We listen respectfully but generally trust our internal creative process</label>
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
+
+                    <nav class="navigation" aria-label="Assessment navigation">
+                        <button class="btn btn-secondary" onclick="prevSection(3)">Previous</button>
+                        <button class="btn btn-primary" onclick="nextSection(3)">Next Section</button>
+                    </nav>
+                    <div class="error-message" id="error3" style="display: none;" role="alert" aria-describedby="error3">Please answer all questions in this section before continuing.</div>
+                </div>
+
+                <!-- Section 4: Operational Discipline -->
+                <div class="section" id="section4">
+                    <h2 class="section-title">Section 4: Operational Discipline</h2>
+                    
+                    <fieldset class="question-fieldset">
+                        <legend class="question-legend">16. How would your team typically approach project timelines and deadlines?</legend>
+                        <div class="question" data-question="16">
+                            <div class="options" role="radiogroup" aria-labelledby="q16-legend">
+                                <div class="option">
+                                    <input type="radio" name="q16" value="strong" id="q16a" aria-required="true">
+                                    <label for="q16a">You would set realistic timelines with breathing room and consistently meet your commitments</label>
+                                </div>
+                                <div class="option">
+                                    <input type="radio" name="q16" value="developing" id="q16b" aria-required="true">
+                                    <label for="q16b">You would plan carefully and usually hit your targets, with good communication when things change</label>
+                                </div>
+                                <div class="option">
+                                    <input type="radio" name="q16" value="developing" id="q16c" aria-required="true">
+                                    <label for="q16c">You would set goals that work for your team, though timelines sometimes shift as you learn</label>
+                                </div>
+                                <div class="option">
+                                    <input type="radio" name="q16" value="growth" id="q16d" aria-required="true">
+                                    <label for="q16d">You would focus on quality over specific timelines and adjust deadlines based on what the game needs</label>
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
+
+                    <fieldset class="question-fieldset">
+                        <legend class="question-legend">17. How would your team's quality checking and review processes work?</legend>
+                        <div class="question" data-question="17">
+                            <div class="options" role="radiogroup" aria-labelledby="q17-legend">
+                                <div class="option">
+                                    <input type="radio" name="q17" value="strong" id="q17a" aria-required="true">
+                                    <label for="q17a">They would be reliable and systematic - external partners could count on your quality standards</label>
+                                </div>
+                                <div class="option">
+                                    <input type="radio" name="q17" value="developing" id="q17b" aria-required="true">
+                                    <label for="q17b">They would be thorough and effective using methods that work well for your team</label>
+                                </div>
+                                <div class="option">
+                                    <input type="radio" name="q17" value="developing" id="q17c" aria-required="true">
+                                    <label for="q17c">They would be solid through regular testing and team review, though pretty informal</label>
+                                </div>
+                                <div class="option">
+                                    <input type="radio" name="q17" value="growth" id="q17d" aria-required="true">
+                                    <label for="q17d">They would focus on core functionality with polish happening closer to major milestones</label>
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
+
+                    <fieldset class="question-fieldset">
+                        <legend class="question-legend">18. If you promised someone a playable build or specific deliverable by a certain date:</legend>
+                        <div class="question" data-question="18">
+                            <div class="options" role="radiogroup" aria-labelledby="q18-legend">
+                                <div class="option">
+                                    <input type="radio" name="q18" value="strong" id="q18a" aria-required="true">
+                                    <label for="q18a">They could rely on your commitment and trust your follow-through</label>
+                                </div>
+                                <div class="option">
+                                    <input type="radio" name="q18" value="developing" id="q18b" aria-required="true">
+                                    <label for="q18b">You'd follow through consistently and communicate early if anything changed</label>
+                                </div>
+                                <div class="option">
+                                    <input type="radio" name="q18" value="developing" id="q18c" aria-required="true">
+                                    <label for="q18c">You'd work hard to meet the commitment and let them know if adjustments were needed</label>
+                                </div>
+                                <div class="option">
+                                    <input type="radio" name="q18" value="growth" id="q18d" aria-required="true">
+                                    <label for="q18d">You'd prefer to under-promise and over-deliver rather than commit to specific things</label>
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
+
+                    <fieldset class="question-fieldset">
+                        <legend class="question-legend">19. How would your team handle changes to the game plan or feature adjustments during development?</legend>
+                        <div class="question" data-question="19">
+                            <div class="options" role="radiogroup" aria-labelledby="q19-legend">
+                                <div class="option">
+                                    <input type="radio" name="q19" value="strong" id="q19a" aria-required="true">
+                                    <label for="q19a">You would have clear processes for evaluating changes and communicating impacts to everyone</label>
+                                </div>
+                                <div class="option">
+                                    <input type="radio" name="q19" value="developing" id="q19b" aria-required="true">
+                                    <label for="q19b">You would manage changes thoughtfully and keep relevant people informed about decisions</label>
+                                </div>
+                                <div class="option">
+                                    <input type="radio" name="q19" value="developing" id="q19c" aria-required="true">
+                                    <label for="q19c">You would adapt to necessary changes while trying to maintain your overall vision and timeline</label>
+                                </div>
+                                <div class="option">
+                                    <input type="radio" name="q19" value="growth" id="q19d" aria-required="true">
+                                    <label for="q19d">You would make changes as needed to serve the game and communicate about them afterward</label>
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
+
+                    <fieldset class="question-fieldset">
+                        <legend class="question-legend">20. How would you approach professional accountability and follow-through?</legend>
+                        <div class="question" data-question="20">
+                            <div class="options" role="radiogroup" aria-labelledby="q20-legend">
+                                <div class="option">
+                                    <input type="radio" name="q20" value="strong" id="q20a" aria-required="true">
+                                    <label for="q20a">You would take professional commitments seriously and have systems to ensure reliable follow-through</label>
+                                </div>
+                                <div class="option">
+                                    <input type="radio" name="q20" value="developing" id="q20b" aria-required="true">
+                                    <label for="q20b">You would be reliable and communicate well when circumstances require adjustments to plans</label>
+                                </div>
+                                <div class="option">
+                                    <input type="radio" name="q20" value="developing" id="q20c" aria-required="true">
+                                    <label for="q20c">You would work hard to meet expectations while balancing multiple priorities and creative needs</label>
+                                </div>
+                                <div class="option">
+                                    <input type="radio" name="q20" value="growth" id="q20d" aria-required="true">
+                                    <label for="q20d">You would focus on doing quality work and prefer flexibility over rigid commitments</label>
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
+
+                    <nav class="navigation" aria-label="Assessment navigation">
+                        <button class="btn btn-secondary" onclick="prevSection(4)">Previous</button>
+                        <button class="btn btn-primary" onclick="calculateResults()">Get My Results</button>
+                    </nav>
+                    <div class="error-message" id="error4" style="display: none;" role="alert" aria-describedby="error4">Please answer all questions in this section before continuing.</div>
+                </div>
+
+                <!-- Results Section -->
+                <div class="section" id="results">
+                    <div class="results">
+                        <h2 class="section-title">Your Publisher Readiness Profile</h2>
+                        <div id="resultsContent"></div>
+                        
+                        <button class="btn btn-primary" onclick="restartAssessment()" style="margin-top: 30px;">Take Assessment Again</button>
+                    </div>
                 </div>
             </div>
+        </main>
+
+        <div class="footer">
+            <h3>🎯 What's Next?</h3>
+            <p><strong>There's more where that came from!</strong></p>
+            
+            <div class="footer-links">
+                <a href="https://github.com/formsandphases/creative-project-management-resources" target="_blank">🛠️ More Free Tools</a>
+                <a href="https://www.formsandphases.com/blog" target="_blank">📖 Blog/Articles</a>
+                <a href="https://www.formsandphases.com" target="_blank">💬 Our Website</a>
+            </div>
+            
+            <hr>
+            
+            <p class="company-info">
+                <strong>Forms + Phases</strong> - Creative Project Management<br>
+                Where Creative Vision Meets Mindful Management
+            </p>
         </div>
     </div>
+
+    <!-- Live region for screen reader announcements -->
+    <div aria-live="polite" id="status-updates" class="sr-only"></div>
 
     <script>
         let currentSection = 1;
@@ -941,7 +1155,7 @@
             12: "Maintaining regular updates with a business partner",
             13: "Helping someone understand your project's status for investment decisions",
             14: "Business discussions about market potential, audience, and strategy",
-            15: "Handling a collaborator or partner with strong opinions about your game's direction",
+            15: "Your team's approach to decision-making with external input",
             16: "Approaching project timelines and deadlines",
             17: "Quality checking and review processes",
             18: "Following through when you promise someone a deliverable by a certain date",
@@ -961,17 +1175,20 @@
                 radio.addEventListener('change', function() {
                     updateQuestionStatus(this);
                     updateProgress();
+                    announceProgress();
                 });
             });
 
-            // Add click listeners to option divs
+            // Add click listeners to option divs (but not the labels to avoid double-clicking)
             document.querySelectorAll('.option').forEach(option => {
-                option.addEventListener('click', function() {
-                    const radio = this.querySelector('input[type="radio"]');
-                    if (radio) {
-                        radio.checked = true;
-                        updateQuestionStatus(radio);
-                        updateProgress();
+                option.addEventListener('click', function(e) {
+                    // Only trigger if clicking the div itself, not the radio or label
+                    if (e.target === this) {
+                        const radio = this.querySelector('input[type="radio"]');
+                        if (radio) {
+                            radio.checked = true;
+                            radio.dispatchEvent(new Event('change'));
+                        }
                     }
                 });
             });
@@ -999,9 +1216,18 @@
 
             // Update progress bar
             const percentage = (answeredQuestions / totalQuestions) * 100;
-            document.getElementById('progressFill').style.width = percentage + '%';
-            document.getElementById('progressText').textContent = 
-                `${answeredQuestions} of ${totalQuestions} questions completed`;
+            const progressFill = document.getElementById('progressFill');
+            const progressText = document.getElementById('progressText');
+            
+            progressFill.style.width = percentage + '%';
+            progressText.textContent = `${answeredQuestions} of ${totalQuestions} questions completed`;
+            progressText.setAttribute('aria-valuenow', answeredQuestions);
+        }
+
+        function announceProgress() {
+            // Announce progress to screen readers
+            const statusElement = document.getElementById('status-updates');
+            statusElement.textContent = `Question answered. ${answeredQuestions} of ${totalQuestions} questions completed.`;
         }
 
         function validateSection(sectionNum) {
@@ -1026,7 +1252,9 @@
 
         function nextSection(sectionNum) {
             if (!validateSection(sectionNum)) {
-                document.getElementById(`error${sectionNum}`).style.display = 'block';
+                const errorElement = document.getElementById(`error${sectionNum}`);
+                errorElement.style.display = 'block';
+                errorElement.focus();
                 return;
             }
 
@@ -1034,6 +1262,10 @@
             document.getElementById(`section${sectionNum}`).classList.remove('active');
             document.getElementById(`section${sectionNum + 1}`).classList.add('active');
             currentSection = sectionNum + 1;
+
+            // Announce section change to screen readers
+            const statusElement = document.getElementById('status-updates');
+            statusElement.textContent = `Moved to section ${currentSection}`;
 
             // Scroll to top of assessment
             scrollToTop();
@@ -1044,27 +1276,19 @@
             document.getElementById(`section${sectionNum - 1}`).classList.add('active');
             currentSection = sectionNum - 1;
 
+            // Announce section change to screen readers
+            const statusElement = document.getElementById('status-updates');
+            statusElement.textContent = `Moved to section ${currentSection}`;
+
             // Scroll to top of assessment
             scrollToTop();
         }
 
         function scrollToTop() {
-            // First, scroll within the iframe
-            window.scrollTo(0, 0);
-            
-            // Try to scroll the parent window (for iframe embeds)
-            try {
-                if (window.parent && window.parent !== window) {
-                    window.parent.scrollTo(0, 0);
-                }
-            } catch (e) {
-                // Cross-origin restriction, ignore
-            }
-            
-            // Alternative: scroll to the top element of our assessment
-            const header = document.querySelector('.header');
-            if (header) {
-                header.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            // Scroll to the main content
+            const mainContent = document.getElementById('main-content');
+            if (mainContent) {
+                mainContent.scrollIntoView({ behavior: 'smooth', block: 'start' });
             }
         }
 
@@ -1150,7 +1374,9 @@
 
         function calculateResults() {
             if (!validateSection(4)) {
-                document.getElementById('error4').style.display = 'block';
+                const errorElement = document.getElementById('error4');
+                errorElement.style.display = 'block';
+                errorElement.focus();
                 return;
             }
 
@@ -1190,9 +1416,9 @@
                 let status, statusClass, description;
                 
                 if (strongCount >= 3) {
-                    status = "You're Rocking This Area! 🌟";
+                    status = "You're Doing Great In This Area! 🌟";
                     statusClass = "strong";
-                    description = "You've got solid skills here that will serve you well in publisher conversations. This is definitely a strength you can lean on!";
+                    description = "You've got solid skills here that will serve you well in partnership conversations. This is definitely a strength you can lean on!";
                 } else if (strongCount >= 2 || (strongCount >= 1 && developingCount >= 3)) {
                     status = "You're On Your Way! 📈";
                     statusClass = "developing";
@@ -1222,13 +1448,13 @@
             let overallGuidance;
             if (strongAreas >= 3) {
                 overallGuidance = {
-                    title: "You're Ready for Publisher Conversations! 🚀",
-                    content: "Honestly, you're in a really strong position across most areas. You've clearly put thought into how you work, and it shows! While you continue developing in a few spots, you can approach publisher partnerships with confidence. We'd suggest focusing on polishing those developing areas while leaning into your obvious strengths."
+                    title: "You're Ready for Collaborative Parternships! 🚀",
+                    content: "Honestly, you're in a really strong position across most areas. You've clearly put thought into how you work, and it shows! While you continue developing in a few spots, you can approach partnerships with confidence. We'd suggest focusing on polishing those developing areas while leaning into your obvious strengths."
                 };
             } else if (growthAreas >= 3) {
                 overallGuidance = {
                     title: "Let's Talk About Your Best Path Forward 🤔",
-                    content: "You have some significant growth opportunities across multiple areas, which actually gives you some interesting choices. You could dive into developing these publisher partnership skills if that excites you, or you might consider independent publishing or finding collaborators who complement your strengths. Both are totally valid paths - it's about what fits your goals and energy."
+                    content: "You have some significant growth opportunities across multiple areas, which actually gives you some interesting choices. You could dive into developing these partnership skills if that excites you, or you might consider independence or finding collaborators who complement your strengths. Both are totally valid paths - it's about what fits your goals and energy."
                 };
             } else {
                 overallGuidance = {
@@ -1276,7 +1502,7 @@
                     <h3>${overallGuidance.title}</h3>
                     <p>${overallGuidance.content}</p>
                     <br>
-                    <p><strong>Remember:</strong> This assessment reflects where you are right now, and that's perfectly okay! Publisher readiness is a learnable skillset, and there are many paths to success in game development. The most important thing is finding an approach that plays to your strengths while supporting your game's potential. You've got this! 💪</p>
+                    <p><strong>Remember:</strong> This assessment reflects where you are right now, and that's perfectly okay! Parternship readiness is a learnable skillset, and there are many paths to success in game development. The most important thing is finding an approach that plays to your strengths while supporting your game's potential. You've got this! 💪</p>
                 </div>
             `;
 
@@ -1285,6 +1511,10 @@
             // Show results section
             document.getElementById('section4').classList.remove('active');
             document.getElementById('results').classList.add('active');
+
+            // Announce results to screen readers
+            const statusElement = document.getElementById('status-updates');
+            statusElement.textContent = 'Assessment complete. Your partnership readiness profile is ready.';
 
             // Scroll to top of assessment
             scrollToTop();
@@ -1323,6 +1553,10 @@
 
             // Update progress
             updateProgress();
+
+            // Announce restart to screen readers
+            const statusElement = document.getElementById('status-updates');
+            statusElement.textContent = 'Assessment restarted. Back to section 1.';
 
             // Scroll to top of assessment
             scrollToTop();
