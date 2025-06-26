@@ -1,0 +1,1455 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Video Game Publishing Path Assessment - Forms + Phases</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* Accessibility: Respect user motion preferences */
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+
+        /* High contrast mode support */
+        @media (prefers-contrast: high) {
+            .assessment-card { border: 2px solid; }
+            .btn { border: 2px solid; }
+            .option { border: 2px solid; }
+        }
+
+        /* Skip link styling */
+        .skip-link {
+            position: absolute;
+            top: -40px;
+            left: 6px;
+            background: #000;
+            color: #fff;
+            padding: 8px;
+            text-decoration: none;
+            z-index: 1000;
+            border-radius: 4px;
+        }
+        .skip-link:focus {
+            top: 6px;
+        }
+
+        /* Focus indicators */
+        *:focus {
+            outline: 2px solid #6630E3;
+            outline-offset: 2px;
+        }
+
+        body {
+            font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(0deg, #FFCB8E 0%, #FE7C84 25%, #F759B7 49%, #A545E5 72%, #6630E3 100%);
+            min-height: 100vh;
+            color: #020528;
+            line-height: 1.5;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #020528 0%, #6630E3 100%);
+            color: white;
+            text-align: center;
+            padding: 30px 20px;
+            border-radius: 12px;
+            margin-bottom: 30px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+            letter-spacing: -0.5px;
+        }
+
+        .header p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+
+        .brand-credit {
+            font-size: 0.9rem;
+            opacity: 0.8;
+            font-style: italic;
+        }
+
+        .progress-container {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 12px;
+            background: rgba(6, 48, 35, 0.1);
+            border-radius: 8px;
+            overflow: hidden;
+            margin-bottom: 15px;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(0deg, #FFCB8E 0%, #FE7C84 25%, #F759B7 49%, #A545E5 72%, #6630E3 100%);
+            width: 0%;
+            transition: width 0.3s ease;
+            border-radius: 8px;
+        }
+
+        .progress-text {
+            text-align: center;
+            font-weight: 600;
+            color: #020528;
+        }
+
+        .assessment-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 12px;
+            padding: 30px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+            margin-bottom: 20px;
+        }
+
+        .section-title {
+            font-size: 2rem;
+            font-weight: 800;
+            color: #6630E3;
+            margin-bottom: 25px;
+            text-align: center;
+            letter-spacing: -0.5px;
+        }
+
+        .question-fieldset {
+            margin-bottom: 30px;
+            border: none;
+            padding: 0;
+        }
+
+        .question {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            border: 2px solid transparent;
+            transition: all 0.3s ease;
+        }
+
+        .question.answered {
+            border-color: #6630E3;
+            background: #f8f6ff;
+        }
+
+        .question-legend {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 15px;
+            color: #020528;
+            width: 100%;
+        }
+
+        .options {
+            display: grid;
+            gap: 12px;
+        }
+
+        .option {
+            display: flex;
+            align-items: center;
+            padding: 12px 16px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background: white;
+            min-height: 44px;
+        }
+
+        .option:hover {
+            border-color: #A545E5;
+            background: #faf9ff;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(165, 69, 229, 0.2);
+        }
+
+        .option.selected {
+            border-color: #6630E3;
+            background: #f0ebff;
+        }
+
+        .option input[type="radio"] {
+            margin-right: 12px;
+            transform: scale(1.2);
+        }
+
+        .option label {
+            cursor: pointer;
+            flex: 1;
+            font-weight: 500;
+            line-height: 1.4;
+        }
+
+        .navigation {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 30px;
+        }
+
+        .btn {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 25px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            text-align: center;
+            min-height: 44px;
+        }
+
+        .btn-primary {
+            background: #6630E3;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(102, 48, 227, 0.4);
+        }
+
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.8);
+            color: #020528;
+            backdrop-filter: blur(10px);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.9);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none !important;
+        }
+
+        .section {
+            display: none;
+        }
+
+        .section.active {
+            display: block;
+        }
+
+        .results {
+            text-align: center;
+        }
+
+        .recommendation {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: #020528;
+            margin-bottom: 20px;
+        }
+
+        .description {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            color: #020528;
+            margin-bottom: 30px;
+        }
+
+        .next-steps {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(10px);
+            padding: 20px;
+            border-radius: 8px;
+            border-left: 4px solid #6630E3;
+            text-align: left;
+            margin: 20px 0;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .next-steps h3 {
+            color: #6630E3;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+
+        .footer {
+            margin-top: 40px;
+            padding: 30px;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 12px;
+            text-align: center;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        .footer h3 {
+            color: #6630E3;
+            margin-bottom: 15px;
+            font-weight: 700;
+        }
+
+        .footer p {
+            color: #020528;
+            margin-bottom: 20px;
+        }
+
+        .footer-links {
+            margin: 20px 0;
+        }
+
+        .footer-links a {
+            display: inline-block;
+            margin: 5px;
+            padding: 10px 20px;
+            color: white;
+            text-decoration: none;
+            border-radius: 25px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            min-height: 44px;
+            line-height: 1.4;
+        }
+
+        .footer-links a:first-child {
+            background: #6630E3;
+        }
+
+        .footer-links a:nth-child(2) {
+            background: #A545E5;
+        }
+
+        .footer-links a:last-child {
+            background: #F759B7;
+        }
+
+        .footer-links a:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .footer hr {
+            margin: 20px 0;
+            border: none;
+            height: 1px;
+            background: rgba(6, 48, 35, 0.1);
+        }
+
+        .footer .company-info {
+            margin: 0;
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        .error-message {
+            color: #e74c3c;
+            text-align: center;
+            margin: 15px 0;
+            font-weight: 600;
+            background: rgba(231, 76, 60, 0.1);
+            padding: 10px;
+            border-radius: 8px;
+            border-left: 4px solid #e74c3c;
+        }
+
+        /* Status updates for screen readers */
+        .sr-only {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            white-space: nowrap;
+            border: 0;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 15px;
+            }
+
+            .header h1 {
+                font-size: 2rem;
+            }
+
+            .assessment-card {
+                padding: 20px;
+            }
+
+            .navigation {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .btn {
+                width: 100%;
+            }
+
+            .question-legend {
+                font-size: 1.1rem;
+                line-height: 1.4;
+                word-wrap: break-word;
+                overflow-wrap: break-word;
+            }
+
+            .option {
+                padding: 10px 12px;
+                word-wrap: break-word;
+                overflow-wrap: break-word;
+            }
+
+            .option label {
+                font-size: 0.95rem;
+                line-height: 1.3;
+                word-wrap: break-word;
+                overflow-wrap: break-word;
+            }
+
+            .footer-links a {
+                display: block;
+                margin: 5px 0;
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+    
+    <div class="container">
+        <div class="header">
+            <h1>Video Game Publishing Path Assessment</h1>
+            <p>Should you partner with a publisher or go independent? This comprehensive assessment analyzes your resources, skills, goals, and game context to provide personalized recommendations for your publishing strategy. Used by solo developers, small teams, and indie studios to make informed decisions about their publishing approach.</p>
+            <div class="brand-credit">Created by Forms + Phases</div>
+        </div>
+
+        <div class="progress-container">
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressFill"></div>
+            </div>
+            <div class="progress-text" 
+                 role="progressbar" 
+                 aria-valuenow="0" 
+                 aria-valuemin="0" 
+                 aria-valuemax="20" 
+                 id="progressText">0 of 20 questions completed</div>
+        </div>
+
+        <main id="main-content">
+            <div class="assessment-card">
+                <!-- Section 1: Resources & Capabilities -->
+                <div class="section active" id="section1">
+                    <h2 class="section-title">Section 1: Resources & Capabilities</h2>
+                    
+                    <fieldset class="question-fieldset">
+                        <legend class="question-legend">1. How much can you invest in marketing your game?</legend>
+                        <div class="question" data-question="1">
+                            <div class="options" role="radiogroup" aria-labelledby="q1-legend">
+                                <div class="option">
+                                    <input type="radio" name="q1" value="3" id="q1a" aria-required="true">
+                                    <label for="q1a">$10,000+ available (or 25%+ of development cost)</label>
+                                </div>
+                                <div class="option">
+                                    <input type="radio" name="q1" value="1" id="q1b" aria-required="true">
+                                    <label for="q1b">$2,000-$10,000 available</label>
+                                </div>
+                                <div class="option">
+                                    <input type="radio" name="q1" value="1" id="q1c" aria-required="true">
+                                    <label for="q1c">Under $2,000 available</label>
+                                </div>
+                                <div class="option">
+                                    <input type="radio" name="q1" value="3" id="q1d" aria-required="true">
+                                    <label for="q1d">No marketing budget available</label>
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
+
+                    <fieldset class="question-fieldset">
+                        <legend class="question-legend">2. How much time can your team dedicate to marketing and business tasks weekly?</legend>
+                        <div class="question" data-question="2">
+                            <div class="options" role="radiogroup" aria-labelledby="q2-legend">
+                                <div class="option">
+                                    <input type="radio" name="q2" value="3" id="q2a" aria-required="true">
+                                    <label for="q2a">20+ hours per week dedicated to business/marketing</label>
+                                </div>
+                                <div class="option">
+                                    <input type="radio" name="q2" value="1" id="q2b" aria-required="true">
+                                    <label for="q2b">10-20 hours per week for business operations</label>
+                                </div>
+                                <div class="option">
+                                    <input type="radio" name="q2" value="1" id="q2c" aria-required="true">
+                                    <label for="q2c">5-10 hours per week for non-development work</label>
+                                </div>
+                                <div class="option">
+                                    <input type="radio" name="q2" value="3" id="q2d" aria-required="true">
+                                    <label for="q2d">All time needed for development only</label>
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
+
+                    <fieldset class="question-fieldset">
+                        <legend class="question-legend">3. What's your experience building audiences and marketing products?</legend>
+                        <div class="question" data-question="3">
+                            <div class="options" role="radiogroup" aria-labelledby="q3-legend">
+                                <div class="option">
+                                    <input type="radio" name="q3" value="3" id="q3a" aria-required="true">
+                                    <label for="q3a">Successfully built 1000+ followers or marketed products before</label>
+                                </div>
+                                <div class="option">
+                                    <input type="radio" name="q3" value="1" id="q3b" aria-required="true">
+                                    <label for="q3b">Some social media/marketing experience with decent results</label>
+                                </div>
+                                <div class="option">
+                                    <input type="radio" name="q3" value="1" id="q3c" aria-required="true">
+                                    <label for="q3c">Basic understanding but very limited hands-on experience</label>
+                                </div>
+                                <div class="option">
+                                    <input type="radio" name="q3" value="3" id="q3d" aria-required="true">
+                                    <label for="q3d">No experience building audiences or marketing anything</label>
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
+
+                    <fieldset class="question-fieldset">
+                        <legend class="question-legend">4. How comfortable are you with business operations (contracts, taxes, platform relations)?</legend>
+                        <div class="question" data-question="4">
+                            <div class="options" role="radiogroup" aria-labelledby="q4-legend">
+                                <div class="option">
+                                    <input type="radio" name="q4" value="3" id="q4a" aria-required="true">
+                                    <label for="q4a">Very experienced - have handled these successfully before</label>
+                                </div>
+                                <div class="option">
+                                    <input type="radio" name="q4" value="1" id="q4b" aria-required="true">
+                                    <label for="q4b">Some experience or education, can figure it out</label>
+                                </div>
+                                <div class="option">
+                                    <input type="radio" name="q4" value="1" id="q4c" aria-required="true">
+                                    <label for="q4c">Basic understanding but would need to learn a lot</label>
+                                </div>
+                                <div class="option">
+                                    <input type="radio" name="q4" value="3" id="q4d" aria-required="true">
+                                    <label for="q4d">Would need significant help with all business aspects</label>
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
+
+                    <fieldset class="question-fieldset">
+                        <legend class="question-legend">5. How long can you sustain development without revenue from this game?</legend>
+                        <div class="question" data-question="5">
+                            <div class="options" role="radiogroup" aria-labelledby="q5-legend">
+                                <div class="option">
+                                    <input type="radio" name="q5" value="3" id="q5a" aria-required="true">
+                                    <label for="q5a">12+ months without needing revenue</label>
+                                </div>
+                                <div class="option">
+                                    <input type="radio" name="q5" value="1" id="q5b" aria-required="true">
+                                    <label for="q5b">6-12 months without revenue</label>
+                                </div>
+                                <div class="option">
+                                    <input type="radio" name="q5" value="1" id="q5c" aria-required="true">
+                                    <label for="q5c">3-6 months before needing revenue</label>
+                                </div>
+                                <div class="option">
+                                    <input type="radio" name="q5" value="3" id="q5d" aria-required="true">
+                                    <label for="q5d">Need revenue immediately or very soon</label>
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
+
+                    <fieldset class="question-fieldset">
+                        <legend class="question-legend">6. What's your relationship with gaming platforms and industry contacts?</legend>
+                        <div class="question" data-question="6">
+                            <div class="options" role="radiogroup" aria-labelledby="q6-legend">
+                                <div class="option">
+                                    <input type="radio" name="q6" value="3" id="q6a" aria-required="true">
+                                    <label for="q6a">Strong existing relationships with platforms/influencers/media</label>
+                                </div>
+                                <div class="option">
+                                    <input type="radio" name="q6" value="1" id="q6b" aria-required="true">
+                                    <label for="q6b">Some connections and understand platform processes</label>
+                                </div>
+                                <div class="option">
+                                    <input type="radio" name="q6" value="1" id="q6c" aria-required="true">
+                                    <label for="q6c">Basic knowledge but no meaningful industry relationships</label>
+                                </div>
+                                <div class="option">
+                                    <input type="radio" name="q6" value="3" id="q6d" aria-required="true">
+                                    <label for="q6d">No platform relationships or industry connections</label>
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
+
+                    <fieldset class="question-fieldset">
+                        <legend class="question-legend">7. How do you handle uncertainty and potential failure?</legend>
+                        <div class="question" data-question="7">
+                            <div class="options" role="radiogroup" aria-labelledby="q7-legend">
+                                <div class="option">
+                                    <input type="radio" name="q7" value="3" id="q7a" aria-required="true">
+                                    <label for="q7a">Thrive with uncertainty - see failure as learning opportunities</label>
+                                </div>
+                                <div class="option">
+                                    <input type="radio" name="q7" value="1" id="q7b" aria-required="true">
+                                    <label for="q7b">Comfortable with calculated risks and backup plans</label>
+                                </div>
+                                <div class="option">
+                                    <input type="radio" name="q7" value="1" id="q7c" aria-required="true">
+                                    <label for="q7c">Prefer more predictable approaches with lower risk</label>
+                                </div>
+                                <div class="option">
+                                    <input type="radio" name="q7" value="3" id="q7d" aria-required="true">
+                                    <label for="q7d">Need security and guidance to feel confident</label>
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
+
+                    <fieldset class="question-fieldset">
+                        <legend class="question-legend">8. What's your experience with game publishing?</legend>
+                        <div class="question" data-question="8">
+                            <div class="options" role="radiogroup" aria-labelledby="q8-legend">
+                                <div class="option">
+                                    <input type="radio" name="q8" value="3" id="q8a" aria-required="true">
+                                    <label for="q8a">Successfully independently published games with good results</label>
+                                </div>
+                                <div class="option">
+                                    <input type="radio" name="q8" value="1" id="q8b" aria-required="true">
+                                    <label for="q8b">Published before with mixed results, or first game but very prepared</label>
+                                </div>
+                                <div class="option">
+                                    <input type="radio" name="q8" value="1" id="q8c" aria-required="true">
+                                    <label for="q8c">First commercial game, feel somewhat prepared</label>
+                                </div>
+                                <div class="option">
+                                    <input type="radio" name="q8" value="3" id="q8d" aria-required="true">
+                                    <label for="q8d">First game and feel overwhelmed by the publishing process</label>
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
+
+                    <nav class="navigation" aria-label="Assessment navigation">
+                        <div></div>
+                        <button class="btn btn-primary" onclick="nextSection(1)">Next Section</button>
+                    </nav>
+                    <div class="error-message" id="error1" style="display: none;" role="alert" aria-describedby="error1">Please answer all questions in this section before continuing.</div>
+                </div>
+
+                <!-- Section 2: Goals & Preferences -->
+                <div class="section" id="section2">
+                    <h2 class="section-title">Section 2: Goals & Preferences</h2>
+                    
+                    <fieldset class="question-fieldset">
+                        <legend class="question-legend">9. How important is maintaining complete creative control over your game?</legend>
+                        <div class="question" data-question="9">
+                            <div class="options" role="radiogroup" aria-labelledby="q9-legend">
+                                <div class="option">
+                                    <input type="radio" name="q9" value="3" id="q9a" aria-required="true">
+                                    <label for="q9a">Essential - any compromise would ruin the vision</label>
+                                </div>
+                                <div class="option">
+                                    <input type="radio" name="q9" value="1" id="q9b" aria-required="true">
+                                    <label for="q9b">Very important but open to minor market-driven adjustments</label>
+                                </div>
+                                <div class="option">
+                                    <input type="radio" name="q9" value="1" id="q9c" aria-required="true">
+                                    <label for="q9c">Important but willing to collaborate with experienced partners</label>
+                                </div>
+                                <div class="option">
+                                    <input type="radio" name="q9" value="3" id="q9d" aria-required="true">
+                                    <label for="q9d">Less important than maximizing the game's market success</label>
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
+
+                    <fieldset class="question-fieldset">
+                        <legend class="question-legend">10. When you imagine success, what matters most to you?</legend>
+                        <div class="question" data-question="10">
+                            <div class="options" role="radiogroup" aria-labelledby="q10-legend">
+                                <div class="option">
+                                    <input type="radio" name="q10" value="3" id="q10a" aria-required="true">
+                                    <label for="q10a">Creative fulfillment and artistic integrity</label>
+                                </div>
+                                <div class="option">
+                                    <input type="radio" name="q10" value="1" id="q10b" aria-required="true">
+                                    <label for="q10b">Building sustainable independence as a game developer</label>
+                                </div>
+                                <div class="option">
+                                    <input type="radio" name="q10" value="1" id="q10c" aria-required="true">
+                                    <label for="q10c">Strong commercial performance and business growth</label>
+                                </div>
+                                <div class="option">
+                                    <input type="radio" name="q10" value="3" id="q10d" aria-required="true">
+                                    <label for="q10d">Industry recognition and professional advancement</label>
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
+
+                    <fieldset class="question-fieldset">
+                        <legend class="question-legend">11. How do you prefer to make major strategic decisions?</legend>
+                        <div class="question" data-question="11">
+                            <div class="options" role="radiogroup" aria-labelledby="q11-legend">
+                                <div class="option">
+                                    <input type="radio" name="q11" value="3" id="q11a" aria-required="true">
+                                    <label for="q11a">Independently based on my own research and instincts</label>
+                                </div>
+                                <div class="option">
+                                    <input type="radio" name="q11" value="1" id="q11b" aria-required="true">
+                                    <label for="q11b">With input from others but maintaining final authority</label>
+                                </div>
+                                <div class="option">
+                                    <input type="radio" name="q11" value="1" id="q11c" aria-required="true">
+                                    <label for="q11c">Collaboratively with experienced advisors</label>
+                                </div>
+                                <div class="option">
+                                    <input type="radio" name="q11" value="3" id="q11d" aria-required="true">
+                                    <label for="q11d">Guided by experienced partners who know the industry</label>
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
+
+                    <fieldset class="question-fieldset">
+                        <legend class="question-legend">12. What would you do if market feedback suggested major changes to your game?</legend>
+                        <div class="question" data-question="12">
+                            <div class="options" role="radiogroup" aria-labelledby="q12-legend">
+                                <div class="option">
+                                    <input type="radio" name="q12" value="3" id="q12a" aria-required="true">
+                                    <label for="q12a">Stick to my vision - market feedback can be wrong</label>
+                                </div>
+                                <div class="option">
+                                    <input type="radio" name="q12" value="1" id="q12b" aria-required="true">
+                                    <label for="q12b">Consider the feedback but probably keep my original plan</label>
+                                </div>
+                                <div class="option">
+                                    <input type="radio" name="q12" value="1" id="q12c" aria-required="true">
+                                    <label for="q12c">Seriously weigh market expertise against my creative vision</label>
+                                </div>
+                                <div class="option">
+                                    <input type="radio" name="q12" value="3" id="q12d" aria-required="true">
+                                    <label for="q12d">Trust market expertise and make recommended changes</label>
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
+
+                    <fieldset class="question-fieldset">
+                        <legend class="question-legend">13. How do you want to spend your time as a developer?</legend>
+                        <div class="question" data-question="13">
+                            <div class="options" role="radiogroup" aria-labelledby="q13-legend">
+                                <div class="option">
+                                    <input type="radio" name="q13" value="3" id="q13a" aria-required="true">
+                                    <label for="q13a">Learning and mastering all aspects of the game business</label>
+                                </div>
+                                <div class="option">
+                                    <input type="radio" name="q13" value="1" id="q13b" aria-required="true">
+                                    <label for="q13b">Primarily developing with some business/marketing work</label>
+                                </div>
+                                <div class="option">
+                                    <input type="radio" name="q13" value="1" id="q13c" aria-required="true">
+                                    <label for="q13c">Mostly developing while others handle business operations</label>
+                                </div>
+                                <div class="option">
+                                    <input type="radio" name="q13" value="3" id="q13d" aria-required="true">
+                                    <label for="q13d">Purely creating games within established business structures</label>
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
+
+                    <fieldset class="question-fieldset">
+                        <legend class="question-legend">14. If this game doesn't perform well commercially, what would you do next?</legend>
+                        <div class="question" data-question="14">
+                            <div class="options" role="radiogroup" aria-labelledby="q14-legend">
+                                <div class="option">
+                                    <input type="radio" name="q14" value="3" id="q14a" aria-required="true">
+                                    <label for="q14a">Learn from mistakes and self-fund another attempt</label>
+                                </div>
+                                <div class="option">
+                                    <input type="radio" name="q14" value="1" id="q14b" aria-required="true">
+                                    <label for="q14b">Improve my approach and try independent publishing again</label>
+                                </div>
+                                <div class="option">
+                                    <input type="radio" name="q14" value="1" id="q14c" aria-required="true">
+                                    <label for="q14c">Seek professional guidance or partnerships for the next project</label>
+                                </div>
+                                <div class="option">
+                                    <input type="radio" name="q14" value="3" id="q14d" aria-required="true">
+                                    <label for="q14d">Definitely work with experienced partners going forward</label>
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
+
+                    <nav class="navigation" aria-label="Assessment navigation">
+                        <button class="btn btn-secondary" onclick="prevSection(2)">Previous</button>
+                        <button class="btn btn-primary" onclick="nextSection(2)">Next Section</button>
+                    </nav>
+                    <div class="error-message" id="error2" style="display: none;" role="alert" aria-describedby="error2">Please answer all questions in this section before continuing.</div>
+                </div>
+
+                <!-- Section 3: Game & Market Context -->
+                <div class="section" id="section3">
+                    <h2 class="section-title">Section 3: Game & Market Context</h2>
+                    
+                    <fieldset class="question-fieldset">
+                        <legend class="question-legend">15. How difficult will your specific game be to market effectively?</legend>
+                        <div class="question" data-question="15">
+                            <div class="options" role="radiogroup" aria-labelledby="q15-legend">
+                                <div class="option">
+                                    <input type="radio" name="q15" value="3" id="q15a" aria-required="true">
+                                    <label for="q15a">Easy - simple concept with obvious appeal</label>
+                                </div>
+                                <div class="option">
+                                    <input type="radio" name="q15" value="1" id="q15b" aria-required="true">
+                                    <label for="q15b">Moderate - clear value but needs some explanation</label>
+                                </div>
+                                <div class="option">
+                                    <input type="radio" name="q15" value="1" id="q15c" aria-required="true">
+                                    <label for="q15c">Challenging - complex mechanics or niche appeal requiring education</label>
+                                </div>
+                                <div class="option">
+                                    <input type="radio" name="q15" value="3" id="q15d" aria-required="true">
+                                    <label for="q15d">Very difficult - innovative/complex concept requiring extensive demonstration</label>
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
+
+                    <fieldset class="question-fieldset">
+                        <legend class="question-legend">16. How accessible is your target audience?</legend>
+                        <div class="question" data-question="16">
+                            <div class="options" role="radiogroup" aria-labelledby="q16-legend">
+                                <div class="option">
+                                    <input type="radio" name="q16" value="3" id="q16a" aria-required="true">
+                                    <label for="q16a">Easy to reach through communities I already know well</label>
+                                </div>
+                                <div class="option">
+                                    <input type="radio" name="q16" value="1" id="q16b" aria-required="true">
+                                    <label for="q16b">Reachable through standard gaming marketing channels</label>
+                                </div>
+                                <div class="option">
+                                    <input type="radio" name="q16" value="1" id="q16c" aria-required="true">
+                                    <label for="q16c">Requires broad marketing across multiple platforms/channels</label>
+                                </div>
+                                <div class="option">
+                                    <input type="radio" name="q16" value="3" id="q16d" aria-required="true">
+                                    <label for="q16d">Very difficult to reach and educate about the game's value</label>
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
+
+                    <fieldset class="question-fieldset">
+                        <legend class="question-legend">17. How competitive is your game's market space?</legend>
+                        <div class="question" data-question="17">
+                            <div class="options" role="radiogroup" aria-labelledby="q17-legend">
+                                <div class="option">
+                                    <input type="radio" name="q17" value="3" id="q17a" aria-required="true">
+                                    <label for="q17a">Niche space with manageable competition</label>
+                                </div>
+                                <div class="option">
+                                    <input type="radio" name="q17" value="1" id="q17b" aria-required="true">
+                                    <label for="q17b">Moderate competition with clear differentiation opportunities</label>
+                                </div>
+                                <div class="option">
+                                    <input type="radio" name="q17" value="1" id="q17c" aria-required="true">
+                                    <label for="q17c">Highly competitive requiring significant marketing investment</label>
+                                </div>
+                                <div class="option">
+                                    <input type="radio" name="q17" value="3" id="q17d" aria-required="true">
+                                    <label for="q17d">Extremely competitive requiring expert positioning and timing</label>
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
+
+                    <fieldset class="question-fieldset">
+                        <legend class="question-legend">18. What's your development timeline situation?</legend>
+                        <div class="question" data-question="18">
+                            <div class="options" role="radiogroup" aria-labelledby="q18-legend">
+                                <div class="option">
+                                    <input type="radio" name="q18" value="3" id="q18a" aria-required="true">
+                                    <label for="q18a">Near completion - need to launch soon</label>
+                                </div>
+                                <div class="option">
+                                    <input type="radio" name="q18" value="1" id="q18b" aria-required="true">
+                                    <label for="q18b">Several months left but timeline is fairly set</label>
+                                </div>
+                                <div class="option">
+                                    <input type="radio" name="q18" value="1" id="q18c" aria-required="true">
+                                    <label for="q18c">Flexible timeline with 6+ months remaining</label>
+                                </div>
+                                <div class="option">
+                                    <input type="radio" name="q18" value="3" id="q18d" aria-required="true">
+                                    <label for="q18d">Early development with significant time for partnership building</label>
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
+
+                    <fieldset class="question-fieldset">
+                        <legend class="question-legend">19. What platform strategy are you targeting?</legend>
+                        <div class="question" data-question="19">
+                            <div class="options" role="radiogroup" aria-labelledby="q19-legend">
+                                <div class="option">
+                                    <input type="radio" name="q19" value="3" id="q19a" aria-required="true">
+                                    <label for="q19a">PC/Steam with straightforward independent publishing process</label>
+                                </div>
+                                <div class="option">
+                                    <input type="radio" name="q19" value="1" id="q19b" aria-required="true">
+                                    <label for="q19b">Multi-platform but manageable for independent developer</label>
+                                </div>
+                                <div class="option">
+                                    <input type="radio" name="q19" value="1" id="q19c" aria-required="true">
+                                    <label for="q19c">Console-focused requiring platform relationships</label>
+                                </div>
+                                <div class="option">
+                                    <input type="radio" name="q19" value="3" id="q19d" aria-required="true">
+                                    <label for="q19d">Complex multi-platform requiring specialized expertise</label>
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
+
+                    <fieldset class="question-fieldset">
+                        <legend class="question-legend">20. Based on your game and market, what's most critical for success?</legend>
+                        <div class="question" data-question="20">
+                            <div class="options" role="radiogroup" aria-labelledby="q20-legend">
+                                <div class="option">
+                                    <input type="radio" name="q20" value="3" id="q20a" aria-required="true">
+                                    <label for="q20a">Passionate community connection matters more than big budgets</label>
+                                </div>
+                                <div class="option">
+                                    <input type="radio" name="q20" value="1" id="q20b" aria-required="true">
+                                    <label for="q20b">Smart, focused marketing can compete effectively</label>
+                                </div>
+                                <div class="option">
+                                    <input type="radio" name="q20" value="1" id="q20c" aria-required="true">
+                                    <label for="q20c">Significant marketing budget is essential for visibility</label>
+                                </div>
+                                <div class="option">
+                                    <input type="radio" name="q20" value="3" id="q20d" aria-required="true">
+                                    <label for="q20d">Professional industry relationships and expertise are crucial</label>
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
+
+                    <nav class="navigation" aria-label="Assessment navigation">
+                        <button class="btn btn-secondary" onclick="prevSection(3)">Previous</button>
+                        <button class="btn btn-primary" onclick="calculateResults()">Get My Results</button>
+                    </nav>
+                    <div class="error-message" id="error3" style="display: none;" role="alert" aria-describedby="error3">Please answer all questions in this section before continuing.</div>
+                </div>
+
+                <!-- Results Section -->
+                <div class="section" id="results">
+                    <div class="results">
+                        <h2 class="section-title">Your Publishing Path Recommendation</h2>
+                        <div class="recommendation" id="recommendation"></div>
+                        <div class="description" id="description"></div>
+                        <div class="next-steps" id="nextSteps"></div>
+                        
+                        <button class="btn btn-primary" onclick="restartAssessment()" style="margin-top: 30px;">Take Assessment Again</button>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <div class="footer">
+            <!-- UPDATE THIS SECTION TO CUSTOMIZE FOOTER -->
+            <h3>🎯 What's Next?</h3>
+            <p><strong>There's more where that came from!</strong></p>
+            
+            <div class="footer-links">
+                <!-- UPDATE THESE LINKS TO YOUR ACTUAL URLs -->
+                <a href="https://github.com/formsandphases/creative-project-management-resources" target="_blank">🛠️ More Free Tools</a>
+                <a href="https://www.formsandphases.com/blog" target="_blank">📖 Blog/Articles</a>
+                <a href="https://www.formsandphases.com" target="_blank">💬 Our Website</a>
+            </div>
+            
+            <hr>
+            
+            <!-- UPDATE COMPANY INFO HERE -->
+            <p class="company-info">
+                <strong>Forms + Phases</strong> - Creative Project Management<br>
+                Where Creative Vision Meets Mindful Management
+            </p>
+        </div>
+    </div>
+
+    <!-- Live region for screen reader announcements -->
+    <div aria-live="polite" id="status-updates" class="sr-only"></div>
+
+    <script>
+        let currentSection = 1;
+        let totalQuestions = 20;
+        let answeredQuestions = 0;
+
+        // Initialize the assessment
+        document.addEventListener('DOMContentLoaded', function() {
+            updateProgress();
+            attachEventListeners();
+        });
+
+        function attachEventListeners() {
+            // Add event listeners to all radio buttons
+            document.querySelectorAll('input[type="radio"]').forEach(radio => {
+                radio.addEventListener('change', function() {
+                    updateQuestionStatus(this);
+                    updateProgress();
+                    announceProgress();
+                });
+            });
+
+            // Add click listeners to option divs (but not the labels to avoid double-clicking)
+            document.querySelectorAll('.option').forEach(option => {
+                option.addEventListener('click', function(e) {
+                    // Only trigger if clicking the div itself, not the radio or label
+                    if (e.target === this) {
+                        const radio = this.querySelector('input[type="radio"]');
+                        if (radio) {
+                            radio.checked = true;
+                            radio.dispatchEvent(new Event('change'));
+                        }
+                    }
+                });
+            });
+        }
+
+        function updateQuestionStatus(radio) {
+            // Mark question as answered
+            const question = radio.closest('.question');
+            question.classList.add('answered');
+
+            // Update selected option styling
+            const allOptions = question.querySelectorAll('.option');
+            allOptions.forEach(opt => opt.classList.remove('selected'));
+            radio.closest('.option').classList.add('selected');
+        }
+
+        function updateProgress() {
+            // Count answered questions
+            answeredQuestions = 0;
+            for (let i = 1; i <= totalQuestions; i++) {
+                if (document.querySelector(`input[name="q${i}"]:checked`)) {
+                    answeredQuestions++;
+                }
+            }
+
+            // Update progress bar
+            const percentage = (answeredQuestions / totalQuestions) * 100;
+            const progressFill = document.getElementById('progressFill');
+            const progressText = document.getElementById('progressText');
+            
+            progressFill.style.width = percentage + '%';
+            progressText.textContent = `${answeredQuestions} of ${totalQuestions} questions completed`;
+            progressText.setAttribute('aria-valuenow', answeredQuestions);
+        }
+
+        function announceProgress() {
+            // Announce progress to screen readers
+            const statusElement = document.getElementById('status-updates');
+            statusElement.textContent = `Question answered. ${answeredQuestions} of ${totalQuestions} questions completed.`;
+        }
+
+        function validateSection(sectionNum) {
+            let questionsInSection;
+            if (sectionNum === 1) {
+                questionsInSection = [1, 2, 3, 4, 5, 6, 7, 8];
+            } else if (sectionNum === 2) {
+                questionsInSection = [9, 10, 11, 12, 13, 14];
+            } else if (sectionNum === 3) {
+                questionsInSection = [15, 16, 17, 18, 19, 20];
+            }
+
+            for (let qNum of questionsInSection) {
+                if (!document.querySelector(`input[name="q${qNum}"]:checked`)) {
+                    return false;
+                }
+            }
+            return true;
+        }
+
+        function nextSection(sectionNum) {
+            if (!validateSection(sectionNum)) {
+                const errorElement = document.getElementById(`error${sectionNum}`);
+                errorElement.style.display = 'block';
+                errorElement.focus();
+                return;
+            }
+
+            document.getElementById(`error${sectionNum}`).style.display = 'none';
+            document.getElementById(`section${sectionNum}`).classList.remove('active');
+            document.getElementById(`section${sectionNum + 1}`).classList.add('active');
+            currentSection = sectionNum + 1;
+
+            // Announce section change to screen readers
+            const statusElement = document.getElementById('status-updates');
+            statusElement.textContent = `Moved to section ${currentSection}`;
+
+            // Scroll to top of assessment
+            scrollToTop();
+        }
+
+        function prevSection(sectionNum) {
+            document.getElementById(`section${sectionNum}`).classList.remove('active');
+            document.getElementById(`section${sectionNum - 1}`).classList.add('active');
+            currentSection = sectionNum - 1;
+
+            // Announce section change to screen readers
+            const statusElement = document.getElementById('status-updates');
+            statusElement.textContent = `Moved to section ${currentSection}`;
+
+            // Scroll to top of assessment
+            scrollToTop();
+        }
+
+        function scrollToTop() {
+            // Scroll to the main content
+            const mainContent = document.getElementById('main-content');
+            if (mainContent) {
+                mainContent.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+        }
+
+        function calculateResults() {
+            if (!validateSection(3)) {
+                const errorElement = document.getElementById('error3');
+                errorElement.style.display = 'block';
+                errorElement.focus();
+                return;
+            }
+
+            let independentPoints = 0;
+
+            // Calculate score: A=3, B=1, C=1, D=3 (adjusted scoring for balanced results)
+            for (let i = 1; i <= totalQuestions; i++) {
+                const selectedOption = document.querySelector(`input[name="q${i}"]:checked`);
+                if (selectedOption) {
+                    independentPoints += parseInt(selectedOption.value);
+                }
+            }
+
+            // Total possible: 60 points (20 questions × 3 points max)
+            // Convert to percentage for cleaner logic
+            const percentage = (independentPoints / 60) * 100;
+
+            let recommendation, description, nextSteps, keyStrengths, challenges;
+
+            if (percentage >= 80) { // 48+ points
+                recommendation = "Independent Publishing Strongly Recommended";
+                description = "Your assessment results show exceptional alignment with independent publishing success. You have the financial resources, marketing capabilities, business knowledge, and mindset needed to thrive as an independent publisher.";
+                
+                keyStrengths = `
+                    <strong>Your Key Strengths:</strong>
+                    <br>• Strong financial foundation with adequate marketing budget
+                    <br>• Solid marketing experience and audience-building capabilities  
+                    <br>• Business operations knowledge and industry connections
+                    <br>• High risk tolerance and independent decision-making preference
+                    <br>• Game and market factors favor independent approach
+                `;
+                
+                challenges = `
+                    <strong>Potential Challenges to Watch:</strong>
+                    <br>• Maintaining momentum during slow periods
+                    <br>• Scaling marketing efforts as you grow
+                    <br>• Staying current with platform changes and industry trends
+                `;
+                
+                nextSteps = `
+                    <strong>Your Action Plan:</strong>
+                    <br><br><strong>Immediate Priorities:</strong>
+                    <br>• Finalize your marketing budget allocation across channels
+                    <br>• Set up analytics and tracking systems for all marketing efforts
+                    <br>• Create content calendar for pre-launch marketing
+                    <br>• Establish your brand voice and visual identity
+                    <br><br><strong>Build Momentum:</strong>
+                    <br>• Launch community building on your strongest platform
+                    <br>• Start building email list with valuable content
+                    <br>• Create demo/trailer and gather feedback
+                    <br>• Research and connect with relevant influencers in your genre
+                    <br><br><strong>Launch Preparation:</strong>
+                    <br>• Implement feedback and polish your game's presentation
+                    <br>• Plan and execute pre-launch marketing campaign
+                    <br>• Finalize platform submissions and store pages
+                    <br>• Prepare launch day strategy and post-launch support plan
+                `;
+                
+            } else if (percentage >= 60) { // 36+ points
+                recommendation = "Independent Publishing Recommended";
+                description = "Your results indicate strong potential for independent publishing success. While you have most of the foundations in place, there are a few areas where focused development will significantly improve your chances of success.";
+                
+                keyStrengths = `
+                    <strong>Your Key Strengths:</strong>
+                    <br>• Good foundation in most critical areas
+                    <br>• Willingness to learn and adapt
+                    <br>• Reasonable risk tolerance for independent path
+                    <br>• Game characteristics support independent approach
+                `;
+                
+                challenges = `
+                    <strong>Areas for Development:</strong>
+                    <br>• May need to strengthen marketing skills or budget
+                    <br>• Business operations knowledge could be expanded
+                    <br>• Platform relationships and industry connections need building
+                    <br>• Risk mitigation strategies should be developed
+                `;
+                
+                nextSteps = `
+                    <strong>Your Development & Launch Strategy:</strong>
+                    <br><br><strong>Skill Building Phase:</strong>
+                    <br>• Identify your weakest areas from the assessment
+                    <br>• Take online courses in marketing, business ops, or platform relations
+                    <br>• Join indie developer communities and networking groups
+                    <br>• Start small with social media presence to practice marketing
+                    <br><br><strong>Foundation Building:</strong>
+                    <br>• Implement what you've learned with consistent content creation
+                    <br>• Build relationships with other developers and potential collaborators
+                    <br>• Create detailed budget and launch plan for your project
+                    <br>• Develop backup plans for potential challenges
+                    <br><br><strong>Execution Phase:</strong>
+                    <br>• Launch pre-marketing campaign with improved skills
+                    <br>• Execute platform submissions and community engagement
+                    <br>• Monitor results and adjust strategy based on performance
+                    <br>• Prepare for launch with comprehensive marketing plan
+                `;
+                
+            } else if (percentage >= 40) { // 24+ points
+                recommendation = "Both Paths Could Work - Choose Based on Priorities";
+                description = "You're in a unique position where both independent publishing and publisher partnerships could lead to success. Your choice should depend on your priorities, timeline, and willingness to develop certain skills.";
+                
+                keyStrengths = `
+                    <strong>Factors Supporting Independent Publishing:</strong>
+                    <br>• Some marketing experience and business knowledge
+                    <br>• Reasonable financial stability
+                    <br>• Creative control preferences
+                    <br><br><strong>Factors Supporting Publisher Partnership:</strong>
+                    <br>• Could benefit from professional marketing expertise
+                    <br>• Industry connections would accelerate growth
+                    <br>• Risk mitigation through experienced guidance
+                `;
+                
+                challenges = `
+                    <strong>Decision Framework:</strong>
+                    <br><br><strong>Choose Independent If:</strong>
+                    <br>• Creative control is non-negotiable
+                    <br>• You enjoy learning business/marketing skills
+                    <br>• You have time for skill development
+                    <br>• Your game has strong niche appeal
+                    <br><br><strong>Choose Publisher If:</strong>
+                    <br>• You want to focus primarily on development
+                    <br>• Your game needs broad market reach
+                    <br>• You prefer lower-risk approach
+                    <br>• Timeline pressure requires faster market entry
+                `;
+                
+                nextSteps = `
+                    <strong>Dual-Track Strategy (Choose Your Path):</strong>
+                    <br><br><strong>If Going Independent:</strong>
+                    <br>• Invest heavily in marketing education and skill development
+                    <br>• Build emergency fund for extended runway
+                    <br>• Start networking and building industry relationships now
+                    <br>• Create detailed launch plan with multiple backup strategies
+                    <br><br><strong>If Seeking Publisher:</strong>
+                    <br>• Research publishers who work with games like yours
+                    <br>• Prepare professional pitch materials and demo
+                    <br>• Document your development process professionally
+                    <br>• Build small community to show engagement potential
+                    <br><br><strong>Smart Approach:</strong>
+                    <br>Start with independent community building while researching publishers. This gives you options and makes you more attractive to potential partners.
+                `;
+                
+            } else if (percentage >= 20) { // 12+ points
+                recommendation = "Publisher Partnership Recommended";
+                description = "Your assessment indicates that partnering with a publisher aligns well with your current situation, goals, and resources. A good publisher partnership will complement your strengths while filling critical gaps in marketing, business operations, and industry connections.";
+                
+                keyStrengths = `
+                    <strong>Your Key Strengths:</strong>
+                    <br>• Strong game development focus and skills
+                    <br>• Realistic assessment of current capabilities
+                    <br>• Openness to collaboration and external expertise
+                    <br>• Understanding of areas where you need support
+                `;
+                
+                challenges = `
+                    <strong>Areas Where Publisher Adds Value:</strong>
+                    <br>• Marketing budget and campaign expertise
+                    <br>• Established platform relationships and industry connections
+                    <br>• Business operations and contract negotiation
+                    <br>• Market positioning and timing strategy
+                    <br>• Risk mitigation through experienced guidance
+                `;
+                
+                nextSteps = `
+                    <strong>Your Publisher Partnership Strategy:</strong>
+                    <br><br><strong>Preparation Phase:</strong>
+                    <br>• Research publishers who work with games in your genre/scope
+                    <br>• Create professional pitch deck with game vision, target audience, and current progress
+                    <br>• Develop playable demo that showcases your game's core appeal
+                    <br>• Document your development process, timeline, and team capabilities
+                    <br><br><strong>Outreach Phase:</strong>
+                    <br>• Prioritize 10-15 publishers based on fit and reputation
+                    <br>• Craft personalized pitches explaining why you're a good match
+                    <br>• Attend industry events, join developer communities, get introductions
+                    <br>• Prepare for publisher meetings with clear questions about their process
+                    <br><br><strong>Evaluation Phase:</strong>
+                    <br>• Compare offers based on more than just advance money
+                    <br>• Evaluate marketing support, platform relationships, and team expertise
+                    <br>• Negotiate terms that preserve your creative vision while leveraging their strengths
+                    <br>• Plan collaboration workflow and communication structure
+                `;
+                
+            } else { // 0-11 points
+                recommendation = "Publisher Partnership Strongly Recommended";
+                description = "Your results clearly indicate that partnering with an experienced publisher is the optimal path for your game's success. This isn't a limitation—it's a strategic advantage that lets you focus on what you do best while leveraging professional expertise for everything else.";
+                
+                keyStrengths = `
+                    <strong>Your Key Strengths:</strong>
+                    <br>• Game development passion and creativity
+                    <br>• Self-awareness about areas needing support
+                    <br>• Flexibility and openness to collaboration
+                    <br>• Focus on creating great games rather than business operations
+                `;
+                
+                challenges = `
+                    <strong>Critical Gaps Publishers Fill:</strong>
+                    <br>• Marketing budget and professional campaign management
+                    <br>• Industry relationships and platform expertise
+                    <br>• Business operations, legal, and financial management
+                    <br>• Market research and positioning strategy
+                    <br>• Risk mitigation and professional guidance
+                `;
+                
+                nextSteps = `
+                    <strong>Your Publisher-First Strategy:</strong>
+                    <br><br><strong>Foundation Building:</strong>
+                    <br>• Focus on polishing your game's core experience and appeal
+                    <br>• Create compelling screenshots, GIFs, and video content
+                    <br>• Write clear, concise game description and unique selling points
+                    <br>• Organize all development materials professionally
+                    <br><br><strong>Publisher Research:</strong>
+                    <br>• Study publishers who've successfully launched games like yours
+                    <br>• Read developer testimonials and case studies
+                    <br>• Understand different publisher models (funding, revenue share, services)
+                    <br>• Identify 20+ potential publishers and prioritize by fit
+                    <br><br><strong>Professional Presentation:</strong>
+                    <br>• Create professional pitch materials highlighting your game's appeal
+                    <br>• Develop playable demo that immediately shows your game's value
+                    <br>• Prepare development timeline and budget requirements
+                    <br>• Practice your pitch and prepare for publisher questions
+                    <br><br><strong>Partnership Development:</strong>
+                    <br>• Begin outreach to prioritized publishers with personalized pitches
+                    <br>• Attend industry events and conferences to build relationships
+                    <br>• Evaluate partnership offers holistically, not just on financial terms
+                    <br>• Negotiate agreements that align with your creative vision and goals
+                `;
+            }
+
+            // Display results
+            document.getElementById('recommendation').textContent = recommendation;
+            document.getElementById('description').textContent = description;
+            document.getElementById('nextSteps').innerHTML = `
+                ${keyStrengths}
+                <br><br>${challenges}
+                <br><br>${nextSteps}
+                <br><br><strong>Remember:</strong> This assessment provides guidance based on your current situation. Your path can evolve as you grow, learn, and adapt. The most important thing is taking action aligned with your strengths while addressing your development areas.
+            `;
+
+            // Show results section
+            document.getElementById('section3').classList.remove('active');
+            document.getElementById('results').classList.add('active');
+
+            // Announce results to screen readers
+            const statusElement = document.getElementById('status-updates');
+            statusElement.textContent = `Assessment complete. Your recommendation: ${recommendation}`;
+
+            // Scroll to top of assessment
+            scrollToTop();
+        }
+
+        function restartAssessment() {
+            // Reset all radio buttons
+            document.querySelectorAll('input[type="radio"]').forEach(radio => {
+                radio.checked = false;
+            });
+
+            // Reset all question styling
+            document.querySelectorAll('.question').forEach(question => {
+                question.classList.remove('answered');
+            });
+
+            // Reset all option styling
+            document.querySelectorAll('.option').forEach(option => {
+                option.classList.remove('selected');
+            });
+
+            // Hide all error messages
+            document.querySelectorAll('.error-message').forEach(error => {
+                error.style.display = 'none';
+            });
+
+            // Show first section
+            document.querySelectorAll('.section').forEach(section => {
+                section.classList.remove('active');
+            });
+            document.getElementById('section1').classList.add('active');
+
+            // Reset variables
+            currentSection = 1;
+            answeredQuestions = 0;
+
+            // Update progress
+            updateProgress();
+
+            // Announce restart to screen readers
+            const statusElement = document.getElementById('status-updates');
+            statusElement.textContent = 'Assessment restarted. Back to section 1.';
+
+            // Scroll to top of assessment
+            scrollToTop();
+        }
+    </script>
+</body>
+</html>
