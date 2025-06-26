@@ -1,0 +1,1269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Publisher Submission Self-Review - Forms + Phases</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* Accessibility: Respect user motion preferences */
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+
+        /* High contrast mode support */
+        @media (prefers-contrast: high) {
+            .assessment-card { border: 2px solid; }
+            .btn { border: 2px solid; }
+            .option { border: 2px solid; }
+        }
+
+        /* Skip link styling */
+        .skip-link {
+            position: absolute;
+            top: -40px;
+            left: 6px;
+            background: #000;
+            color: #fff;
+            padding: 8px;
+            text-decoration: none;
+            z-index: 1000;
+            border-radius: 4px;
+        }
+        .skip-link:focus {
+            top: 6px;
+        }
+
+        /* Focus indicators */
+        *:focus {
+            outline: 2px solid #6630E3;
+            outline-offset: 2px;
+        }
+
+        body {
+            font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(0deg, #FFCB8E 0%, #FE7C84 25%, #F759B7 49%, #A545E5 72%, #6630E3 100%);
+            min-height: 100vh;
+            color: #020528;
+            line-height: 1.5;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #020528 0%, #6630E3 100%);
+            color: white;
+            text-align: center;
+            padding: 30px 20px;
+            border-radius: 12px;
+            margin-bottom: 30px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+            letter-spacing: -0.5px;
+        }
+
+        .header p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+
+        .brand-credit {
+            font-size: 0.9rem;
+            opacity: 0.8;
+            font-style: italic;
+        }
+
+        .intro-content {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 12px;
+            padding: 30px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+            margin-bottom: 30px;
+            line-height: 1.6;
+        }
+
+        .intro-content h2 {
+            color: #6630E3;
+            font-size: 2rem;
+            font-weight: 800;
+            margin-bottom: 20px;
+            text-align: center;
+            letter-spacing: -0.5px;
+        }
+
+        .intro-content p {
+            margin-bottom: 15px;
+            color: #020528;
+        }
+
+        .warning-box {
+            background: #fff9f0;
+            border-left: 4px solid #f57c00;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 6px;
+        }
+
+        .warning-box p {
+            margin: 0;
+            color: #f57c00;
+            font-weight: 600;
+        }
+
+        .progress-container {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 12px;
+            background: rgba(6, 48, 35, 0.1);
+            border-radius: 8px;
+            overflow: hidden;
+            margin-bottom: 15px;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(0deg, #FFCB8E 0%, #FE7C84 25%, #F759B7 49%, #A545E5 72%, #6630E3 100%);
+            width: 0%;
+            transition: width 0.3s ease;
+            border-radius: 8px;
+        }
+
+        .progress-text {
+            text-align: center;
+            font-weight: 600;
+            color: #020528;
+        }
+
+        .assessment-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 12px;
+            padding: 30px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+            margin-bottom: 20px;
+        }
+
+        .section-title {
+            font-size: 2rem;
+            font-weight: 800;
+            color: #6630E3;
+            margin-bottom: 25px;
+            text-align: center;
+            letter-spacing: -0.5px;
+        }
+
+        .section-emoji {
+            font-size: 2rem;
+            margin-right: 10px;
+        }
+
+        .question-fieldset {
+            margin-bottom: 30px;
+            border: none;
+            padding: 0;
+        }
+
+        .question {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            border: 2px solid transparent;
+            transition: all 0.3s ease;
+        }
+
+        .question.answered-yes {
+            border-color: #2e7d32;
+            background: #f0f8f0;
+        }
+
+        .question.answered-no {
+            border-color: #d32f2f;
+            background: #fff0f0;
+        }
+
+        .question-legend {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 15px;
+            color: #020528;
+            width: 100%;
+            line-height: 1.4;
+        }
+
+        .options {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+        }
+
+        .option {
+            display: flex;
+            align-items: center;
+            padding: 12px 20px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background: white;
+            min-width: 80px;
+            justify-content: center;
+            min-height: 44px;
+        }
+
+        .option:hover {
+            border-color: #A545E5;
+            background: #faf9ff;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(165, 69, 229, 0.2);
+        }
+
+        .option.selected-yes {
+            border-color: #2e7d32;
+            background: #e8f5e8;
+            color: #2e7d32;
+            font-weight: 600;
+        }
+
+        .option.selected-no {
+            border-color: #d32f2f;
+            background: #ffeaea;
+            color: #d32f2f;
+            font-weight: 600;
+        }
+
+        .option input[type="radio"] {
+            display: none;
+        }
+
+        .option label {
+            cursor: pointer;
+            font-weight: 500;
+        }
+
+        .navigation {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 30px;
+        }
+
+        .btn {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 25px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            text-align: center;
+            min-height: 44px;
+        }
+
+        .btn-primary {
+            background: #6630E3;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(102, 48, 227, 0.4);
+        }
+
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.8);
+            color: #020528;
+            backdrop-filter: blur(10px);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.9);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .section {
+            display: none;
+        }
+
+        .section.active {
+            display: block;
+        }
+
+        .results {
+            text-align: left;
+        }
+
+        .results h2 {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .results-section {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(10px);
+            padding: 20px;
+            border-radius: 8px;
+            border-left: 4px solid #6630E3;
+            margin-bottom: 25px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .results-section h3 {
+            color: #6630E3;
+            margin-bottom: 15px;
+            font-size: 1.4rem;
+            font-weight: 700;
+        }
+
+        .strength-item, .improvement-item {
+            background: white;
+            padding: 12px 15px;
+            margin-bottom: 8px;
+            border-radius: 6px;
+            border-left: 3px solid transparent;
+            line-height: 1.4;
+        }
+
+        .strength-item {
+            border-left-color: #2e7d32;
+            background: #f0f8f0;
+        }
+
+        .improvement-item {
+            border-left-color: #f57c00;
+            background: #fff9f0;
+        }
+
+        .encouragement {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(10px);
+            padding: 20px;
+            border-radius: 8px;
+            border-left: 4px solid #1976d2;
+            margin-top: 30px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .encouragement h3 {
+            color: #1976d2;
+            margin-bottom: 15px;
+            font-weight: 700;
+        }
+
+        .encouragement p {
+            line-height: 1.6;
+            margin-bottom: 10px;
+        }
+
+        .start-btn {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .footer {
+            margin-top: 40px;
+            padding: 30px;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 12px;
+            text-align: center;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        .footer h3 {
+            color: #6630E3;
+            margin-bottom: 15px;
+            font-weight: 700;
+        }
+
+        .footer p {
+            color: #020528;
+            margin-bottom: 20px;
+        }
+
+        .footer-links {
+            margin: 20px 0;
+        }
+
+        .footer-links a {
+            display: inline-block;
+            margin: 5px;
+            padding: 10px 20px;
+            color: white;
+            text-decoration: none;
+            border-radius: 25px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            min-height: 44px;
+            line-height: 1.4;
+        }
+
+        .footer-links a:first-child {
+            background: #6630E3;
+        }
+
+        .footer-links a:nth-child(2) {
+            background: #A545E5;
+        }
+
+        .footer-links a:last-child {
+            background: #F759B7;
+        }
+
+        .footer-links a:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .footer hr {
+            margin: 20px 0;
+            border: none;
+            height: 1px;
+            background: rgba(6, 48, 35, 0.1);
+        }
+
+        .footer .company-info {
+            margin: 0;
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        .error-message {
+            color: #e74c3c;
+            text-align: center;
+            margin: 15px 0;
+            font-weight: 600;
+            background: rgba(231, 76, 60, 0.1);
+            padding: 10px;
+            border-radius: 8px;
+            border-left: 4px solid #e74c3c;
+        }
+
+        /* Status updates for screen readers */
+        .sr-only {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            white-space: nowrap;
+            border: 0;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 15px;
+            }
+
+            .header h1 {
+                font-size: 2rem;
+            }
+
+            .assessment-card {
+                padding: 20px;
+            }
+
+            .options {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .option {
+                width: 100%;
+                max-width: 200px;
+            }
+
+            .navigation {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .btn {
+                width: 100%;
+            }
+
+            .question-legend {
+                font-size: 1.1rem;
+                line-height: 1.4;
+                word-wrap: break-word;
+                overflow-wrap: break-word;
+            }
+
+            .footer-links a {
+                display: block;
+                margin: 5px 0;
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+    
+    <div class="container">
+        <div class="header">
+            <h1>Publisher Submission Self-Review</h1>
+            <p>Are your materials ready to stand out in 30 seconds? This guided review will help you evaluate your game pitch the way publishers do: quickly, strategically, and with partnership in mind.</p>
+            <div class="brand-credit">Created by Forms + Phases</div>
+        </div>
+
+        <!-- Intro Section -->
+        <div id="intro" class="section active">
+            <div class="intro-content">
+                <h2>Ready to Make a Strong First Impression?</h2>
+                
+                <p>You've built real publisher readiness—now it's time to make sure your submission materials demonstrate it clearly and professionally. This guided review will help you evaluate your game pitch the way publishers do: quickly, strategically, and with partnership in mind.</p>
+                
+                <p>Answer each yes/no question based on the materials you've prepared (pitch deck, submission email, online form answers, and demo) for your game publisher outreach.</p>
+                
+                <div class="warning-box">
+                    <p>📝 Keep going through all questions even if you answer "no" to some—the results page will give you a complete picture and actionable guidance at the end.</p>
+                </div>
+                
+                <div class="start-btn">
+                    <button class="btn btn-primary" id="startButton">Start Review</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="progress-container hidden" id="progressContainer">
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressFill"></div>
+            </div>
+            <div class="progress-text" 
+                 role="progressbar" 
+                 aria-valuenow="0" 
+                 aria-valuemin="0" 
+                 aria-valuemax="20" 
+                 id="progressText">0 of 20 questions completed</div>
+        </div>
+
+        <main id="main-content">
+            <div class="assessment-card hidden" id="assessmentCard">
+                <!-- Section 1: Publisher Fit & Research -->
+                <div class="section" id="section1">
+                    <h2 class="section-title"><span class="section-emoji">✅</span>Publisher Fit & Research</h2>
+                    
+                    <fieldset class="question-fieldset">
+                        <legend class="question-legend">1. Have I researched this publisher's past games and current portfolio?</legend>
+                        <div class="question" data-question="1" data-section="publisher-fit">
+                            <div class="options" role="radiogroup" aria-labelledby="q1-legend">
+                                <div class="option" data-value="yes">
+                                    <input type="radio" name="q1" value="yes" id="q1yes" aria-required="true">
+                                    <label for="q1yes">Yes</label>
+                                </div>
+                                <div class="option" data-value="no">
+                                    <input type="radio" name="q1" value="no" id="q1no" aria-required="true">
+                                    <label for="q1no">No</label>
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
+
+                    <fieldset class="question-fieldset">
+                        <legend class="question-legend">2. Does this publisher support games in my genre and tone?</legend>
+                        <div class="question" data-question="2" data-section="publisher-fit">
+                            <div class="options" role="radiogroup" aria-labelledby="q2-legend">
+                                <div class="option" data-value="yes">
+                                    <input type="radio" name="q2" value="yes" id="q2yes" aria-required="true">
+                                    <label for="q2yes">Yes</label>
+                                </div>
+                                <div class="option" data-value="no">
+                                    <input type="radio" name="q2" value="no" id="q2no" aria-required="true">
+                                    <label for="q2no">No</label>
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
+
+                    <fieldset class="question-fieldset">
+                        <legend class="question-legend">3. Have I reviewed and followed their submission guidelines exactly?</legend>
+                        <div class="question" data-question="3" data-section="publisher-fit">
+                            <div class="options" role="radiogroup" aria-labelledby="q3-legend">
+                                <div class="option" data-value="yes">
+                                    <input type="radio" name="q3" value="yes" id="q3yes" aria-required="true">
+                                    <label for="q3yes">Yes</label>
+                                </div>
+                                <div class="option" data-value="no">
+                                    <input type="radio" name="q3" value="no" id="q3no" aria-required="true">
+                                    <label for="q3no">No</label>
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
+
+                    <fieldset class="question-fieldset">
+                        <legend class="question-legend">4. Am I confident this publisher is a good cultural/strategic fit for my goals?</legend>
+                        <div class="question" data-question="4" data-section="publisher-fit">
+                            <div class="options" role="radiogroup" aria-labelledby="q4-legend">
+                                <div class="option" data-value="yes">
+                                    <input type="radio" name="q4" value="yes" id="q4yes" aria-required="true">
+                                    <label for="q4yes">Yes</label>
+                                </div>
+                                <div class="option" data-value="no">
+                                    <input type="radio" name="q4" value="no" id="q4no" aria-required="true">
+                                    <label for="q4no">No</label>
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
+
+                    <fieldset class="question-fieldset">
+                        <legend class="question-legend">5. Have I customized my submission for this specific publisher?</legend>
+                        <div class="question" data-question="5" data-section="publisher-fit">
+                            <div class="options" role="radiogroup" aria-labelledby="q5-legend">
+                                <div class="option" data-value="yes">
+                                    <input type="radio" name="q5" value="yes" id="q5yes" aria-required="true">
+                                    <label for="q5yes">Yes</label>
+                                </div>
+                                <div class="option" data-value="no">
+                                    <input type="radio" name="q5" value="no" id="q5no" aria-required="true">
+                                    <label for="q5no">No</label>
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
+
+                    <nav class="navigation" aria-label="Assessment navigation">
+                        <div></div>
+                        <button class="btn btn-primary" id="nextBtn1">Next Section</button>
+                    </nav>
+                    <div class="error-message" id="error1" style="display: none;" role="alert" aria-describedby="error1">Please answer all questions in this section before continuing.</div>
+                </div>
+
+                <!-- Section 2: Submission Material Prep -->
+                <div class="section" id="section2">
+                    <h2 class="section-title"><span class="section-emoji">🧰</span>Submission Material Prep</h2>
+                    
+                    <fieldset class="question-fieldset">
+                        <legend class="question-legend">6. Do I have a polished pitch deck or equivalent documentation ready?</legend>
+                        <div class="question" data-question="6" data-section="submission-materials">
+                            <div class="options" role="radiogroup" aria-labelledby="q6-legend">
+                                <div class="option" data-value="yes">
+                                    <input type="radio" name="q6" value="yes" id="q6yes" aria-required="true">
+                                    <label for="q6yes">Yes</label>
+                                </div>
+                                <div class="option" data-value="no">
+                                    <input type="radio" name="q6" value="no" id="q6no" aria-required="true">
+                                    <label for="q6no">No</label>
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
+
+                    <fieldset class="question-fieldset">
+                        <legend class="question-legend">7. Do I have a clear, professional submission email or form draft?</legend>
+                        <div class="question" data-question="7" data-section="submission-materials">
+                            <div class="options" role="radiogroup" aria-labelledby="q7-legend">
+                                <div class="option" data-value="yes">
+                                    <input type="radio" name="q7" value="yes" id="q7yes" aria-required="true">
+                                    <label for="q7yes">Yes</label>
+                                </div>
+                                <div class="option" data-value="no">
+                                    <input type="radio" name="q7" value="no" id="q7no" aria-required="true">
+                                    <label for="q7no">No</label>
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
+
+                    <fieldset class="question-fieldset">
+                        <legend class="question-legend">8. Have I tested my build on a fresh machine and ensured it runs smoothly?</legend>
+                        <div class="question" data-question="8" data-section="submission-materials">
+                            <div class="options" role="radiogroup" aria-labelledby="q8-legend">
+                                <div class="option" data-value="yes">
+                                    <input type="radio" name="q8" value="yes" id="q8yes" aria-required="true">
+                                    <label for="q8yes">Yes</label>
+                                </div>
+                                <div class="option" data-value="no">
+                                    <input type="radio" name="q8" value="no" id="q8no" aria-required="true">
+                                    <label for="q8no">No</label>
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
+
+                    <fieldset class="question-fieldset">
+                        <legend class="question-legend">9. Have I included instructions or context for playing the build?</legend>
+                        <div class="question" data-question="9" data-section="submission-materials">
+                            <div class="options" role="radiogroup" aria-labelledby="q9-legend">
+                                <div class="option" data-value="yes">
+                                    <input type="radio" name="q9" value="yes" id="q9yes" aria-required="true">
+                                    <label for="q9yes">Yes</label>
+                                </div>
+                                <div class="option" data-value="no">
+                                    <input type="radio" name="q9" value="no" id="q9no" aria-required="true">
+                                    <label for="q9no">No</label>
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
+
+                    <fieldset class="question-fieldset">
+                        <legend class="question-legend">10. Have I triple-checked all links, attachments, and file formats?</legend>
+                        <div class="question" data-question="10" data-section="submission-materials">
+                            <div class="options" role="radiogroup" aria-labelledby="q10-legend">
+                                <div class="option" data-value="yes">
+                                    <input type="radio" name="q10" value="yes" id="q10yes" aria-required="true">
+                                    <label for="q10yes">Yes</label>
+                                </div>
+                                <div class="option" data-value="no">
+                                    <input type="radio" name="q10" value="no" id="q10no" aria-required="true">
+                                    <label for="q10no">No</label>
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
+
+                    <nav class="navigation" aria-label="Assessment navigation">
+                        <button class="btn btn-secondary" id="prevBtn2">Previous</button>
+                        <button class="btn btn-primary" id="nextBtn2">Next Section</button>
+                    </nav>
+                    <div class="error-message" id="error2" style="display: none;" role="alert" aria-describedby="error2">Please answer all questions in this section before continuing.</div>
+                </div>
+
+                <!-- Section 3: Clarity of Game & Ask -->
+                <div class="section" id="section3">
+                    <h2 class="section-title"><span class="section-emoji">💬</span>Clarity of Game & Ask</h2>
+                    
+                    <fieldset class="question-fieldset">
+                        <legend class="question-legend">11. Does my pitch clearly state the game's genre and platform(s)?</legend>
+                        <div class="question" data-question="11" data-section="game-clarity">
+                            <div class="options" role="radiogroup" aria-labelledby="q11-legend">
+                                <div class="option" data-value="yes">
+                                    <input type="radio" name="q11" value="yes" id="q11yes" aria-required="true">
+                                    <label for="q11yes">Yes</label>
+                                </div>
+                                <div class="option" data-value="no">
+                                    <input type="radio" name="q11" value="no" id="q11no" aria-required="true">
+                                    <label for="q11no">No</label>
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
+
+                    <fieldset class="question-fieldset">
+                        <legend class="question-legend">12. Have I described my game's unique hook in a sentence or two?</legend>
+                        <div class="question" data-question="12" data-section="game-clarity">
+                            <div class="options" role="radiogroup" aria-labelledby="q12-legend">
+                                <div class="option" data-value="yes">
+                                    <input type="radio" name="q12" value="yes" id="q12yes" aria-required="true">
+                                    <label for="q12yes">Yes</label>
+                                </div>
+                                <div class="option" data-value="no">
+                                    <input type="radio" name="q12" value="no" id="q12no" aria-required="true">
+                                    <label for="q12no">No</label>
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
+
+                    <fieldset class="question-fieldset">
+                        <legend class="question-legend">13. Is the intended audience for my game clearly defined?</legend>
+                        <div class="question" data-question="13" data-section="game-clarity">
+                            <div class="options" role="radiogroup" aria-labelledby="q13-legend">
+                                <div class="option" data-value="yes">
+                                    <input type="radio" name="q13" value="yes" id="q13yes" aria-required="true">
+                                    <label for="q13yes">Yes</label>
+                                </div>
+                                <div class="option" data-value="no">
+                                    <input type="radio" name="q13" value="no" id="q13no" aria-required="true">
+                                    <label for="q13no">No</label>
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
+
+                    <fieldset class="question-fieldset">
+                        <legend class="question-legend">14. Have I explained what kind of partnership I'm looking for (e.g., funding, marketing, platform support)?</legend>
+                        <div class="question" data-question="14" data-section="game-clarity">
+                            <div class="options" role="radiogroup" aria-labelledby="q14-legend">
+                                <div class="option" data-value="yes">
+                                    <input type="radio" name="q14" value="yes" id="q14yes" aria-required="true">
+                                    <label for="q14yes">Yes</label>
+                                </div>
+                                <div class="option" data-value="no">
+                                    <input type="radio" name="q14" value="no" id="q14no" aria-required="true">
+                                    <label for="q14no">No</label>
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
+
+                    <fieldset class="question-fieldset">
+                        <legend class="question-legend">15. Does my submission explain the current stage of development?</legend>
+                        <div class="question" data-question="15" data-section="game-clarity">
+                            <div class="options" role="radiogroup" aria-labelledby="q15-legend">
+                                <div class="option" data-value="yes">
+                                    <input type="radio" name="q15" value="yes" id="q15yes" aria-required="true">
+                                    <label for="q15yes">Yes</label>
+                                </div>
+                                <div class="option" data-value="no">
+                                    <input type="radio" name="q15" value="no" id="q15no" aria-required="true">
+                                    <label for="q15no">No</label>
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
+
+                    <nav class="navigation" aria-label="Assessment navigation">
+                        <button class="btn btn-secondary" id="prevBtn3">Previous</button>
+                        <button class="btn btn-primary" id="nextBtn3">Next Section</button>
+                    </nav>
+                    <div class="error-message" id="error3" style="display: none;" role="alert" aria-describedby="error3">Please answer all questions in this section before continuing.</div>
+                </div>
+
+                <!-- Section 4: Professionalism & Readiness Signals -->
+                <div class="section" id="section4">
+                    <h2 class="section-title"><span class="section-emoji">🤝</span>Professionalism & Readiness Signals</h2>
+                    
+                    <fieldset class="question-fieldset">
+                        <legend class="question-legend">16. Is my tone professional and my communication free of typos or vague language?</legend>
+                        <div class="question" data-question="16" data-section="professionalism">
+                            <div class="options" role="radiogroup" aria-labelledby="q16-legend">
+                                <div class="option" data-value="yes">
+                                    <input type="radio" name="q16" value="yes" id="q16yes" aria-required="true">
+                                    <label for="q16yes">Yes</label>
+                                </div>
+                                <div class="option" data-value="no">
+                                    <input type="radio" name="q16" value="no" id="q16no" aria-required="true">
+                                    <label for="q16no">No</label>
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
+
+                    <fieldset class="question-fieldset">
+                        <legend class="question-legend">17. Does my pitch show realistic scope and timelines based on my team's size and experience?</legend>
+                        <div class="question" data-question="17" data-section="professionalism">
+                            <div class="options" role="radiogroup" aria-labelledby="q17-legend">
+                                <div class="option" data-value="yes">
+                                    <input type="radio" name="q17" value="yes" id="q17yes" aria-required="true">
+                                    <label for="q17yes">Yes</label>
+                                </div>
+                                <div class="option" data-value="no">
+                                    <input type="radio" name="q17" value="no" id="q17no" aria-required="true">
+                                    <label for="q17no">No</label>
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
+
+                    <fieldset class="question-fieldset">
+                        <legend class="question-legend">18. Have I made it easy for the publisher to understand my team roles and structure?</legend>
+                        <div class="question" data-question="18" data-section="professionalism">
+                            <div class="options" role="radiogroup" aria-labelledby="q18-legend">
+                                <div class="option" data-value="yes">
+                                    <input type="radio" name="q18" value="yes" id="q18yes" aria-required="true">
+                                    <label for="q18yes">Yes</label>
+                                </div>
+                                <div class="option" data-value="no">
+                                    <input type="radio" name="q18" value="no" id="q18no" aria-required="true">
+                                    <label for="q18no">No</label>
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
+
+                    <fieldset class="question-fieldset">
+                        <legend class="question-legend">19. Does my submission reflect awareness of the publisher's business needs (not just my own)?</legend>
+                        <div class="question" data-question="19" data-section="professionalism">
+                            <div class="options" role="radiogroup" aria-labelledby="q19-legend">
+                                <div class="option" data-value="yes">
+                                    <input type="radio" name="q19" value="yes" id="q19yes" aria-required="true">
+                                    <label for="q19yes">Yes</label>
+                                </div>
+                                <div class="option" data-value="no">
+                                    <input type="radio" name="q19" value="no" id="q19no" aria-required="true">
+                                    <label for="q19no">No</label>
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
+
+                    <fieldset class="question-fieldset">
+                        <legend class="question-legend">20. Do I present myself as a potential partner, not just a game creator?</legend>
+                        <div class="question" data-question="20" data-section="professionalism">
+                            <div class="options" role="radiogroup" aria-labelledby="q20-legend">
+                                <div class="option" data-value="yes">
+                                    <input type="radio" name="q20" value="yes" id="q20yes" aria-required="true">
+                                    <label for="q20yes">Yes</label>
+                                </div>
+                                <div class="option" data-value="no">
+                                    <input type="radio" name="q20" value="no" id="q20no" aria-required="true">
+                                    <label for="q20no">No</label>
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
+
+                    <nav class="navigation" aria-label="Assessment navigation">
+                        <button class="btn btn-secondary" id="prevBtn4">Previous</button>
+                        <button class="btn btn-primary" id="resultsBtn">Get My Results</button>
+                    </nav>
+                    <div class="error-message" id="error4" style="display: none;" role="alert" aria-describedby="error4">Please answer all questions in this section before continuing.</div>
+                </div>
+
+                <!-- Results Section -->
+                <div class="section" id="results">
+                    <div class="results">
+                        <h2 class="section-title">Your Submission Review Results</h2>
+                        
+                        <div id="resultsContent"></div>
+                        
+                        <div class="encouragement">
+                            <h3>💡 Remember</h3>
+                            <p>Even strong submissions can be passed over for many reasons. This tool won't guarantee success—but presenting your readiness clearly, respectfully, and professionally gives you a real edge. Use this review to submit with confidence.</p>
+                        </div>
+                        
+                        <div style="text-align: center; margin-top: 30px;">
+                            <button class="btn btn-primary" id="restartBtn">Review Another Submission</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <div class="footer">
+            <h3>🎯 What's Next?</h3>
+            <p><strong>Ready to implement these insights?</strong></p>
+            
+            <div class="footer-links">
+                <a href="https://github.com/formsandphases/creative-project-management-resources" target="_blank">🛠️ More Free Tools</a>
+                <a href="https://www.formsandphases.com/blog" target="_blank">📖 Read Articles</a>
+                <a href="https://www.formsandphases.com/contact" target="_blank">💬 Book Discovery Call</a>
+            </div>
+            
+            <hr>
+            
+            <p class="company-info">
+                <strong>Forms + Phases</strong> - Creative Project Management Consultancy<br>
+                Helping creative teams turn ambitious visions into successful projects
+            </p>
+        </div>
+    </div>
+
+    <!-- Live region for screen reader announcements -->
+    <div aria-live="polite" id="status-updates" class="sr-only"></div>
+
+    <script>
+        let currentSection = 1;
+        let totalQuestions = 20;
+        let answers = {};
+
+        const questionTexts = {
+            1: "Researched this publisher's past games and current portfolio",
+            2: "Confirmed this publisher supports games in my genre and tone",
+            3: "Reviewed and followed their submission guidelines exactly",
+            4: "Confident this publisher is a good cultural/strategic fit for my goals",
+            5: "Customized my submission for this specific publisher",
+            6: "Have a polished pitch deck or equivalent documentation ready",
+            7: "Have a clear, professional submission email or form draft",
+            8: "Tested my build on a fresh machine and ensured it runs smoothly",
+            9: "Included instructions or context for playing the build",
+            10: "Triple-checked all links, attachments, and file formats",
+            11: "My pitch clearly states the game's genre and platform(s)",
+            12: "Described my game's unique hook in a sentence or two",
+            13: "The intended audience for my game is clearly defined",
+            14: "Explained what kind of partnership I'm looking for",
+            15: "My submission explains the current stage of development",
+            16: "My tone is professional and communication is free of typos or vague language",
+            17: "My pitch shows realistic scope and timelines based on team size and experience",
+            18: "Made it easy for the publisher to understand team roles and structure",
+            19: "My submission reflects awareness of the publisher's business needs",
+            20: "I present myself as a potential partner, not just a game creator"
+        };
+
+        // Initialize the assessment when page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            attachEventListeners();
+        });
+
+        function attachEventListeners() {
+            // Start button
+            document.getElementById('startButton').addEventListener('click', startAssessment);
+            
+            // Navigation buttons
+            document.getElementById('nextBtn1').addEventListener('click', () => nextSection(1));
+            document.getElementById('nextBtn2').addEventListener('click', () => nextSection(2));
+            document.getElementById('nextBtn3').addEventListener('click', () => nextSection(3));
+            document.getElementById('prevBtn2').addEventListener('click', () => prevSection(2));
+            document.getElementById('prevBtn3').addEventListener('click', () => prevSection(3));
+            document.getElementById('prevBtn4').addEventListener('click', () => prevSection(4));
+            document.getElementById('resultsBtn').addEventListener('click', showResults);
+            document.getElementById('restartBtn').addEventListener('click', restartReview);
+            
+            // Add event listeners to all option divs
+            document.querySelectorAll('.option').forEach(option => {
+                option.addEventListener('click', function(e) {
+                    // Only trigger if clicking the div itself, not the radio or label
+                    if (e.target === this || e.target.tagName === 'LABEL') {
+                        const radio = this.querySelector('input[type="radio"]');
+                        const question = this.closest('.question');
+                        const questionNum = question.getAttribute('data-question');
+                        const value = this.getAttribute('data-value');
+                        
+                        // Update radio button
+                        radio.checked = true;
+                        
+                        // Store answer
+                        answers[questionNum] = value;
+                        
+                        // Update question styling
+                        question.classList.remove('answered-yes', 'answered-no');
+                        question.classList.add('answered-' + value);
+                        
+                        // Update option styling
+                        const allOptions = question.querySelectorAll('.option');
+                        allOptions.forEach(opt => opt.classList.remove('selected-yes', 'selected-no'));
+                        this.classList.add('selected-' + value);
+                        
+                        updateProgress();
+                        announceProgress();
+                    }
+                });
+            });
+        }
+
+        function startAssessment() {
+            document.getElementById('intro').classList.remove('active');
+            document.getElementById('progressContainer').classList.remove('hidden');
+            document.getElementById('assessmentCard').classList.remove('hidden');
+            document.getElementById('section1').classList.add('active');
+            updateProgress();
+        }
+
+        function updateProgress() {
+            const answeredCount = Object.keys(answers).length;
+            const percentage = (answeredCount / totalQuestions) * 100;
+            const progressFill = document.getElementById('progressFill');
+            const progressText = document.getElementById('progressText');
+            
+            progressFill.style.width = percentage + '%';
+            progressText.textContent = `${answeredCount} of ${totalQuestions} questions completed`;
+            progressText.setAttribute('aria-valuenow', answeredCount);
+        }
+
+        function announceProgress() {
+            // Announce progress to screen readers
+            const statusElement = document.getElementById('status-updates');
+            const answeredCount = Object.keys(answers).length;
+            statusElement.textContent = `Question answered. ${answeredCount} of ${totalQuestions} questions completed.`;
+        }
+
+        function validateSection(sectionNum) {
+            const questionsInSection = getSectionQuestions(sectionNum);
+            const unanswered = questionsInSection.filter(q => !answers[q]);
+            return unanswered.length === 0;
+        }
+
+        function nextSection(sectionNum) {
+            if (!validateSection(sectionNum)) {
+                const errorElement = document.getElementById(`error${sectionNum}`);
+                errorElement.style.display = 'block';
+                errorElement.focus();
+                return;
+            }
+
+            document.getElementById(`error${sectionNum}`).style.display = 'none';
+            document.getElementById(`section${sectionNum}`).classList.remove('active');
+            document.getElementById(`section${sectionNum + 1}`).classList.add('active');
+            currentSection = sectionNum + 1;
+
+            // Announce section change to screen readers
+            const statusElement = document.getElementById('status-updates');
+            statusElement.textContent = `Moved to section ${currentSection}`;
+
+            scrollToTop();
+        }
+
+        function prevSection(sectionNum) {
+            document.getElementById(`section${sectionNum}`).classList.remove('active');
+            document.getElementById(`section${sectionNum - 1}`).classList.add('active');
+            currentSection = sectionNum - 1;
+
+            // Announce section change to screen readers
+            const statusElement = document.getElementById('status-updates');
+            statusElement.textContent = `Moved to section ${currentSection}`;
+
+            scrollToTop();
+        }
+
+        function getSectionQuestions(sectionNum) {
+            const sectionRanges = {
+                1: [1, 2, 3, 4, 5],
+                2: [6, 7, 8, 9, 10],
+                3: [11, 12, 13, 14, 15],
+                4: [16, 17, 18, 19, 20]
+            };
+            return sectionRanges[sectionNum];
+        }
+
+        function showResults() {
+            if (!validateSection(4)) {
+                const errorElement = document.getElementById('error4');
+                errorElement.style.display = 'block';
+                errorElement.focus();
+                return;
+            }
+
+            generateResults();
+            document.getElementById('section4').classList.remove('active');
+            document.getElementById('results').classList.add('active');
+
+            // Announce results to screen readers
+            const statusElement = document.getElementById('status-updates');
+            statusElement.textContent = 'Assessment complete. Your submission review results are ready.';
+
+            scrollToTop();
+        }
+
+        function generateResults() {
+            let yesAnswers = [];
+            let noAnswers = [];
+
+            for (let i = 1; i <= totalQuestions; i++) {
+                if (answers[i] === 'yes') {
+                    yesAnswers.push(i);
+                } else if (answers[i] === 'no') {
+                    noAnswers.push(i);
+                }
+            }
+
+            let resultsHTML = '';
+
+            // Show strengths if any yes answers
+            if (yesAnswers.length > 0) {
+                resultsHTML += `
+                    <div class="results-section">
+                        <h3>What You're Demonstrating Well</h3>
+                        <p style="margin-bottom: 15px;">Based on your responses, your submission currently communicates:</p>
+                `;
+                
+                yesAnswers.forEach(qNum => {
+                    resultsHTML += `<div class="strength-item">${questionTexts[qNum]}</div>`;
+                });
+                
+                resultsHTML += `</div>`;
+            }
+
+            // Show areas to improve if any no answers
+            if (noAnswers.length > 0) {
+                resultsHTML += `
+                    <div class="results-section">
+                        <h3>What You Might Need to Strengthen</h3>
+                        <p style="margin-bottom: 15px;">You answered "no" to:</p>
+                `;
+                
+                noAnswers.forEach(qNum => {
+                    resultsHTML += `<div class="improvement-item">${questionTexts[qNum]}</div>`;
+                });
+                
+                resultsHTML += `
+                        <p style="margin-top: 15px; font-style: italic;">These areas may weaken your submission or make it harder for publishers to take your pitch seriously. We recommend revising them before submitting.</p>
+                    </div>
+                `;
+            }
+
+            // If all answers are yes
+            if (yesAnswers.length === totalQuestions) {
+                resultsHTML += `
+                    <div class="results-section">
+                        <h3>🌟 Excellent Work!</h3>
+                        <p>You've addressed all the key areas that publishers look for in submissions. Your materials appear to be well-prepared and professional. This gives you a strong foundation for your publisher outreach.</p>
+                    </div>
+                `;
+            }
+
+            document.getElementById('resultsContent').innerHTML = resultsHTML;
+        }
+
+        function restartReview() {
+            // Reset all data
+            answers = {};
+            currentSection = 1;
+
+            // Reset all radio buttons
+            document.querySelectorAll('input[type="radio"]').forEach(radio => {
+                radio.checked = false;
+            });
+
+            // Reset all question styling
+            document.querySelectorAll('.question').forEach(question => {
+                question.classList.remove('answered-yes', 'answered-no');
+            });
+
+            // Reset all option styling
+            document.querySelectorAll('.option').forEach(option => {
+                option.classList.remove('selected-yes', 'selected-no');
+            });
+
+            // Hide all error messages
+            document.querySelectorAll('.error-message').forEach(error => {
+                error.style.display = 'none';
+            });
+
+            // Show intro section
+            document.querySelectorAll('.section').forEach(section => {
+                section.classList.remove('active');
+            });
+            document.getElementById('intro').classList.add('active');
+            document.getElementById('progressContainer').classList.add('hidden');
+            document.getElementById('assessmentCard').classList.add('hidden');
+
+            // Announce restart to screen readers
+            const statusElement = document.getElementById('status-updates');
+            statusElement.textContent = 'Assessment restarted. Back to introduction.';
+
+            updateProgress();
+            scrollToTop();
+        }
+
+        function scrollToTop() {
+            // Scroll to the main content
+            const mainContent = document.getElementById('main-content');
+            if (mainContent) {
+                mainContent.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+        }
+    </script>
+</body>
+</html>
