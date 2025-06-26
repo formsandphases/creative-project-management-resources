@@ -30,7 +30,7 @@ Self-serve evaluations that mimic our consulting approach to give you actionable
 
 [Try our project health assessment to evaluate your current project across 5 dimensions →](https://ali-ip20vxic.scoreapp.com)
 
-**[Explore All Interactive Tools →](self-serve-assessments/)**
+**[Explore All Interactive Tools →](self-serve-tools/)**
 
 ### Templates
 Ready-to-use project management tools designed specifically for creative production:
@@ -45,8 +45,7 @@ These free resources are just the beginning. Forms + Phases offers:
 - **Specialized Services**: Project kick-offs, documentation support, risk management, team optimization, financial planning, and more
 
 **Ready to take your creative project to the next level?**
-- **[📧 Contact us](https://www.formsandphases.com/)**
-- **[🌐 Website](https://www.formsandphases.com/)**
+**[🌐 Website](https://www.formsandphases.com/)**
 
 ## 📝 License & Usage
 
