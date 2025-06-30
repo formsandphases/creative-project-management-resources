@@ -22,7 +22,7 @@ Should you pursue publishing partnerships or are you better suited for independe
 **[📈 Collaboration Readiness Assessment →](https://formsandphases.github.io/creative-project-management-resources/self-serve-tools/collaboration-readiness-assessment.html)**  
 Which areas of publisher readiness are you strong in? Which need development before pursuing partnerships?
 
-**[📝 Publisher Submission Self-Review → Coming Soon!]**  
+**[📝 Publisher Submission Self-Review →](https://formsandphases.github.io/creative-project-management-resources/self-serve-tools/publisher-submission-self-review.html)**  
 Are your submission materials and approach demonstrating readiness for the evaluation phase?
 
 **[🔍 Publisher Evaluation Readiness Assessment → Coming Soon!]**  
@@ -35,6 +35,6 @@ Are you mentally, emotionally, and physically prepared for a publishing partners
 
 ## 💡 Want to Go Deeper?
 
-If you learn something about yourself or your project that you want to discuss further, **[contact us to book a free discovery call]([your-contact-info](https://www.formsandphases.com/))**.
+If you learn something about yourself or your project that you want to discuss further, **[contact us to book a free discovery call](https://www.formsandphases.com/)**.
 
 *New assessments added regularly - check back often!*
