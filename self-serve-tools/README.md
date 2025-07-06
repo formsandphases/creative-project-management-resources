@@ -25,7 +25,7 @@ Which areas of publisher readiness are you strong in? Which need development bef
 **[📝 Publisher Submission Self-Review →](https://formsandphases.github.io/creative-project-management-resources/self-serve-tools/publisher-submission-self-review.html)**  
 Are your submission materials and approach demonstrating readiness for the evaluation phase?
 
-**[🔍 Publisher Evaluation Readiness Assessment → Coming Soon!]**  
+**[🔍 Publisher Evaluation Readiness Assessment →](https://formsandphases.github.io/creative-project-management-resources/self-serve-tools/publisher-evaluation-readiness.html)**  
 Are you prepared for the deeper questions that come up during publisher evaluation?
 
 **[🤝 Publisher Collaboration Readiness Assessment → Coming Soon!]**  
