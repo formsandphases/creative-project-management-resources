@@ -1,0 +1,1306 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Publisher Collaboration Archetypes Quiz - Forms + Phases</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* Accessibility: Respect user motion preferences */
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+
+        /* High contrast mode support */
+        @media (prefers-contrast: high) {
+            .quiz-card { border: 2px solid; }
+            .btn { border: 2px solid; }
+            .option { border: 2px solid; }
+        }
+
+        /* Skip link styling */
+        .skip-link {
+            position: absolute;
+            top: -40px;
+            left: 6px;
+            background: #000;
+            color: #fff;
+            padding: 8px;
+            text-decoration: none;
+            z-index: 1000;
+            border-radius: 4px;
+        }
+        .skip-link:focus {
+            top: 6px;
+        }
+
+        /* Focus indicators */
+        *:focus {
+            outline: 2px solid #6630E3;
+            outline-offset: 2px;
+        }
+
+        body {
+            font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(0deg, #FFCB8E 0%, #FE7C84 25%, #F759B7 49%, #A545E5 72%, #6630E3 100%);
+            min-height: 100vh;
+            color: #020528;
+            line-height: 1.5;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #020528 0%, #6630E3 100%);
+            color: white;
+            text-align: center;
+            padding: 30px 20px;
+            border-radius: 12px;
+            margin-bottom: 30px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+            letter-spacing: -0.5px;
+        }
+
+        .header p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+
+        .brand-credit {
+            font-size: 0.9rem;
+            opacity: 0.8;
+            font-style: italic;
+        }
+
+        .intro-content {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 12px;
+            padding: 30px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+            margin-bottom: 30px;
+            line-height: 1.6;
+        }
+
+        .intro-content h2 {
+            color: #6630E3;
+            font-size: 2rem;
+            font-weight: 800;
+            margin-bottom: 20px;
+            text-align: center;
+            letter-spacing: -0.5px;
+        }
+
+        .intro-content p {
+            margin-bottom: 15px;
+            color: #020528;
+        }
+
+        .quiz-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 12px;
+            padding: 30px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+            margin-bottom: 30px;
+        }
+
+        .section-title {
+            font-size: 2rem;
+            font-weight: 800;
+            color: #6630E3;
+            margin-bottom: 25px;
+            text-align: center;
+            letter-spacing: -0.5px;
+        }
+
+        .question-fieldset {
+            margin-bottom: 35px;
+            border: none;
+            padding: 0;
+        }
+
+        .question {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            border: 2px solid transparent;
+            transition: all 0.3s ease;
+        }
+
+        .question.answered {
+            border-color: #6630E3;
+            background: #faf9ff;
+        }
+
+        .question-legend {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 15px;
+            color: #020528;
+            width: 100%;
+            line-height: 1.4;
+        }
+
+        .options {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .option {
+            display: flex;
+            align-items: flex-start;
+            padding: 15px 16px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background: white;
+            min-height: 44px;
+            text-align: left;
+        }
+
+        .option:hover {
+            border-color: #A545E5;
+            background: #faf9ff;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(165, 69, 229, 0.2);
+        }
+
+        .option.selected {
+            border-color: #6630E3;
+            background: #f0f4ff;
+            color: #6630E3;
+            font-weight: 600;
+        }
+
+        .option input[type="radio"] {
+            margin-right: 12px;
+            margin-top: 2px;
+            flex-shrink: 0;
+        }
+
+        .option label {
+            cursor: pointer;
+            font-weight: 500;
+            line-height: 1.4;
+            flex: 1;
+        }
+
+        .progress-container {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 12px;
+            background: rgba(6, 48, 35, 0.1);
+            border-radius: 8px;
+            overflow: hidden;
+            margin-bottom: 15px;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(0deg, #FFCB8E 0%, #FE7C84 25%, #F759B7 49%, #A545E5 72%, #6630E3 100%);
+            width: 0%;
+            transition: width 0.3s ease;
+            border-radius: 8px;
+        }
+
+        .progress-text {
+            text-align: center;
+            font-weight: 600;
+            color: #020528;
+        }
+
+        .btn {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 25px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            text-align: center;
+            min-height: 44px;
+        }
+
+        .btn-primary {
+            background: #6630E3;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(102, 48, 227, 0.4);
+        }
+
+        .btn-primary:disabled {
+            background: #ccc;
+            color: #666;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        .quiz-actions {
+            text-align: center;
+            margin-top: 30px;
+        }
+
+        .error-message {
+            color: #e74c3c;
+            text-align: center;
+            margin: 15px 0;
+            font-weight: 600;
+            background: rgba(231, 76, 60, 0.1);
+            padding: 10px;
+            border-radius: 8px;
+            border-left: 4px solid #e74c3c;
+        }
+
+        .results {
+            display: none;
+        }
+
+        .results.active {
+            display: block;
+        }
+
+        .archetype-result {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 12px;
+            padding: 30px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .archetype-title {
+            font-size: 3rem;
+            margin-bottom: 10px;
+        }
+
+        .archetype-name {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: #6630E3;
+            margin-bottom: 15px;
+            letter-spacing: -0.5px;
+        }
+
+        .archetype-subtitle {
+            font-size: 1.2rem;
+            color: #666;
+            margin-bottom: 25px;
+            font-style: italic;
+        }
+
+        .hybrid-notice {
+            background: linear-gradient(135deg, #F759B7, #A545E5);
+            color: white;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+
+        .archetype-description {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(10px);
+            padding: 25px;
+            border-radius: 8px;
+            border-left: 4px solid #6630E3;
+            margin-bottom: 25px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            text-align: left;
+        }
+
+        .archetype-description h3 {
+            color: #6630E3;
+            margin-bottom: 15px;
+            font-size: 1.4rem;
+            font-weight: 700;
+        }
+
+        .archetype-description p {
+            margin-bottom: 15px;
+            line-height: 1.6;
+        }
+
+        .archetype-description ul {
+            margin: 15px 0;
+            padding-left: 20px;
+        }
+
+        .archetype-description li {
+            margin-bottom: 8px;
+            line-height: 1.4;
+        }
+
+        .watch-out {
+            background: #fff9f0;
+            padding: 12px 15px;
+            margin: 10px 0;
+            border-radius: 6px;
+            border-left: 3px solid #f57c00;
+        }
+
+        .secondary-archetype-section {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(10px);
+            padding: 25px;
+            border-radius: 8px;
+            border-left: 4px solid #A545E5;
+            margin-bottom: 25px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            text-align: left;
+        }
+
+        .secondary-archetype-section h3 {
+            color: #A545E5;
+            margin-bottom: 15px;
+            font-size: 1.4rem;
+            font-weight: 700;
+        }
+
+        .secondary-archetype-section p {
+            margin-bottom: 15px;
+            line-height: 1.6;
+        }
+
+        .secondary-archetype-section ul {
+            margin: 15px 0;
+            padding-left: 20px;
+        }
+
+        .secondary-archetype-section li {
+            margin-bottom: 8px;
+            line-height: 1.4;
+        }
+
+        .closing-section {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(10px);
+            padding: 20px;
+            border-radius: 8px;
+            border-left: 4px solid #1976d2;
+            margin-top: 30px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .closing-section h3 {
+            color: #1976d2;
+            margin-bottom: 15px;
+            font-weight: 700;
+        }
+
+        .footer {
+            margin-top: 40px;
+            padding: 30px;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 12px;
+            text-align: center;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        .footer h3 {
+            color: #6630E3;
+            margin-bottom: 15px;
+            font-weight: 700;
+        }
+
+        .footer p {
+            color: #020528;
+            margin-bottom: 20px;
+        }
+
+        .footer-links {
+            margin: 20px 0;
+        }
+
+        .footer-links a {
+            display: inline-block;
+            margin: 5px;
+            padding: 10px 20px;
+            color: white;
+            text-decoration: none;
+            border-radius: 25px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            min-height: 44px;
+            line-height: 1.4;
+        }
+
+        .footer-links a:first-child {
+            background: #6630E3;
+        }
+
+        .footer-links a:nth-child(2) {
+            background: #A545E5;
+        }
+
+        .footer-links a:last-child {
+            background: #F759B7;
+        }
+
+        .footer-links a:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .footer hr {
+            margin: 20px 0;
+            border: none;
+            height: 1px;
+            background: rgba(6, 48, 35, 0.1);
+        }
+
+        .footer .company-info {
+            margin: 0;
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        /* Status updates for screen readers */
+        .sr-only {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            white-space: nowrap;
+            border: 0;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 15px;
+            }
+
+            .header h1 {
+                font-size: 2rem;
+            }
+
+            .quiz-card {
+                padding: 20px;
+            }
+
+            .question-legend {
+                font-size: 1.1rem;
+                line-height: 1.4;
+                word-wrap: break-word;
+                overflow-wrap: break-word;
+            }
+
+            .footer-links a {
+                display: block;
+                margin: 5px 0;
+                width: 100%;
+            }
+
+            .archetype-name {
+                font-size: 2rem;
+            }
+
+            .archetype-title {
+                font-size: 2.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+    
+    <div class="container">
+        <div class="header">
+            <h1>Publisher Collaboration Archetypes Quiz</h1>
+            <p>Discover your natural approach to working with video game publishers during active development and how to leverage your collaboration style for stronger day-to-day partnerships.</p>
+            <div class="brand-credit">Created by Forms + Phases</div>
+        </div>
+
+        <div class="intro-content">
+            <h2>Find Your Publisher Collaboration Style</h2>
+            
+            <p>Once you've signed with a publisher, the real work begins. Day-to-day collaboration becomes the foundation of your partnership—from responding to creative feedback and managing milestone reviews to navigating scope changes and handling unexpected challenges.</p>
+            
+            <p>This 14-question quiz identifies how you naturally approach the ongoing collaboration that happens after contracts are signed. Whether you're currently in an active partnership, starting development with a new publisher, or helping your team improve their working relationships, understanding your collaboration style can strengthen your day-to-day interactions.</p>
+            
+            <p><strong>Note:</strong> Focus on ongoing partnership dynamics, not initial pitching or contract negotiations. If you haven't worked with a publisher yet, consider how you handle similar ongoing collaborative relationships (clients, co-developers, team leads, etc.).</p>
+        </div>
+
+        <div class="progress-container" id="progressContainer">
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressFill"></div>
+            </div>
+            <div class="progress-text" 
+                 role="progressbar" 
+                 aria-valuenow="0" 
+                 aria-valuemin="0" 
+                 aria-valuemax="14" 
+                 id="progressText">0 of 14 questions answered</div>
+        </div>
+
+        <main id="main-content">
+            <div class="quiz-card" id="quizCard">
+                <h2 class="section-title">Quiz Questions</h2>
+                
+                <fieldset class="question-fieldset">
+                    <legend class="question-legend">1. Your publishing team questions a core design decision you feel strongly about. How do you respond?</legend>
+                    <div class="question" data-question="1">
+                        <div class="options" role="radiogroup" aria-labelledby="q1-legend">
+                            <div class="option" data-value="SystemsBuilder">
+                                <input type="radio" name="q1" value="SystemsBuilder" id="q1a" aria-required="true">
+                                <label for="q1a">Schedule a meeting to walk through the research and reasoning behind your decision</label>
+                            </div>
+                            <div class="option" data-value="Connector">
+                                <input type="radio" name="q1" value="Connector" id="q1b" aria-required="true">
+                                <label for="q1b">First understand their concerns, then work together to find common ground</label>
+                            </div>
+                            <div class="option" data-value="Strategist">
+                                <input type="radio" name="q1" value="Strategist" id="q1c" aria-required="true">
+                                <label for="q1c">Present the decision within the context of larger game goals and player impact</label>
+                            </div>
+                            <div class="option" data-value="ProblemSolver">
+                                <input type="radio" name="q1" value="ProblemSolver" id="q1d" aria-required="true">
+                                <label for="q1d">Offer alternative approaches that address their concerns while preserving your vision</label>
+                            </div>
+                        </div>
+                    </div>
+                </fieldset>
+
+                <fieldset class="question-fieldset">
+                    <legend class="question-legend">2. You're running behind on a milestone delivery. How do you handle communication with your publishing contacts?</legend>
+                    <div class="question" data-question="2">
+                        <div class="options" role="radiogroup" aria-labelledby="q2-legend">
+                            <div class="option" data-value="SystemsBuilder">
+                                <input type="radio" name="q2" value="SystemsBuilder" id="q2a" aria-required="true">
+                                <label for="q2a">Send a comprehensive status report with revised timeline and specific reasons</label>
+                            </div>
+                            <div class="option" data-value="Connector">
+                                <input type="radio" name="q2" value="Connector" id="q2b" aria-required="true">
+                                <label for="q2b">Call them personally to explain the situation and discuss their flexibility</label>
+                            </div>
+                            <div class="option" data-value="Strategist">
+                                <input type="radio" name="q2" value="Strategist" id="q2c" aria-required="true">
+                                <label for="q2c">Frame the delay as protecting quality and long-term project success</label>
+                            </div>
+                            <div class="option" data-value="ProblemSolver">
+                                <input type="radio" name="q2" value="ProblemSolver" id="q2d" aria-required="true">
+                                <label for="q2d">Present several alternative solutions and ask what they'd prefer to prioritize</label>
+                            </div>
+                        </div>
+                    </div>
+                </fieldset>
+
+                <fieldset class="question-fieldset">
+                    <legend class="question-legend">3. The marketing team wants to emphasize features that don't align with your game's core appeal. Your approach?</legend>
+                    <div class="question" data-question="3">
+                        <div class="options" role="radiogroup" aria-labelledby="q3-legend">
+                            <div class="option" data-value="Strategist">
+                                <input type="radio" name="q3" value="Strategist" id="q3a" aria-required="true">
+                                <label for="q3a">Share player research showing what actually drives engagement with your game</label>
+                            </div>
+                            <div class="option" data-value="ProblemSolver">
+                                <input type="radio" name="q3" value="ProblemSolver" id="q3b" aria-required="true">
+                                <label for="q3b">Collaborate to find marketing angles that work for both your vision and their goals</label>
+                            </div>
+                            <div class="option" data-value="Connector">
+                                <input type="radio" name="q3" value="Connector" id="q3c" aria-required="true">
+                                <label for="q3c">Have an honest conversation about your vision and ask how to bridge the gap</label>
+                            </div>
+                            <div class="option" data-value="SystemsBuilder">
+                                <input type="radio" name="q3" value="SystemsBuilder" id="q3d" aria-required="true">
+                                <label for="q3d">Prepare detailed analysis of your target audience and what resonates with them</label>
+                            </div>
+                        </div>
+                    </div>
+                </fieldset>
+
+                <fieldset class="question-fieldset">
+                    <legend class="question-legend">4. Your main contact at the publishing team becomes less responsive. What do you do?</legend>
+                    <div class="question" data-question="4">
+                        <div class="options" role="radiogroup" aria-labelledby="q4-legend">
+                            <div class="option" data-value="Connector">
+                                <input type="radio" name="q4" value="Connector" id="q4a" aria-required="true">
+                                <label for="q4a">Reach out directly to check if something changed or if you should adjust your approach</label>
+                            </div>
+                            <div class="option" data-value="ProblemSolver">
+                                <input type="radio" name="q4" value="ProblemSolver" id="q4b" aria-required="true">
+                                <label for="q4b">Find alternative contacts to keep project momentum going</label>
+                            </div>
+                            <div class="option" data-value="SystemsBuilder">
+                                <input type="radio" name="q4" value="SystemsBuilder" id="q4c" aria-required="true">
+                                <label for="q4c">Continue with scheduled check-ins and address it professionally at the next meeting</label>
+                            </div>
+                            <div class="option" data-value="Strategist">
+                                <input type="radio" name="q4" value="Strategist" id="q4d" aria-required="true">
+                                <label for="q4d">Focus on deliverables that will re-engage them and demonstrate progress</label>
+                            </div>
+                        </div>
+                    </div>
+                </fieldset>
+
+                <fieldset class="question-fieldset">
+                    <legend class="question-legend">5. During a team call, your publishing contacts criticize your latest build more harshly than expected. How do you respond?</legend>
+                    <div class="question" data-question="5">
+                        <div class="options" role="radiogroup" aria-labelledby="q5-legend">
+                            <div class="option" data-value="Strategist">
+                                <input type="radio" name="q5" value="Strategist" id="q5a" aria-required="true">
+                                <label for="q5a">Stay calm and ask clarifying questions to understand their real concerns</label>
+                            </div>
+                            <div class="option" data-value="Connector">
+                                <input type="radio" name="q5" value="Connector" id="q5b" aria-required="true">
+                                <label for="q5b">Acknowledge their feedback and suggest setting up time to work through it together</label>
+                            </div>
+                            <div class="option" data-value="SystemsBuilder">
+                                <input type="radio" name="q5" value="SystemsBuilder" id="q5c" aria-required="true">
+                                <label for="q5c">Take detailed notes and follow up with a written plan addressing their specific points</label>
+                            </div>
+                            <div class="option" data-value="ProblemSolver">
+                                <input type="radio" name="q5" value="ProblemSolver" id="q5d" aria-required="true">
+                                <label for="q5d">Ask what specific changes would address their concerns most effectively</label>
+                            </div>
+                        </div>
+                    </div>
+                </fieldset>
+
+                <fieldset class="question-fieldset">
+                    <legend class="question-legend">6. The publishing team requests significant scope changes mid-development. How do you respond?</legend>
+                    <div class="question" data-question="6">
+                        <div class="options" role="radiogroup" aria-labelledby="q6-legend">
+                            <div class="option" data-value="SystemsBuilder">
+                                <input type="radio" name="q6" value="SystemsBuilder" id="q6a" aria-required="true">
+                                <label for="q6a">Analyze the impact on timeline, budget, and quality before responding</label>
+                            </div>
+                            <div class="option" data-value="Strategist">
+                                <input type="radio" name="q6" value="Strategist" id="q6b" aria-required="true">
+                                <label for="q6b">Understand the business reasoning and explore alternative solutions</label>
+                            </div>
+                            <div class="option" data-value="Connector">
+                                <input type="radio" name="q6" value="Connector" id="q6c" aria-required="true">
+                                <label for="q6c">Set up a meeting to align on priorities and discuss trade-offs openly</label>
+                            </div>
+                            <div class="option" data-value="ProblemSolver">
+                                <input type="radio" name="q6" value="ProblemSolver" id="q6d" aria-required="true">
+                                <label for="q6d">Figure out what's possible within constraints and present realistic options</label>
+                            </div>
+                        </div>
+                    </div>
+                </fieldset>
+
+                <fieldset class="question-fieldset">
+                    <legend class="question-legend">7. Your regular weekly check-in consistently runs over time. How do you address this?</legend>
+                    <div class="question" data-question="7">
+                        <div class="options" role="radiogroup" aria-labelledby="q7-legend">
+                            <div class="option" data-value="SystemsBuilder">
+                                <input type="radio" name="q7" value="SystemsBuilder" id="q7a" aria-required="true">
+                                <label for="q7a">Create a structured agenda to keep meetings focused and on schedule</label>
+                            </div>
+                            <div class="option" data-value="Connector">
+                                <input type="radio" name="q7" value="Connector" id="q7b" aria-required="true">
+                                <label for="q7b">Discuss what's causing the meetings to run long and adjust together</label>
+                            </div>
+                            <div class="option" data-value="ProblemSolver">
+                                <input type="radio" name="q7" value="ProblemSolver" id="q7c" aria-required="true">
+                                <label for="q7c">Identify which topics could be handled outside meetings to streamline them</label>
+                            </div>
+                            <div class="option" data-value="Strategist">
+                                <input type="radio" name="q7" value="Strategist" id="q7d" aria-required="true">
+                                <label for="q7d">Focus discussions on high-level decisions and delegate details to other channels</label>
+                            </div>
+                        </div>
+                    </div>
+                </fieldset>
+
+                <fieldset class="question-fieldset">
+                    <legend class="question-legend">8. Your publishing team's QA reports bugs you consider low priority. How do you handle this?</legend>
+                    <div class="question" data-question="8">
+                        <div class="options" role="radiogroup" aria-labelledby="q8-legend">
+                            <div class="option" data-value="Connector">
+                                <input type="radio" name="q8" value="Connector" id="q8a" aria-required="true">
+                                <label for="q8a">Discuss priorities together to understand their quality standards</label>
+                            </div>
+                            <div class="option" data-value="SystemsBuilder">
+                                <input type="radio" name="q8" value="SystemsBuilder" id="q8b" aria-required="true">
+                                <label for="q8b">Create a formal bug triage process with clear priority criteria</label>
+                            </div>
+                            <div class="option" data-value="ProblemSolver">
+                                <input type="radio" name="q8" value="ProblemSolver" id="q8c" aria-required="true">
+                                <label for="q8c">Address the quick fixes first while negotiating on the bigger issues</label>
+                            </div>
+                            <div class="option" data-value="Strategist">
+                                <input type="radio" name="q8" value="Strategist" id="q8d" aria-required="true">
+                                <label for="q8d">Focus discussion on which issues actually impact player experience</label>
+                            </div>
+                        </div>
+                    </div>
+                </fieldset>
+
+                <fieldset class="question-fieldset">
+                    <legend class="question-legend">9. Your team is working across multiple time zones with publishing contacts. How do you maintain effective communication?</legend>
+                    <div class="question" data-question="9">
+                        <div class="options" role="radiogroup" aria-labelledby="q9-legend">
+                            <div class="option" data-value="SystemsBuilder">
+                                <input type="radio" name="q9" value="SystemsBuilder" id="q9a" aria-required="true">
+                                <label for="q9a">Establish structured async communication with clear documentation</label>
+                            </div>
+                            <div class="option" data-value="Connector">
+                                <input type="radio" name="q9" value="Connector" id="q9b" aria-required="true">
+                                <label for="q9b">Schedule regular one-on-ones to maintain personal connections across time zones</label>
+                            </div>
+                            <div class="option" data-value="ProblemSolver">
+                                <input type="radio" name="q9" value="ProblemSolver" id="q9c" aria-required="true">
+                                <label for="q9c">Find communication tools and meeting times that work for everyone</label>
+                            </div>
+                            <div class="option" data-value="Strategist">
+                                <input type="radio" name="q9" value="Strategist" id="q9d" aria-required="true">
+                                <label for="q9d">Focus on key decisions that need real-time discussion and handle details async</label>
+                            </div>
+                        </div>
+                    </div>
+                </fieldset>
+
+                <fieldset class="question-fieldset">
+                    <legend class="question-legend">10. You notice your team is becoming overwhelmed by publisher requests and feedback. What's your approach?</legend>
+                    <div class="question" data-question="10">
+                        <div class="options" role="radiogroup" aria-labelledby="q10-legend">
+                            <div class="option" data-value="Connector">
+                                <input type="radio" name="q10" value="Connector" id="q10a" aria-required="true">
+                                <label for="q10a">Have an honest conversation with your contacts about team capacity and boundaries</label>
+                            </div>
+                            <div class="option" data-value="SystemsBuilder">
+                                <input type="radio" name="q10" value="SystemsBuilder" id="q10b" aria-required="true">
+                                <label for="q10b">Create a formal process for prioritizing and batching publisher requests</label>
+                            </div>
+                            <div class="option" data-value="ProblemSolver">
+                                <input type="radio" name="q10" value="ProblemSolver" id="q10c" aria-required="true">
+                                <label for="q10c">Immediately identify what can be delegated, postponed, or simplified</label>
+                            </div>
+                            <div class="option" data-value="Strategist">
+                                <input type="radio" name="q10" value="Strategist" id="q10d" aria-required="true">
+                                <label for="q10d">Reframe the conversation around protecting long-term project quality and team health</label>
+                            </div>
+                        </div>
+                    </div>
+                </fieldset>
+
+                <fieldset class="question-fieldset">
+                    <legend class="question-legend">11. Your publishing contacts suggest adding a feature that would require significant development time. How do you respond?</legend>
+                    <div class="question" data-question="11">
+                        <div class="options" role="radiogroup" aria-labelledby="q11-legend">
+                            <div class="option" data-value="Strategist">
+                                <input type="radio" name="q11" value="Strategist" id="q11a" aria-required="true">
+                                <label for="q11a">Discuss the feature's impact on core game experience and overall vision</label>
+                            </div>
+                            <div class="option" data-value="SystemsBuilder">
+                                <input type="radio" name="q11" value="SystemsBuilder" id="q11b" aria-required="true">
+                                <label for="q11b">Break down the time and resource requirements and impact on existing timeline</label>
+                            </div>
+                            <div class="option" data-value="Connector">
+                                <input type="radio" name="q11" value="Connector" id="q11c" aria-required="true">
+                                <label for="q11c">Understand why they think this feature is important and explore alternatives together</label>
+                            </div>
+                            <div class="option" data-value="ProblemSolver">
+                                <input type="radio" name="q11" value="ProblemSolver" id="q11d" aria-required="true">
+                                <label for="q11d">Figure out if there's a simpler version that achieves the same goal</label>
+                            </div>
+                        </div>
+                    </div>
+                </fieldset>
+
+                <fieldset class="question-fieldset">
+                    <legend class="question-legend">12. When unexpected issues arise, how do you typically communicate with your publishing team?</legend>
+                    <div class="question" data-question="12">
+                        <div class="options" role="radiogroup" aria-labelledby="q12-legend">
+                            <div class="option" data-value="Connector">
+                                <input type="radio" name="q12" value="Connector" id="q12a" aria-required="true">
+                                <label for="q12a">Reach out immediately to keep them informed and maintain trust</label>
+                            </div>
+                            <div class="option" data-value="ProblemSolver">
+                                <input type="radio" name="q12" value="ProblemSolver" id="q12b" aria-required="true">
+                                <label for="q12b">Come with both the problem and potential solutions ready to discuss</label>
+                            </div>
+                            <div class="option" data-value="SystemsBuilder">
+                                <input type="radio" name="q12" value="SystemsBuilder" id="q12c" aria-required="true">
+                                <label for="q12c">Document the issue thoroughly before presenting it with detailed analysis</label>
+                            </div>
+                            <div class="option" data-value="Strategist">
+                                <input type="radio" name="q12" value="Strategist" id="q12d" aria-required="true">
+                                <label for="q12d">Frame the issue in context of overall project goals and timeline impact</label>
+                            </div>
+                        </div>
+                    </div>
+                </fieldset>
+
+                <fieldset class="question-fieldset">
+                    <legend class="question-legend">13. Your publishing contacts ask for more frequent check-ins than you feel are necessary. How do you handle this?</legend>
+                    <div class="question" data-question="13">
+                        <div class="options" role="radiogroup" aria-labelledby="q13-legend">
+                            <div class="option" data-value="Connector">
+                                <input type="radio" name="q13" value="Connector" id="q13a" aria-required="true">
+                                <label for="q13a">Ask what's driving the request and find a communication rhythm that works for both</label>
+                            </div>
+                            <div class="option" data-value="Strategist">
+                                <input type="radio" name="q13" value="Strategist" id="q13b" aria-required="true">
+                                <label for="q13b">Propose more efficient ways to keep them informed without disrupting workflow</label>
+                            </div>
+                            <div class="option" data-value="SystemsBuilder">
+                                <input type="radio" name="q13" value="SystemsBuilder" id="q13c" aria-required="true">
+                                <label for="q13c">Set up structured reporting that gives them visibility without constant meetings</label>
+                            </div>
+                            <div class="option" data-value="ProblemSolver">
+                                <input type="radio" name="q13" value="ProblemSolver" id="q13d" aria-required="true">
+                                <label for="q13d">Agree but streamline the format to keep meetings focused and brief</label>
+                            </div>
+                        </div>
+                    </div>
+                </fieldset>
+
+                <fieldset class="question-fieldset">
+                    <legend class="question-legend">14. Looking back on successful collaborations, what do you think made them work well?</legend>
+                    <div class="question" data-question="14">
+                        <div class="options" role="radiogroup" aria-labelledby="q14-legend">
+                            <div class="option" data-value="SystemsBuilder">
+                                <input type="radio" name="q14" value="SystemsBuilder" id="q14a" aria-required="true">
+                                <label for="q14a">Clear processes, consistent documentation, and reliable follow-through</label>
+                            </div>
+                            <div class="option" data-value="Connector">
+                                <input type="radio" name="q14" value="Connector" id="q14b" aria-required="true">
+                                <label for="q14b">Strong personal relationships built on trust and open communication</label>
+                            </div>
+                            <div class="option" data-value="Strategist">
+                                <input type="radio" name="q14" value="Strategist" id="q14c" aria-required="true">
+                                <label for="q14c">Shared vision and alignment on long-term goals and success metrics</label>
+                            </div>
+                            <div class="option" data-value="ProblemSolver">
+                                <input type="radio" name="q14" value="ProblemSolver" id="q14d" aria-required="true">
+                                <label for="q14d">Quick response to challenges and flexible adaptation when things changed</label>
+                            </div>
+                        </div>
+                    </div>
+                </fieldset>
+
+                <div class="quiz-actions">
+                    <button class="btn btn-primary" id="calculateResultsBtn" disabled>Discover My Collaboration Style</button>
+                    <div class="error-message" id="errorMessage" style="display: none;" role="alert">Please answer all questions before calculating your results.</div>
+                </div>
+            </div>
+
+            <div class="results" id="results">
+                <div class="archetype-result" id="archetypeResult">
+                    <!-- Results will be populated here -->
+                </div>
+
+                <div class="closing-section">
+                    <h3>Your Collaboration Style Is Just the Beginning</h3>
+                    <p>Understanding your natural approach to publisher relationships is valuable, but great partnerships require adapting your style to different situations and people. Use these insights to:</p>
+                    <p><strong>Leverage your strengths</strong> more intentionally, <strong>recognize your blind spots</strong> and when to compensate for them, and <strong>communicate more effectively</strong> with publishers who have different working styles.</p>
+                    <p>Consider sharing this assessment with your team to better understand how you can support each other in publisher interactions.</p>
+                </div>
+                
+                <div style="text-align: center; margin-top: 30px;">
+                    <button class="btn btn-primary" id="retakeBtn">Take Quiz Again</button>
+                </div>
+            </div>
+        </main>
+
+        <div class="footer">
+            <h3>🎯 What's Next?</h3>
+            <p><strong>Ready to put these insights to work?</strong></p>
+            
+            <div class="footer-links">
+                <a href="https://github.com/formsandphases/creative-project-management-resources" target="_blank">🛠️ More Free Tools</a>
+                <a href="https://www.formsandphases.com/blog" target="_blank">📖 Blog/Articles</a>
+                <a href="https://www.formsandphases.com" target="_blank">💬 Our Website</a>
+            </div>
+            
+            <hr>
+            
+            <p class="company-info">
+                <strong>Forms + Phases</strong> - Creative Project Management<br>
+                Where Creative Vision Meets Mindful Management
+            </p>
+        </div>
+    </div>
+
+    <!-- Live region for screen reader announcements -->
+    <div aria-live="polite" id="status-updates" class="sr-only"></div>
+
+    <script>
+        let answers = {};
+        const totalQuestions = 14;
+
+        // Updated archetype descriptions with proper spacing and no "Example in Action"
+        const archetypeDescriptions = {
+            'SystemsBuilder': {
+                emoji: '⚙️',
+                name: 'Systems Builder',
+                subtitle: 'Structured. Systematic. Reliable.',
+                description: `You approach publisher relationships through careful planning, detailed documentation, and clear processes. You're the person who anticipates needs, maintains comprehensive records, and ensures nothing falls through the cracks. Publishing teams appreciate your reliability and professional approach to collaboration.`,
+                strengths: [
+                    'Create comprehensive documentation that builds publisher confidence',
+                    'Anticipate potential issues and plan for contingencies',
+                    'Maintain clear timelines and deliverable tracking',
+                    'Provide detailed analysis when making recommendations',
+                    'Build sustainable processes that scale with project complexity'
+                ],
+                watchOut: `Your thoroughness is valuable, but be careful not to over-document or slow down decisions with excessive process. Publishing teams sometimes need quick responses, and your instinct for completeness might delay action when speed matters more.`,
+                navigation: `Balance your systematic approach with flexibility. Build templates and processes that can be quickly adapted. When publishing contacts push for faster decisions, summarize your key points upfront and offer to provide detailed backup later.`,
+                teamLens: `Partner with teammates who can handle relationship dynamics and rapid response situations. Your structure provides the foundation—let others add the interpersonal finesse and quick pivots when needed.`
+            },
+            'Connector': {
+                emoji: '🤝',
+                name: 'Connector',
+                subtitle: 'Relationship-focused. Communicative. Empathetic.',
+                description: `You prioritize the human side of publisher partnerships, building trust through open communication and emotional intelligence. You're skilled at reading between the lines, addressing tension before it escalates, and maintaining positive relationships even during difficult conversations.`,
+                strengths: [
+                    'Build strong rapport that smooths over project friction',
+                    'Sense relationship dynamics and address issues early',
+                    'Facilitate honest conversations about expectations and concerns',
+                    'Maintain partner engagement through authentic communication',
+                    'Navigate cultural differences and communication styles effectively'
+                ],
+                watchOut: `Your focus on relationships is valuable, but don't sacrifice project needs for harmony. Sometimes you might over-communicate or take publisher feedback too personally. Be careful not to promise more than you can deliver just to maintain goodwill.`,
+                navigation: `Balance care for relationships with clear boundaries. Practice delivering difficult news with empathy but firmness. Use your communication skills to set realistic expectations rather than just managing reactions after the fact.`,
+                teamLens: `Work with team members who can handle technical details and project logistics. You maintain the relationship health—let others focus on the tactical execution and detailed planning.`
+            },
+            'Strategist': {
+                emoji: '🎯',
+                name: 'Strategist',
+                subtitle: 'Big-picture thinking. Opportunity-focused. Visionary.',
+                description: `You approach publisher relationships through the lens of mutual success and long-term thinking. You're skilled at reframing challenges as opportunities, understanding business motivations, and finding creative solutions that work for everyone involved.`,
+                strengths: [
+                    'Reframe project challenges in terms of market opportunity',
+                    'Understand and speak to publisher business motivations',
+                    'Find creative solutions that benefit both parties',
+                    'Maintain focus on long-term partnership value',
+                    'Keep teams aligned on shared goals during difficult periods'
+                ],
+                watchOut: `Your optimism and big-picture thinking are assets, but make sure you're not glossing over real problems or making promises you can't keep. Publishing teams need to trust that you see risks clearly, not just opportunities.`,
+                navigation: `Ground your strategic thinking in concrete realities. When presenting opportunities, also acknowledge challenges and your plans to address them. Balance vision with realistic timelines and deliverables that your team can actually execute.`,
+                teamLens: `Collaborate with detail-oriented teammates who can turn your strategic insights into executable plans. Your vision guides direction—let others handle the tactical implementation and day-to-day logistics.`
+            },
+            'ProblemSolver': {
+                emoji: '🛠️',
+                name: 'Problem Solver',
+                subtitle: 'Action-oriented. Solutions-focused. Adaptive.',
+                description: `You approach publisher relationships through rapid response and practical problem-solving. When issues arise, you immediately start working on solutions. Publishing teams value your ability to turn conversations into concrete next steps and keep projects moving forward through challenges.`,
+                strengths: [
+                    'Quickly translate feedback into actionable plans',
+                    'Respond rapidly to publisher requests and concerns',
+                    'Find practical workarounds for project constraints',
+                    'Keep conversations focused on solutions and next steps',
+                    'Adapt quickly when priorities or requirements change'
+                ],
+                watchOut: `Your bias toward action is valuable, but slow down occasionally to ensure you're solving the right problems. Sometimes publishing teams want to discuss issues before jumping to solutions, and your quick fixes might miss deeper concerns.`,
+                navigation: `Before proposing solutions, confirm you understand the full scope of publisher concerns. Ask clarifying questions first, then present options. Build in reflection time to avoid reactive decisions that could create bigger problems later.`,
+                teamLens: `Work with teammates who excel at strategy and relationship management. You keep things moving—let others ensure you're moving in the right direction with the right people and proper context.`
+            }
+        };
+
+        // Initialize the quiz when page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            attachEventListeners();
+        });
+
+        function attachEventListeners() {
+            // Calculate results button
+            document.getElementById('calculateResultsBtn').addEventListener('click', calculateResults);
+            
+            // Retake button
+            document.getElementById('retakeBtn').addEventListener('click', retakeQuiz);
+            
+            // Add event listeners to all option divs
+            document.querySelectorAll('.option').forEach(option => {
+                option.addEventListener('click', function(e) {
+                    if (e.target === this || e.target.tagName === 'LABEL') {
+                        const radio = this.querySelector('input[type="radio"]');
+                        const question = this.closest('.question');
+                        const questionNum = question.getAttribute('data-question');
+                        const value = this.getAttribute('data-value');
+                        
+                        // Update radio button
+                        radio.checked = true;
+                        
+                        // Store answer
+                        answers[questionNum] = value;
+                        
+                        // Update question styling
+                        question.classList.add('answered');
+                        
+                        // Update option styling
+                        const allOptions = question.querySelectorAll('.option');
+                        allOptions.forEach(opt => opt.classList.remove('selected'));
+                        this.classList.add('selected');
+                        
+                        updateProgress();
+                        announceProgress();
+                    }
+                });
+            });
+        }
+
+        function updateProgress() {
+            const answeredCount = Object.keys(answers).length;
+            const percentage = (answeredCount / totalQuestions) * 100;
+            const progressFill = document.getElementById('progressFill');
+            const progressText = document.getElementById('progressText');
+            const calculateButton = document.getElementById('calculateResultsBtn');
+            
+            progressFill.style.width = percentage + '%';
+            progressText.textContent = `${answeredCount} of ${totalQuestions} questions answered`;
+            progressText.setAttribute('aria-valuenow', answeredCount);
+            
+            // Enable button when all questions are answered
+            if (answeredCount === totalQuestions) {
+                calculateButton.disabled = false;
+            } else {
+                calculateButton.disabled = true;
+            }
+        }
+
+        function announceProgress() {
+            const statusElement = document.getElementById('status-updates');
+            const answeredCount = Object.keys(answers).length;
+            statusElement.textContent = `Question answered. ${answeredCount} of ${totalQuestions} questions answered.`;
+        }
+
+        function calculateResults() {
+            if (Object.keys(answers).length !== totalQuestions) {
+                const errorElement = document.getElementById('errorMessage');
+                errorElement.style.display = 'block';
+                errorElement.focus();
+                return;
+            }
+
+            // Hide error message
+            document.getElementById('errorMessage').style.display = 'none';
+
+            // Calculate archetype scores
+            const scores = {
+                'SystemsBuilder': 0,
+                'Connector': 0,
+                'Strategist': 0,
+                'ProblemSolver': 0
+            };
+
+            // Score each answer
+            for (let questionNum = 1; questionNum <= totalQuestions; questionNum++) {
+                const answer = answers[questionNum];
+                if (scores.hasOwnProperty(answer)) {
+                    scores[answer]++;
+                }
+            }
+
+            // Find the highest scoring archetype and handle ties
+            const sortedScores = Object.entries(scores).sort((a, b) => b[1] - a[1]);
+            const highestScore = sortedScores[0][1];
+            const tiedArchetypes = sortedScores.filter(([_, score]) => score === highestScore);
+
+            let primaryArchetype, secondaryArchetype = null, isHybrid = false;
+
+            if (tiedArchetypes.length > 1) {
+                // Perfect tie - show as hybrid
+                isHybrid = true;
+                primaryArchetype = tiedArchetypes[0][0];
+                secondaryArchetype = tiedArchetypes[1][0];
+            } else if (sortedScores[1][1] >= highestScore - 2 && highestScore >= 4) {
+                // Close scores - show as hybrid
+                isHybrid = true;
+                primaryArchetype = sortedScores[0][0];
+                secondaryArchetype = sortedScores[1][0];
+            } else {
+                // Clear winner
+                primaryArchetype = sortedScores[0][0];
+            }
+
+            // Display results
+            displayResults(primaryArchetype, secondaryArchetype, isHybrid, scores);
+
+            // Hide quiz and show results
+            document.getElementById('quizCard').style.display = 'none';
+            document.getElementById('progressContainer').style.display = 'none';
+            document.getElementById('results').classList.add('active');
+
+            // Announce to screen readers
+            const statusElement = document.getElementById('status-updates');
+            if (isHybrid && secondaryArchetype) {
+                statusElement.textContent = `Quiz complete. Your collaboration style is a hybrid of ${archetypeDescriptions[primaryArchetype].name} and ${archetypeDescriptions[secondaryArchetype].name}.`;
+            } else {
+                statusElement.textContent = `Quiz complete. Your collaboration style is ${archetypeDescriptions[primaryArchetype].name}.`;
+            }
+
+            scrollToTop();
+        }
+
+        function displayResults(primaryArchetype, secondaryArchetype, isHybrid, scores) {
+            const resultElement = document.getElementById('archetypeResult');
+            const primaryData = archetypeDescriptions[primaryArchetype];
+            
+            let content = `
+                <div class="archetype-title">${primaryData.emoji}</div>
+            `;
+
+            if (isHybrid && secondaryArchetype) {
+                const secondaryData = archetypeDescriptions[secondaryArchetype];
+                content += `
+                    <h2 class="archetype-name">${primaryData.name} + ${secondaryData.name}</h2>
+                    <p class="archetype-subtitle">${primaryData.subtitle}</p>
+                    
+                    <div class="hybrid-notice">
+                        🌟 You're a Hybrid Collaborator! Your approach combines ${primaryData.name} and ${secondaryData.name} strengths, giving you flexibility to adapt your style based on the situation and team needs.
+                    </div>
+                    
+                    <div class="archetype-description">
+                        <h3>Your Primary Style: ${primaryData.name}</h3>
+                        <p>${primaryData.description}</p>
+                        
+                        <h3>Your Publisher Partnership Strengths:</h3>
+                        <ul>
+                            ${primaryData.strengths.map(item => `<li>${item}</li>`).join('')}
+                        </ul>
+                        
+                        <h3>Areas to Watch:</h3>
+                        <div class="watch-out">
+                            ${primaryData.watchOut}
+                        </div>
+                        
+                        <h3>Strengthening Your Approach:</h3>
+                        <p>${primaryData.navigation}</p>
+                        
+                        <h3>Team Collaboration:</h3>
+                        <p>${primaryData.teamLens}</p>
+                    </div>
+                    
+                    <div class="secondary-archetype-section">
+                        <h3>Your Secondary Style: ${secondaryData.name}</h3>
+                        <p>${secondaryData.description}</p>
+                        
+                        <h3>Additional Strengths:</h3>
+                        <ul>
+                            ${secondaryData.strengths.map(item => `<li>${item}</li>`).join('')}
+                        </ul>
+                        
+                        <h3>Areas to Watch:</h3>
+                        <div class="watch-out">
+                            ${secondaryData.watchOut}
+                        </div>
+                        
+                        <h3>Strengthening Your Approach:</h3>
+                        <p>${secondaryData.navigation}</p>
+                        
+                        <h3>Team Collaboration:</h3>
+                        <p>${secondaryData.teamLens}</p>
+                    </div>
+                `;
+            } else {
+                content += `
+                    <h2 class="archetype-name">The ${primaryData.name}</h2>
+                    <p class="archetype-subtitle">${primaryData.subtitle}</p>
+                    
+                    <div class="archetype-description">
+                        <p>${primaryData.description}</p>
+                        
+                        <h3>Your Publisher Partnership Strengths:</h3>
+                        <ul>
+                            ${primaryData.strengths.map(item => `<li>${item}</li>`).join('')}
+                        </ul>
+                        
+                        <h3>Areas to Watch:</h3>
+                        <div class="watch-out">
+                            ${primaryData.watchOut}
+                        </div>
+                        
+                        <h3>Strengthening Your Approach:</h3>
+                        <p>${primaryData.navigation}</p>
+                        
+                        <h3>Team Collaboration:</h3>
+                        <p>${primaryData.teamLens}</p>
+                    </div>
+                `;
+            }
+            
+            resultElement.innerHTML = content;
+        }
+
+        function retakeQuiz() {
+            // Reset all data
+            answers = {};
+
+            // Reset all radio buttons
+            document.querySelectorAll('input[type="radio"]').forEach(radio => {
+                radio.checked = false;
+            });
+
+            // Reset all question styling
+            document.querySelectorAll('.question').forEach(question => {
+                question.classList.remove('answered');
+            });
+
+            // Reset all option styling
+            document.querySelectorAll('.option').forEach(option => {
+                option.classList.remove('selected');
+            });
+
+            // Hide error messages
+            document.getElementById('errorMessage').style.display = 'none';
+
+            // Show quiz and hide results
+            document.getElementById('quizCard').style.display = 'block';
+            document.getElementById('progressContainer').style.display = 'block';
+            document.getElementById('results').classList.remove('active');
+
+            // Announce restart to screen readers
+            const statusElement = document.getElementById('status-updates');
+            statusElement.textContent = 'Quiz restarted. Ready to begin again.';
+
+            updateProgress();
+            scrollToTop();
+        }
+
+        function scrollToTop() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+    </script>
+</body>
+</html>
