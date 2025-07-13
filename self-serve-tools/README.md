@@ -28,8 +28,8 @@ Are your submission materials and approach demonstrating readiness for the evalu
 **[🔍 Publisher Evaluation Readiness Assessment →](https://formsandphases.github.io/creative-project-management-resources/self-serve-tools/publisher-evaluation-readiness.html)**  
 Are you prepared for the deeper questions that come up during publisher evaluation?
 
-**[🤝 Publisher Collaboration Readiness Assessment → Coming Soon!]**  
-Are you mentally, emotionally, and physically prepared for a publishing partnership once you secure one?
+**[🤝 Publisher Collaboration Archetypes Quiz →](https://formsandphases.github.io/creative-project-management-resources/self-serve-tools/publisher-collab-archetypes-quiz.html)**  
+What is your primary collaboration style in day-to-day partnership scenarios?
 
 ---
 
