@@ -1,0 +1,1140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Publisher Readiness Strategy Builder - Forms + Phases</title>
+    <style>
+        /* Reset and base styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: linear-gradient(0deg, #FFCB8E 0%, #FE7C84 25%, #F759B7 49%, #A545E5 72%, #6630E3 100%);
+            min-height: 100vh;
+            line-height: 1.6;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        /* Header */
+        .header {
+            background: linear-gradient(135deg, #020528 0%, #6630E3 100%);
+            color: white;
+            text-align: center;
+            padding: 40px 30px;
+            border-radius: 12px;
+            margin-bottom: 30px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+            letter-spacing: -0.5px;
+        }
+
+        .header p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            margin-bottom: 20px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .header .brand {
+            font-size: 0.95rem;
+            opacity: 0.8;
+            font-style: italic;
+        }
+
+        /* Progress bar - Fixed container alignment */
+        .progress-container {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 12px;
+            background: rgba(6, 48, 35, 0.1);
+            border-radius: 8px;
+            overflow: hidden;
+            margin-bottom: 15px;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #6630E3 0%, #A545E5 50%, #F759B7 100%);
+            width: 0%;
+            transition: width 0.5s ease;
+            border-radius: 8px;
+        }
+
+        .progress-text {
+            text-align: center;
+            font-weight: 600;
+            color: #020528;
+        }
+
+        /* Cards */
+        .card {
+            background: white;
+            padding: 35px;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+            margin-bottom: 25px;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+        }
+
+        .card h2 {
+            color: #020528;
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+        }
+
+        .card h3 {
+            color: #6630E3;
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+
+        /* Assessment area styles */
+        .assessment-area {
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 25px;
+            margin-bottom: 25px;
+            border-left: 4px solid #6630E3;
+        }
+
+        .assessment-context {
+            background: #e3f2fd;
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 20px;
+            font-size: 0.95rem;
+            color: #1565c0;
+            border-left: 3px solid #2196f3;
+        }
+
+        /* Form elements */
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        label {
+            display: block;
+            color: #020528;
+            font-weight: 600;
+            margin-bottom: 8px;
+            font-size: 1.05rem;
+        }
+
+        select, input[type="range"] {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e1e5e9;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+        }
+
+        select:focus, input[type="range"]:focus {
+            border-color: #6630E3;
+            outline: none;
+        }
+
+        .range-container {
+            position: relative;
+            margin: 15px 0;
+        }
+
+        .range-labels {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.9rem;
+            color: #444;
+            margin-top: 8px;
+        }
+
+        .range-value {
+            text-align: center;
+            font-weight: 600;
+            color: #6630E3;
+            margin-top: 5px;
+        }
+
+        /* Buttons */
+        .btn {
+            background: #6630E3;
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 25px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            min-height: 50px;
+        }
+
+        .btn:hover {
+            background: #5527c4;
+            transform: translateY(-2px);
+        }
+
+        .btn:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        /* Results visualization */
+        .readiness-snapshot {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 12px;
+            padding: 25px;
+            margin: 25px 0;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .priority-ranking {
+            background: linear-gradient(135deg, #6630E3 0%, #A545E5 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+
+        .strength-grid {
+            display: grid;
+            gap: 12px;
+            margin: 20px 0;
+        }
+
+        .strength-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 12px;
+            border-radius: 8px;
+            background: #f8f9fa;
+        }
+
+        .strength-indicator {
+            min-width: 50px;
+            text-align: center;
+            padding: 6px 10px;
+            border-radius: 15px;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        .strength-high {
+            background: #d4edda;
+            color: #155724;
+        }
+
+        .strength-medium {
+            background: #fff3cd;
+            color: #856404;
+        }
+
+        .strength-low {
+            background: #f8d7da;
+            color: #721c24;
+        }
+
+        /* Approach section */
+        .approach-section {
+            background: linear-gradient(135deg, #6630E3 0%, #A545E5 100%);
+            color: white;
+            padding: 25px;
+            border-radius: 12px;
+            margin: 25px 0;
+        }
+
+        /* Action plan styles */
+        .action-plan {
+            background: rgba(255, 255, 255, 0.98);
+            border-radius: 12px;
+            padding: 30px;
+            margin: 25px 0;
+            backdrop-filter: blur(10px);
+        }
+
+        .phase-section {
+            border-left: 4px solid #6630E3;
+            padding-left: 25px;
+            margin-bottom: 35px;
+            position: relative;
+        }
+
+        .phase-section::before {
+            content: '';
+            position: absolute;
+            left: -8px;
+            top: 0;
+            width: 12px;
+            height: 12px;
+            background: #6630E3;
+            border-radius: 50%;
+        }
+
+        .focus-item {
+            background: #f8f9fa;
+            padding: 18px;
+            border-radius: 8px;
+            margin: 12px 0;
+            border-left: 3px solid #A545E5;
+            line-height: 1.6;
+        }
+
+        .focus-item strong {
+            color: #6630E3;
+        }
+
+        /* Concern guidance section */
+        .concern-guidance {
+            background: #e8f5e8;
+            border-left: 4px solid #28a745;
+            padding: 25px;
+            border-radius: 8px;
+            margin: 25px 0;
+        }
+
+        .concern-guidance h4 {
+            color: #0a2f12;
+            margin-bottom: 15px;
+            font-size: 1.3rem;
+        }
+
+        .concern-guidance p {
+            color: #0a2f12;
+            margin-bottom: 15px;
+            line-height: 1.7;
+        }
+
+        .concern-guidance ul {
+            color: #0a2f12;
+            margin-left: 20px;
+            line-height: 1.7;
+        }
+
+        .concern-guidance li {
+            margin-bottom: 10px;
+        }
+
+        /* Enhanced reminder */
+        .final-reminder {
+            background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 10px;
+            margin: 25px 0;
+            text-align: center;
+        }
+
+        .final-reminder h4 {
+            color: white;
+            margin-bottom: 20px;
+            font-size: 1.4rem;
+        }
+
+        .final-reminder p {
+            margin-bottom: 15px;
+            opacity: 0.95;
+            line-height: 1.7;
+            font-size: 1.05rem;
+        }
+
+        /* Hidden sections */
+        .hidden {
+            display: none;
+        }
+
+        /* Responsive design */
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2rem;
+            }
+            
+            .card {
+                padding: 25px;
+            }
+            
+            .assessment-area {
+                padding: 20px;
+            }
+        }
+
+        /* Focus styles */
+        *:focus {
+            outline: 2px solid #6630E3;
+            outline-offset: 2px;
+        }
+
+        /* Skip link */
+        .skip-link {
+            position: absolute;
+            top: -40px;
+            left: 6px;
+            background: #000;
+            color: #fff;
+            padding: 8px;
+            text-decoration: none;
+            z-index: 1000;
+            border-radius: 4px;
+        }
+        .skip-link:focus {
+            top: 6px;
+        }
+    </style>
+</head>
+<body>
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+    
+    <div class="container">
+        <header class="header">
+            <h1>Publisher Readiness Strategy Builder</h1>
+            <p>This tool helps you identify your strongest and weakest readiness areas, then creates a personalized development strategy with specific focus priorities and practical guidance. You'll assess yourself across four key dimensions, customize your approach based on your timeline and concerns, and receive a comprehensive action plan you can download and implement.</p>
+            <div class="brand">Created by Forms + Phases</div>
+        </header>
+
+        <div class="progress-container">
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressFill"></div>
+            </div>
+            <div class="progress-text" id="progressText">Ready to Begin</div>
+        </div>
+
+        <main id="main-content">
+            <!-- Step 1: Readiness Assessment -->
+            <section id="step1" class="card">
+                <h2>Your Current Readiness Profile</h2>
+                <p style="margin-bottom: 25px; color: #444; font-size: 1.1rem;">Rate yourself honestly across these four readiness dimensions. The tool will identify your priority focus areas and create a personalized development strategy based on your specific gaps and goals.</p>
+                
+                <div class="assessment-area">
+                    <h3>Foundation Readiness</h3>
+                    <div class="assessment-context">
+                        <strong>This dimension covers:</strong> Your fundamental preparation for publisher collaboration including professional communication systems, documentation quality, development workflows that support partnership, and your mindset around shared decision-making.
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="foundation-readiness">How would you assess your foundational readiness for publisher collaboration?</label>
+                        <div class="range-container">
+                            <input type="range" id="foundation-readiness" min="1" max="5" value="3" oninput="updateRangeValue(this)">
+                            <div class="range-labels">
+                                <span>Significant gaps in fundamentals</span>
+                                <span>Strong foundation across all areas</span>
+                            </div>
+                            <div class="range-value" id="foundation-readiness-value">3 - Developing</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="assessment-area">
+                    <h3>Presentation Readiness</h3>
+                    <div class="assessment-context">
+                        <strong>This dimension covers:</strong> Your ability to demonstrate readiness in publisher outreach including pitch materials that clearly communicate your game's potential, professional presentation skills, and research-backed targeting of appropriate publishers.
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="presentation-readiness">How confident are you in your ability to present compelling materials to publishers?</label>
+                        <div class="range-container">
+                            <input type="range" id="presentation-readiness" min="1" max="5" value="3" oninput="updateRangeValue(this)">
+                            <div class="range-labels">
+                                <span>Materials need significant work</span>
+                                <span>Ready to present professionally</span>
+                            </div>
+                            <div class="range-value" id="presentation-readiness-value">3 - Developing</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="assessment-area">
+                    <h3>Evaluation Readiness</h3>
+                    <div class="assessment-context">
+                        <strong>This dimension covers:</strong> Your preparation for deep publisher evaluation including comprehensive documentation (game design docs, technical specs, production plans, budgets), business planning maturity, and readiness for contract negotiation.
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="evaluation-readiness">How prepared are you for detailed publisher evaluation and due diligence?</label>
+                        <div class="range-container">
+                            <input type="range" id="evaluation-readiness" min="1" max="5" value="3" oninput="updateRangeValue(this)">
+                            <div class="range-labels">
+                                <span>Documentation needs major work</span>
+                                <span>Fully prepared for evaluation</span>
+                            </div>
+                            <div class="range-value" id="evaluation-readiness-value">3 - Developing</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="assessment-area">
+                    <h3>Partnership Readiness</h3>
+                    <div class="assessment-context">
+                        <strong>This dimension covers:</strong> Your readiness for ongoing collaborative relationships including communication rhythms that support partnership, ability to incorporate feedback constructively, comfort with shared creative decision-making, and skills for navigating challenges professionally.
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="partnership-readiness">How prepared are you for the day-to-day realities of publisher collaboration?</label>
+                        <div class="range-container">
+                            <input type="range" id="partnership-readiness" min="1" max="5" value="3" oninput="updateRangeValue(this)">
+                            <div class="range-labels">
+                                <span>Collaboration skills need development</span>
+                                <span>Confident in partnership navigation</span>
+                            </div>
+                            <div class="range-value" id="partnership-readiness-value">3 - Developing</div>
+                        </div>
+                    </div>
+                </div>
+
+                <button class="btn" onclick="analyzeReadiness()" style="margin-top: 30px;">Analyze My Readiness & Create Strategy</button>
+            </section>
+
+            <!-- Step 2: Complete Strategy -->
+            <section id="step2" class="card hidden">
+                <h2>Your Complete Publisher Readiness Strategy</h2>
+                <div id="complete-strategy"></div>
+                <div style="text-align: center; margin-top: 40px;">
+                    <button class="btn" onclick="downloadStrategy()" style="font-size: 1.2rem; padding: 18px 35px;">📄 Download My Strategy</button>
+                </div>
+            </section>
+        </main>
+
+        <footer style="margin-top: 50px; padding: 35px; background: rgba(255, 255, 255, 0.95); border-radius: 12px; text-align: center; backdrop-filter: blur(10px);">
+            <h3 style="color: #6630E3; margin-bottom: 20px;">🎯 Ready to Implement Your Strategy?</h3>
+            <p style="color: #020528; margin-bottom: 25px; font-size: 1.1rem;"><strong>Building publisher readiness is a journey - you don't have to navigate it alone.</strong></p>
+            
+            <div style="margin: 25px 0;">
+                <a href="https://www.formsandphases.com" target="_blank" style="display: inline-block; margin: 8px; padding: 12px 25px; background: #6630E3; color: white; text-decoration: none; border-radius: 25px; font-weight: 600; transition: all 0.3s ease;">🤝 One-on-One Coaching</a>
+                <a href="https://github.com/formsandphases/creative-project-management-resources" target="_blank" style="display: inline-block; margin: 8px; padding: 12px 25px; background: #A545E5; color: white; text-decoration: none; border-radius: 25px; font-weight: 600; transition: all 0.3s ease;">⛏️ More Tools</a>
+                <a href="https://www.formsandphases.com/blog" target="_blank" style="display: inline-block; margin: 8px; padding: 12px 25px; background: #F759B7; color: white; text-decoration: none; border-radius: 25px; font-weight: 600; transition: all 0.3s ease;">📝 Blog/Articles</a>
+            </div>
+            
+            <hr style="margin: 25px 0; border: none; height: 1px; background: rgba(6, 48, 35, 0.1);">
+            
+            <p style="margin: 0; color: #444; font-size: 0.95rem;">
+                <strong>Forms + Phases</strong> - Creative Project Management<br>
+                Where Creative Vision Meets Mindful Management
+            </p>
+        </footer>
+    </div>
+
+    <script>
+        let assessmentData = {};
+        let recommendedApproach = '';
+
+        function updateProgress(step, stepName) {
+            const progress = (step / 2) * 100;
+            document.getElementById('progressFill').style.width = progress + '%';
+            document.getElementById('progressText').textContent = stepName;
+        }
+
+        function updateRangeValue(input) {
+            const value = input.value;
+            const labels = ['1 - Needs Foundation', '2 - Early Development', '3 - Developing', '4 - Strong', '5 - Excellent'];
+            document.getElementById(input.id + '-value').textContent = labels[value - 1];
+        }
+
+        function analyzeReadiness() {
+            // Collect assessment data
+            assessmentData = {
+                foundation: parseInt(document.getElementById('foundation-readiness').value),
+                presentation: parseInt(document.getElementById('presentation-readiness').value),
+                evaluation: parseInt(document.getElementById('evaluation-readiness').value),
+                partnership: parseInt(document.getElementById('partnership-readiness').value)
+            };
+
+            // Calculate overall readiness
+            const scores = Object.values(assessmentData);
+            const avgScore = scores.reduce((a, b) => a + b, 0) / scores.length;
+            const lowestScore = Math.min(...scores);
+
+            // Determine recommended approach
+            if (avgScore >= 4.0 && lowestScore >= 3) {
+                recommendedApproach = 'optimization';
+            } else if (lowestScore <= 2 || avgScore <= 2.5) {
+                recommendedApproach = 'foundation';
+            } else {
+                recommendedApproach = 'targeted';
+            }
+
+            // Show customization form
+            showCustomization();
+        }
+
+        function showCustomization() {
+            // Create customization section
+            const customizationHTML = `
+                <div style="background: #f8f9fa; padding: 25px; border-radius: 10px; margin-bottom: 30px;">
+                    <h4 style="color: #020528; margin-bottom: 20px;">Customize Your Strategy</h4>
+                    
+                    <div class="form-group">
+                        <label for="timeline-urgency">What's your target timeline for being publisher-ready?</label>
+                        <select id="timeline-urgency">
+                            <option value="none">No specific deadline - I want to build readiness systematically</option>
+                            <option value="moderate">I'm planning to reach out to publishers within 6-12 months</option>
+                            <option value="urgent">I need to be ready for publisher conversations within 3-6 months</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="biggest-concern">What's your biggest concern about publisher partnerships?</label>
+                        <select id="biggest-concern">
+                            <option value="creative-control">Maintaining creative control and vision</option>
+                            <option value="communication">Meeting professional communication expectations</option>
+                            <option value="business-complexity">Understanding business, legal, and financial aspects</option>
+                            <option value="standing-out">Standing out in a competitive market</option>
+                            <option value="collaboration-pressure">Managing collaborative development and timeline pressure</option>
+                        </select>
+                    </div>
+
+                    <button class="btn" onclick="generateStrategy()" style="margin-top: 20px;">Generate My Complete Strategy</button>
+                </div>
+            `;
+
+            // Insert after the assessment areas
+            const step1 = document.getElementById('step1');
+            const button = step1.querySelector('button');
+            button.style.display = 'none';
+            
+            const customizationDiv = document.createElement('div');
+            customizationDiv.innerHTML = customizationHTML;
+            step1.appendChild(customizationDiv);
+
+            updateProgress(1, 'Creating Your Strategy');
+        }
+
+        function generateStrategy() {
+            // Collect preferences
+            const timelineUrgency = document.getElementById('timeline-urgency').value;
+            const biggestConcern = document.getElementById('biggest-concern').value;
+
+            // Generate complete strategy
+            const strategyHTML = generateCompleteStrategy(timelineUrgency, biggestConcern);
+            document.getElementById('complete-strategy').innerHTML = strategyHTML;
+            
+            document.getElementById('step2').classList.remove('hidden');
+            updateProgress(2, 'Strategy Complete!');
+            document.getElementById('step2').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function generateCompleteStrategy(timelineUrgency, biggestConcern) {
+            const approaches = {
+                foundation: {
+                    title: 'Foundation Building Strategy',
+                    description: 'Build fundamental readiness skills systematically across all dimensions'
+                },
+                targeted: {
+                    title: 'Targeted Development Strategy', 
+                    description: 'Strategic focus on priority gaps while leveraging existing strengths'
+                },
+                optimization: {
+                    title: 'Optimization Strategy',
+                    description: 'Polish existing skills and build competitive advantages for publisher outreach'
+                }
+            };
+
+            const approach = approaches[recommendedApproach];
+
+            // Priority ranking
+            const areaNames = {
+                foundation: 'Foundation Readiness',
+                presentation: 'Presentation & Outreach Skills', 
+                evaluation: 'Documentation & Business Planning',
+                partnership: 'Partnership & Collaboration Skills'
+            };
+
+            const sortedAreas = Object.entries(assessmentData).sort((a, b) => a[1] - b[1]);
+            const primaryFocus = sortedAreas[0];
+            const secondaryFocus = sortedAreas[1];
+
+            // Generate development phases
+            const phases = generateDevelopmentPhases(primaryFocus[0], secondaryFocus[0]);
+
+            // Include timeline only if they selected urgency
+            let timelineSection = '';
+            if (timelineUrgency !== 'none') {
+                const urgencyText = timelineUrgency === 'urgent' ? 
+                    'With a 3-6 month timeline, prioritize your primary focus area first and aim for significant improvement before addressing secondary areas. Consider dedicating focused time blocks to readiness development alongside your game development work.' :
+                    'With 6-12 months available, you can build systematically across both priority areas. Plan to cycle between your primary and secondary focus areas every few weeks to maintain balanced progress toward comprehensive readiness.';
+                
+                timelineSection = `
+                    <div style="background: #fff3cd; border-left: 4px solid #ffc107; padding: 20px; border-radius: 8px; margin: 25px 0;">
+                        <h4 style="color: #5d3a04; margin-bottom: 10px;">⏰ Timeline Strategy</h4>
+                        <p style="color: #5d3a04; margin: 0; line-height: 1.6;">${urgencyText}</p>
+                    </div>
+                `;
+            }
+
+            return `
+                <div class="readiness-snapshot">
+                    <div class="priority-ranking">
+                        <h3 style="color: white; margin-bottom: 15px;">🎯 Your ${approach.title}</h3>
+                        <div style="margin-bottom: 15px;"><strong>Primary Focus:</strong> ${areaNames[primaryFocus[0]]} (Current: ${primaryFocus[1]}/5)</div>
+                        <div><strong>Secondary Focus:</strong> ${areaNames[secondaryFocus[0]]} (Current: ${secondaryFocus[1]}/5)</div>
+                    </div>
+                    
+                    <div class="strength-grid">
+                        ${Object.entries(assessmentData).map(([area, score]) => {
+                            let levelClass = 'strength-medium';
+                            if (score >= 4) levelClass = 'strength-high';
+                            else if (score <= 2) levelClass = 'strength-low';
+                            
+                            return `
+                                <div class="strength-item">
+                                    <div class="strength-indicator ${levelClass}">${score}/5</div>
+                                    <div><strong>${areaNames[area]}</strong></div>
+                                </div>
+                            `;
+                        }).join('')}
+                    </div>
+                </div>
+
+                ${timelineSection}
+
+                ${phases}
+
+                ${generateConcernGuidance(biggestConcern)}
+
+                <div class="final-reminder">
+                    <h4>🚀 Your Path Forward</h4>
+                    <p>Publisher readiness isn't about perfection—it's about demonstrating professional collaboration skills and systematic preparation. Each dimension you strengthen makes you a more attractive and capable partner.</p>
+                    <p>Focus on steady progress in your priority areas, seek feedback from industry professionals, and remember that publishers are looking for teams they can trust to deliver, communicate clearly, and navigate challenges together.</p>
+                    <p><strong>You have what it takes to build successful partnerships. Trust the process and stay consistent.</strong></p>
+                </div>
+            `;
+        }
+
+        function generateDevelopmentPhases(primaryFocus, secondaryFocus) {
+            const focusAreas = {
+                foundation: {
+                    title: 'Foundation Readiness Development',
+                    activities: [
+                        '<strong>Communication Systems:</strong> Establish professional email templates, meeting structures, and regular check-in rhythms that can scale with publisher collaboration',
+                        '<strong>Documentation Standards:</strong> Create templates for project updates, milestone reports, and decision tracking that external partners can easily understand',
+                        '<strong>Collaborative Workflows:</strong> Build development processes that include checkpoints for external feedback and shared decision-making',
+                        '<strong>Industry Integration:</strong> Join developer communities, attend industry events, and build relationships with professionals who can provide feedback on your readiness',
+                        '<strong>Professional Mindset:</strong> Practice explaining your decisions, accepting constructive criticism, and viewing external input as partnership rather than interference',
+                        '<strong>Project Transparency:</strong> Develop comfort with sharing work-in-progress and discussing challenges openly with potential collaborators'
+                    ]
+                },
+                presentation: {
+                    title: 'Presentation & Outreach Excellence',
+                    activities: [
+                        '<strong>Market Research:</strong> Study successful publisher partnerships in your genre and analyze what made those submissions and presentations effective',
+                        '<strong>Value Proposition:</strong> Develop clear, concise explanations of your game\'s unique appeal, target audience, and market opportunity from a publisher perspective',
+                        '<strong>Material Development:</strong> Create compelling pitch decks, one-page overviews, and elevator pitches that communicate professionalism and market potential',
+                        '<strong>Publisher Research:</strong> Build detailed knowledge of potential publishing partners, their portfolios, submission processes, and partnership preferences',
+                        '<strong>Presentation Practice:</strong> Regularly present your project to industry professionals and incorporate their feedback to refine your approach',
+                        '<strong>Professional Networking:</strong> Attend conferences and industry events with the goal of building authentic relationships rather than just pitching your game'
+                    ]
+                },
+                evaluation: {
+                    title: 'Documentation & Business Mastery',
+                    activities: [
+                        '<strong>Game Design Documentation:</strong> Complete comprehensive GDD that clearly communicates your vision, core systems, and unique value proposition to external evaluators',
+                        '<strong>Technical Planning:</strong> Develop detailed technical design documents outlining architecture, tools, performance targets, and risk mitigation strategies',
+                        '<strong>Production Planning:</strong> Create realistic timelines with milestone breakdowns, buffer time, and clear deliverable definitions that account for publisher feedback cycles',
+                        '<strong>Financial Preparation:</strong> Prepare detailed budgets, funding requirements, and revenue projections that demonstrate business understanding and planning maturity',
+                        '<strong>Legal Readiness:</strong> Educate yourself on standard publishing terms, IP considerations, and contract basics so you can engage meaningfully in negotiations',
+                        '<strong>Business Case Development:</strong> Articulate your game\'s commercial potential with market research, competitive analysis, and clear success metrics'
+                    ]
+                },
+                partnership: {
+                    title: 'Partnership & Collaboration Excellence',
+                    activities: [
+                        '<strong>Feedback Integration:</strong> Practice receiving and incorporating constructive criticism in low-stakes environments like playtesting sessions or peer reviews',
+                        '<strong>Communication Rhythms:</strong> Develop systems for regular, proactive communication including status updates, challenge identification, and solution proposals',
+                        '<strong>Conflict Resolution:</strong> Learn to address disagreements professionally by focusing on shared goals and finding mutually beneficial solutions',
+                        '<strong>Shared Decision-Making:</strong> Build comfort with collaborative processes where external stakeholders have input on creative and business decisions',
+                        '<strong>Boundary Management:</strong> Practice advocating for your creative vision while remaining open to publisher expertise and market insights',
+                        '<strong>Crisis Communication:</strong> Develop skills for transparently discussing setbacks, delays, or changes while maintaining trust and proposing constructive solutions'
+                    ]
+                }
+            };
+
+            const phaseCount = recommendedApproach === 'optimization' ? 2 : 3;
+            let html = '<div class="action-plan"><h4 style="color: #020528; margin-bottom: 25px;">📅 Your Development Focus Areas</h4>';
+
+            // Primary Focus Phase
+            html += `
+                <div class="phase-section">
+                    <h5 style="color: #6630E3; margin-bottom: 15px;">Primary Focus: ${focusAreas[primaryFocus].title}</h5>
+                    ${focusAreas[primaryFocus].activities.map(activity => `
+                        <div class="focus-item">
+                            ${activity}
+                        </div>
+                    `).join('')}
+                </div>
+            `;
+
+            // Secondary Focus Phase
+            html += `
+                <div class="phase-section">
+                    <h5 style="color: #6630E3; margin-bottom: 15px;">Secondary Focus: ${focusAreas[secondaryFocus].title}</h5>
+                    ${focusAreas[secondaryFocus].activities.slice(0, 4).map(activity => `
+                        <div class="focus-item">
+                            ${activity}
+                        </div>
+                    `).join('')}
+                </div>
+            `;
+
+            // Integration phase for non-optimization approaches
+            if (recommendedApproach !== 'optimization') {
+                html += `
+                    <div class="phase-section">
+                        <h5 style="color: #6630E3; margin-bottom: 15px;">Integration: Bringing It All Together</h5>
+                        <div class="focus-item">
+                            <strong>Practice Integration:</strong> Use your strengthened skills in real-world scenarios like industry conversations, practice submissions, or mock partnership discussions
+                        </div>
+                        <div class="focus-item">
+                            <strong>Seek External Validation:</strong> Get feedback from industry professionals on your materials, communication style, and overall readiness
+                        </div>
+                        <div class="focus-item">
+                            <strong>Refine Your Approach:</strong> Adjust your strategy based on what you learn about yourself and the market through practice and feedback
+                        </div>
+                        <div class="focus-item">
+                            <strong>Build Your Network:</strong> Cultivate authentic relationships with industry professionals who can provide guidance and potential partnership opportunities
+                        </div>
+                    </div>
+                `;
+            }
+
+            return html + '</div>';
+        }
+
+        function generateConcernGuidance(concern) {
+            const guidance = {
+                'creative-control': {
+                    title: 'Maintaining Creative Control & Vision',
+                    content: `
+                        <p>Your concern about creative control is shared by many developers and shows you care deeply about your vision. The key is learning to distinguish between your core creative pillars (non-negotiable) and implementation details (flexible).</p>
+                        
+                        <p><strong>Strategies for protecting your vision:</strong></p>
+                        <ul>
+                            <li>Document your core creative vision clearly and communicate what aspects are essential vs. flexible during partnership discussions</li>
+                            <li>Frame publisher feedback as opportunities to strengthen your vision rather than threats to it</li>
+                            <li>Learn to propose alternative solutions that address publisher concerns while preserving your creative integrity</li>
+                            <li>Build confidence in your vision through player research and feedback that validates your core design decisions</li>
+                            <li>Choose publishing partners whose portfolio and values align with your creative direction</li>
+                        </ul>
+                        
+                        <p>Remember: Strong documentation and clear communication actually help you maintain MORE creative control by building publisher confidence in your vision and decision-making process.</p>
+                    `
+                },
+                'communication': {
+                    title: 'Meeting Professional Communication Expectations',
+                    content: `
+                        <p>Professional communication in publisher partnerships isn't about changing your personality—it's about developing consistent systems and practices that build trust and clarity.</p>
+                        
+                        <p><strong>Building communication confidence:</strong></p>
+                        <ul>
+                            <li>Start with templates for common communications (status updates, issue reports, milestone summaries) to ensure consistency</li>
+                            <li>Practice the "headline first" approach: lead with key information, then provide supporting details</li>
+                            <li>Develop comfort with proactive communication—reaching out before problems become crises</li>
+                            <li>Learn to ask clarifying questions that demonstrate engagement rather than confusion</li>
+                            <li>Build regular check-in rhythms that keep partners informed without overwhelming them</li>
+                        </ul>
+                        
+                        <p>Focus on clarity, consistency, and reliability rather than perfection. Publishers value developers who communicate regularly and honestly over those who try to impress with perfect updates.</p>
+                    `
+                },
+                'business-complexity': {
+                    title: 'Understanding Business, Legal & Financial Aspects',
+                    content: `
+                        <p>The business side of publishing can feel overwhelming, but you don't need to become an expert overnight. Focus on building fundamental understanding that helps you ask better questions and make informed decisions.</p>
+                        
+                        <p><strong>Building business readiness:</strong></p>
+                        <ul>
+                            <li>Learn basic publishing terminology (recoupment, minimum guarantees, revenue splits, IP licensing) through industry resources and articles</li>
+                            <li>Study standard contract structures so you understand what's typical vs. what might be unusual</li>
+                            <li>Develop realistic budgets and timelines that account for the full development and launch process</li>
+                            <li>Build relationships with legal and business professionals who can advise you during negotiations</li>
+                            <li>Practice explaining your project's commercial potential and target market to business-minded audiences</li>
+                        </ul>
+                        
+                        <p>Remember: Publishers expect to guide you through complex business decisions. Your job is to be an informed participant, not a business expert.</p>
+                    `
+                },
+                'standing-out': {
+                    title: 'Standing Out in a Competitive Market',
+                    content: `
+                        <p>Competition is real, but publishers aren't just looking for the flashiest games—they're looking for teams that can reliably deliver quality projects and collaborate professionally.</p>
+                        
+                        <p><strong>Building competitive advantage:</strong></p>
+                        <ul>
+                            <li>Focus on demonstrating genuine readiness rather than trying to impress with superficial polish</li>
+                            <li>Develop a clear understanding of your game's unique value proposition and target audience</li>
+                            <li>Build a track record of completing projects, meeting deadlines, and professional communication</li>
+                            <li>Research publishers thoroughly and target those whose portfolio and values align with your project</li>
+                            <li>Cultivate authentic relationships in the industry rather than just making cold pitches</li>
+                            <li>Demonstrate your ability to handle feedback, iterate based on input, and collaborate professionally</li>
+                        </ul>
+                        
+                        <p>Your competitive edge comes from being someone publishers want to work with, not just someone with an interesting game concept.</p>
+                    `
+                },
+                'collaboration-pressure': {
+                    title: 'Managing Collaborative Development & Timeline Pressure',
+                    content: `
+                        <p>Collaborative development does create additional pressure, but proper planning and communication can help you maintain quality while meeting partnership expectations.</p>
+                        
+                        <p><strong>Strategies for sustainable collaboration:</strong></p>
+                        <ul>
+                            <li>Build buffer time into all timelines and plan for multiple feedback/iteration cycles</li>
+                            <li>Establish clear boundaries around team capacity and communicate them early in partnerships</li>
+                            <li>Practice saying "yes, and here's what that means for timeline/scope" instead of just "yes" or "no"</li>
+                            <li>Develop systems for prioritizing publisher feedback and requests based on impact and feasibility</li>
+                            <li>Learn to communicate challenges proactively rather than reactively when deadlines become unrealistic</li>
+                            <li>Build team resilience through sustainable work practices and realistic goal-setting</li>
+                        </ul>
+                        
+                        <p>Remember: Good publishers want you to succeed and will work with you to find solutions when challenges arise. Honest communication about pressure and constraints builds trust rather than damaging it.</p>
+                    `
+                }
+            };
+
+            const selected = guidance[concern];
+            return `
+                <div class="concern-guidance">
+                    <h4>💡 Addressing Your Primary Concern: ${selected.title}</h4>
+                    ${selected.content}
+                </div>
+            `;
+        }
+
+        function downloadStrategy() {
+            const strategyContent = document.getElementById('complete-strategy').innerHTML;
+            
+            const printableContent = `
+                <!DOCTYPE html>
+                <html>
+                <head>
+                    <title>My Publisher Readiness Strategy - Forms + Phases</title>
+                    <style>
+                        body { 
+                            font-family: Arial, sans-serif; 
+                            max-width: 800px; 
+                            margin: 0 auto; 
+                            padding: 20px; 
+                            line-height: 1.6; 
+                            color: #333; 
+                        }
+                        h1, h2, h3, h4, h5 { 
+                            color: #6630E3; 
+                            margin-top: 0;
+                        }
+                        h1 { 
+                            text-align: center; 
+                            margin-bottom: 10px; 
+                        }
+                        .strategy-header {
+                            text-align: center;
+                            margin-bottom: 30px;
+                            padding-bottom: 20px;
+                            border-bottom: 2px solid #6630E3;
+                        }
+                        .readiness-snapshot {
+                            margin: 20px 0;
+                        }
+                        .priority-ranking { 
+                            background: #6630E3; 
+                            color: white; 
+                            padding: 20px; 
+                            border-radius: 8px; 
+                            margin: 20px 0; 
+                        }
+                        .priority-ranking h3 {
+                            color: white;
+                            margin-top: 0;
+                        }
+                        .strength-grid { 
+                            display: grid; 
+                            gap: 8px; 
+                            margin: 15px 0; 
+                        }
+                        .strength-item { 
+                            display: flex; 
+                            align-items: center; 
+                            gap: 10px; 
+                            padding: 8px; 
+                            background: #f8f9fa; 
+                            border-radius: 4px; 
+                        }
+                        .strength-indicator { 
+                            min-width: 40px; 
+                            text-align: center; 
+                            padding: 4px 8px; 
+                            border-radius: 12px; 
+                            font-weight: bold; 
+                            font-size: 0.9rem; 
+                        }
+                        .strength-high { background: #d4edda; color: #155724; }
+                        .strength-medium { background: #fff3cd; color: #856404; }
+                        .strength-low { background: #f8d7da; color: #721c24; }
+                        .timeline-section {
+                            background: #fff3cd; 
+                            border-left: 4px solid #ffc107; 
+                            padding: 20px; 
+                            border-radius: 8px; 
+                            margin: 20px 0;
+                        }
+                        .timeline-section h4 {
+                            color: #5d3a04;
+                            margin-top: 0;
+                        }
+                        .timeline-section p {
+                            color: #5d3a04;
+                            margin: 0;
+                        }
+                        .action-plan { 
+                            background: #f9f9f9; 
+                            padding: 20px; 
+                            border-radius: 8px; 
+                            margin: 20px 0; 
+                        }
+                        .action-plan h4 {
+                            margin-top: 0;
+                        }
+                        .phase-section { 
+                            border-left: 4px solid #6630E3; 
+                            padding-left: 20px; 
+                            margin: 25px 0; 
+                            position: relative;
+                        }
+                        .phase-section h5 {
+                            color: #6630E3;
+                            margin-top: 0;
+                            margin-bottom: 15px;
+                        }
+                        .focus-item { 
+                            background: #f8f9fa; 
+                            padding: 12px; 
+                            margin: 8px 0; 
+                            border-left: 3px solid #A545E5; 
+                            border-radius: 4px; 
+                        }
+                        .focus-item strong {
+                            color: #6630E3;
+                        }
+                        .concern-guidance { 
+                            background: #e8f5e8; 
+                            padding: 20px; 
+                            border-left: 4px solid #28a745; 
+                            border-radius: 8px; 
+                            margin: 20px 0; 
+                        }
+                        .concern-guidance h4 {
+                            color: #0a2f12;
+                            margin-top: 0;
+                        }
+                        .concern-guidance p, .concern-guidance li {
+                            color: #0a2f12;
+                        }
+                        .final-reminder { 
+                            background: #28a745; 
+                            color: white; 
+                            padding: 20px; 
+                            border-radius: 8px; 
+                            margin: 20px 0; 
+                            text-align: center; 
+                        }
+                        .final-reminder h4 {
+                            color: white;
+                            margin-top: 0;
+                        }
+                        .final-reminder p {
+                            color: white;
+                        }
+                        ul { 
+                            margin: 10px 0; 
+                            padding-left: 20px; 
+                        }
+                        li { 
+                            margin-bottom: 6px; 
+                        }
+                        .next-steps {
+                            margin-top: 30px; 
+                            padding: 20px; 
+                            background: #f8f9fa; 
+                            border-radius: 8px; 
+                            text-align: center;
+                        }
+                        .next-steps h3 {
+                            margin-top: 0;
+                        }
+                        @media print { 
+                            body { margin: 0; } 
+                            .no-print { display: none; } 
+                        }
+                    </style>
+                </head>
+                <body>
+                    <div class="strategy-header">
+                        <h1>My Publisher Readiness Strategy</h1>
+                        <p><em>Generated by Publisher Readiness Strategy Builder | Forms + Phases</em></p>
+                        <p><strong>Date:</strong> ${new Date().toLocaleDateString()}</p>
+                    </div>
+                    ${strategyContent}
+                    <div class="next-steps">
+                        <h3>Next Steps</h3>
+                        <p>Ready to implement this strategy? Forms + Phases offers personalized coaching and support to help you build the readiness skills that create successful partnerships.</p>
+                        <p><strong>Visit <a href="https://www.formsandphases.com">www.formsandphases.com</a> to learn more about our coaching and resources.</strong></p>
+                    </div>
+                </body>
+                </html>
+            `;
+
+            const blob = new Blob([printableContent], { type: 'text/html' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'My-Publisher-Readiness-Strategy.html';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+
+            // Show success feedback
+            const button = event.target;
+            const originalText = button.textContent;
+            button.textContent = '✅ Downloaded Successfully!';
+            button.style.background = '#28a745';
+            setTimeout(() => {
+                button.textContent = originalText;
+                button.style.background = '#6630E3';
+            }, 3000);
+        }
+
+        // Initialize
+        updateProgress(0, 'Ready to Begin');
+    </script>
+</body>
+</html>
