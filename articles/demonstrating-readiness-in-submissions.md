@@ -1,5 +1,5 @@
 # How to Demonstrate Publisher Readiness in Your Submissions
-*Originally published on the [Forms + Phases blog](https://www.formsandphases.com/post/part-3-demonstrating-readiness-in-your-submissions)*
+*Originally published on the [Forms + Phases blog](https://www.formsandphases.com/post/part-3-demonstrating-readiness-in-publisher-submissions)*
 
 > This article is part 3 of our 6-part series on publisher readiness for game developers and studios. Learn how to translate internal readiness into submissions that resonate—quickly and clearly.
 
