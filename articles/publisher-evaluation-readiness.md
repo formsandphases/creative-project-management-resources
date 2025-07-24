@@ -1,7 +1,7 @@
 # Publisher Evaluation Readiness: Documents, Decisions, and Negotiation Preparedness
 *Originally published on the [Forms + Phases blog](https://www.formsandphases.com/post/part-4-publisher-evaluation-readiness-documents-decisions-and-negotiation-preparedness)*
 
-> This article is part 4 of our 6-part series on publisher readiness for game developers and studios.
+> This article is part 4 of our 6-part series on publisher readiness for game developers and studios. Learn how to strengthen your evaluation materials and negotiation preparedness to turn interest into lasting partnership.
 
 ---
 
@@ -82,4 +82,40 @@ This document isn’t always formal, but it always matters. It’s your opportun
 
 Publishers read this closely to see whether your expectations align with theirs.
 
-While each of these documents serves a different purpose, together they paint a picture: a team
+While each of these documents serves a different purpose, together they paint a picture: a team with clarity, planning discipline, and the willingness to prepare.
+
+## Readiness for Negotiation and Legal Review
+
+Even if your documentation inspires confidence, there’s still one more threshold: the moment when interest turns into **negotiation**.
+
+For many developers, this is the most intimidating phase. It’s one thing to describe your creative vision—it’s another to discuss money, intellectual property, and legal obligations. But your readiness here can make the difference between a partnership that supports your success and one that causes frustration later.
+
+### Key steps to prepare for negotiation:
+
+- **Educate yourself**. Learn the fundamentals: how recoupment works, what revenue splits and minimum guarantees mean, and what rights you’re granting (or keeping) around your IP.
+
+- **Get professional support**. A lawyer or experienced advisor can help you interpret terms, identify red flags, and advocate for your interests.
+
+- **Know your non-negotiables**. Decide in advance what you’re flexible on—and what you're not. This gives you clarity and confidence in the room.
+
+- **Treat it like a relationship**. Approach negotiation as the start of a long-term partnership, not a zero-sum game. Calm, collaborative tone = trust.
+
+## Your Evaluation and Negotiation Readiness Strategy
+
+Moving from submission to evaluation is a milestone worth celebrating. It means your game has sparked real interest—and that a publisher sees the potential to invest in your vision. But it’s also the moment when the expectations shift. You’re no longer just an intriguing project. You’re a potential business partner.
+
+Here’s how to move forward:
+
+- **If you're preparing for your first serious conversations**: Start drafting your evaluation materials now. Even early interest can quickly lead to a request for documentation.
+
+- **If you’re already in discussions**: Review your documents with fresh eyes. Do they reflect your current plans and clearly communicate what sets your game—and team—apart?
+
+- **If you’ve received feedback**: Treat it as a gift. Even a “no” can become a roadmap for your next opportunity.
+
+- **If you’re still building toward readiness**: Remember, this is a skillset. You don’t need to be perfect to begin—just committed to learning and preparing.
+
+> Our [Publisher Evaluation Readiness Self-Review](https://formsandphases.github.io/creative-project-management-resources/self-serve-tools/evaluation-readiness-checklist.html) can help you pinpoint gaps and plan your next steps so you feel confident, prepared, and equipped to build a partnership that supports your creative vision and business goals.
+
+---
+
+In our next article, we’ll explore what happens after a contract is signed—how to navigate the day-to-day realities of collaboration, protect your interests, and build a relationship that helps your game reach its fullest potential.
