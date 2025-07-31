@@ -1,0 +1,1011 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Creative Project Planning Template Generator - Forms + Phases</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* Accessibility: Respect user motion preferences */
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+
+        /* High contrast mode support */
+        @media (prefers-contrast: high) {
+            .form-section { border: 2px solid; }
+            .generate-btn { border: 2px solid; }
+            .option { border: 2px solid; }
+            .output-section { border: 2px solid; }
+        }
+
+        /* Skip link styling */
+        .skip-link {
+            position: absolute;
+            top: -40px;
+            left: 6px;
+            background: #000;
+            color: #fff;
+            padding: 8px;
+            text-decoration: none;
+            z-index: 1000;
+            border-radius: 4px;
+        }
+        .skip-link:focus {
+            top: 6px;
+        }
+
+        /* Focus indicators */
+        *:focus {
+            outline: 2px solid #6630E3;
+            outline-offset: 2px;
+        }
+
+        body {
+            font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(0deg, #FFCB8E 0%, #FE7C84 25%, #F759B7 49%, #A545E5 72%, #6630E3 100%);
+            min-height: 100vh;
+            color: #020528;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #020528 0%, #6630E3 100%);
+            color: white;
+            text-align: center;
+            padding: 30px 20px;
+            border-radius: 12px;
+            margin-bottom: 30px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+            letter-spacing: -0.5px;
+        }
+
+        .header p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+
+        .header-info {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+            text-align: left;
+        }
+
+        .header-info h3 {
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+
+        .header-info p {
+            margin-bottom: 8px;
+        }
+
+        .brand-credit {
+            font-size: 0.9rem;
+            opacity: 0.8;
+            font-style: italic;
+            margin-top: 15px;
+        }
+
+        .main-content {
+            margin-bottom: 40px;
+        }
+
+        .form-section {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+            margin-bottom: 30px;
+        }
+
+        .form-grid {
+            display: block;
+        }
+
+        .form-section h2 {
+            color: #6630E3;
+            margin-bottom: 25px;
+            font-size: 2rem;
+            font-weight: 800;
+            text-align: center;
+            letter-spacing: -0.5px;
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #020528;
+            font-size: 1.1rem;
+        }
+
+        .help-icon {
+            display: inline-block;
+            width: 18px;
+            height: 18px;
+            background: #A545E5;
+            color: white;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 18px;
+            font-size: 12px;
+            margin-left: 8px;
+            cursor: help;
+            font-weight: bold;
+        }
+
+        .form-group select {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 1rem;
+            background: white;
+            transition: all 0.3s ease;
+            min-height: 44px;
+        }
+
+        .form-group select:focus {
+            outline: none;
+            border-color: #6630E3;
+            box-shadow: 0 0 0 3px rgba(102, 48, 227, 0.1);
+        }
+
+        .help-text {
+            font-size: 1rem;
+            color: #333;
+            margin-top: 10px;
+            margin-left: 15px;
+            line-height: 1.5;
+        }
+
+        .examples {
+            background: rgba(102, 48, 227, 0.05);
+            border: 1px solid rgba(102, 48, 227, 0.2);
+            border-radius: 8px;
+            padding: 15px;
+            margin-top: 12px;
+            font-size: 1rem;
+            line-height: 1.5;
+        }
+
+        .examples strong {
+            color: #6630E3;
+            font-weight: 600;
+        }
+
+        .generate-btn {
+            background: linear-gradient(135deg, #6630E3 0%, #A545E5 100%);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            border-radius: 25px;
+            cursor: pointer;
+            width: 100%;
+            transition: all 0.3s ease;
+            min-height: 44px;
+        }
+
+        .generate-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(102, 48, 227, 0.4);
+        }
+
+        .generate-btn:focus {
+            outline: 2px solid #6630E3;
+            outline-offset: 2px;
+        }
+
+        .output-section {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+            margin-bottom: 30px;
+        }
+
+        .output-header {
+            background: linear-gradient(135deg, #020528 0%, #6630E3 100%);
+            color: white;
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .output-header h2 {
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+
+        .copy-btn {
+            background: #F759B7;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            min-height: 44px;
+        }
+
+        .copy-btn:hover {
+            background: #e848a6;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(247, 89, 183, 0.4);
+        }
+
+        .usage-instructions {
+            background: rgba(102, 48, 227, 0.05);
+            padding: 15px 20px;
+            border-bottom: 1px solid rgba(102, 48, 227, 0.1);
+            font-size: 0.9rem;
+            color: #020528;
+        }
+
+        .usage-instructions strong {
+            color: #6630E3;
+        }
+
+        .output-content {
+            padding: 35px;
+            max-height: 70vh;
+            overflow-y: auto;
+            font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+            font-size: 0.95rem;
+            line-height: 1.7;
+            white-space: pre-wrap;
+            background: white;
+        }
+
+        .placeholder {
+            color: #333;
+            font-style: italic;
+            text-align: center;
+            padding: 60px 35px;
+            font-family: 'Inter', 'Segoe UI', sans-serif;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 200px;
+            width: 100%;
+            font-size: 1.1rem;
+        }
+
+        .footer {
+            margin-top: 40px;
+            padding: 30px;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 12px;
+            text-align: center;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        .footer h3 {
+            color: #6630E3;
+            margin-bottom: 15px;
+            font-weight: 700;
+        }
+
+        .footer p {
+            color: #020528;
+            margin-bottom: 20px;
+        }
+
+        .footer-links {
+            margin: 20px 0;
+        }
+
+        .footer-links a {
+            display: inline-block;
+            margin: 5px;
+            padding: 10px 20px;
+            color: white;
+            text-decoration: none;
+            border-radius: 25px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            min-height: 44px;
+            line-height: 1.4;
+        }
+
+        .footer-links a:first-child {
+            background: #6630E3;
+        }
+
+        .footer-links a:nth-child(2) {
+            background: #A545E5;
+        }
+
+        .footer-links a:last-child {
+            background: #F759B7;
+        }
+
+        .footer-links a:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .footer hr {
+            margin: 20px 0;
+            border: none;
+            height: 1px;
+            background: rgba(6, 48, 35, 0.1);
+        }
+
+        .footer .company-info {
+            margin: 0;
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        .error-message {
+            color: #e74c3c;
+            text-align: center;
+            margin: 15px 0;
+            font-weight: 600;
+            background: rgba(231, 76, 60, 0.1);
+            padding: 10px;
+            border-radius: 8px;
+            border-left: 4px solid #e74c3c;
+        }
+
+        /* Status updates for screen readers */
+        .sr-only {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            white-space: nowrap;
+            border: 0;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 15px;
+            }
+
+            .header h1 {
+                font-size: 2rem;
+            }
+
+            .form-grid {
+                display: block;
+            }
+
+            .form-section {
+                padding: 25px;
+            }
+
+            .output-content {
+                padding: 25px;
+            }
+
+            .form-section,
+            .output-section {
+                padding: 20px;
+            }
+
+            .output-header {
+                flex-direction: column;
+                gap: 15px;
+                text-align: center;
+            }
+
+            .copy-btn {
+                width: 100%;
+            }
+
+            .footer-links a {
+                display: block;
+                margin: 5px 0;
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+    
+    <div class="container">
+        <div class="header">
+            <h1>Creative Project Planning Template Generator</h1>
+            <p>Create structured planning documents that keep your creative projects organized, on-track, and aligned from start to finish</p>
+            <div class="header-info">
+                <h3>How This Works</h3>
+                <p>• <strong>Answer a few questions</strong> about your project to get a custom planning template</p>
+                <p>• <strong>Get a ready-to-use document</strong> with all the right sections for your type of work</p>
+                <p>• <strong>Fill in your specific details</strong> where you see [brackets like this]</p>
+                <p>• <strong>Share with your team</strong> so everyone knows what's happening when</p>
+                <p>• <strong>Use throughout your project</strong> to stay organized and catch issues early</p>
+            </div>
+            <div class="brand-credit">Created by Forms + Phases</div>
+        </div>
+
+        <main id="main-content">
+            <div class="main-content">
+                <div class="form-section">
+                    <h2>Project Configuration</h2>
+                    
+                    <div class="form-grid">
+                        <fieldset class="form-group">
+                            <legend>
+                                <label for="planningLevel">
+                                    Planning Level
+                                    <span class="help-icon" title="Choose the scope of planning you need" aria-label="Help: Choose the scope of planning you need">?</span>
+                                </label>
+                            </legend>
+                            <select id="planningLevel" name="planningLevel" aria-required="true" aria-describedby="planning-level-help planning-level-examples">
+                                <option value="">Select planning level...</option>
+                                <option value="project">Full Project Kickoff</option>
+                                <option value="phase">Project Phase Planning</option>
+                                <option value="milestone">Milestone/Deliverable Planning</option>
+                            </select>
+                            <div class="help-text" id="planning-level-help">
+                                Choose what kind of planning document you need
+                            </div>
+                            <div class="examples" id="planning-level-examples">
+                                <strong>What each option means:</strong><br>
+                                • <strong style="color: #6630E3;">Full Project:</strong> Starting a brand new project from scratch - "We're creating a new mobile game"<br>
+                                • <strong style="color: #6630E3;">Phase:</strong> Working on one specific part of a bigger project - "We're starting the art creation phase of our game"<br>
+                                • <strong style="color: #6630E3;">Milestone:</strong> Planning one specific thing that needs to get done - "We need to deliver the alpha build next month"
+                            </div>
+                        </fieldset>
+
+                        <fieldset class="form-group">
+                            <legend>
+                                <label for="projectType">
+                                    Project Type
+                                    <span class="help-icon" title="Choose the type of creative work you're planning" aria-label="Help: Choose the type of creative work you're planning">?</span>
+                                </label>
+                            </legend>
+                            <select id="projectType" name="projectType" aria-required="true" aria-describedby="project-type-help project-type-examples">
+                                <option value="">Select project type...</option>
+                                <option value="brand">Brand/Identity Project</option>
+                                <option value="campaign">Campaign/Marketing Project</option>
+                                <option value="content">Content Creation Project</option>
+                                <option value="product">Product/Experience Development</option>
+                            </select>
+                            <div class="help-text" id="project-type-help">
+                                Pick the option that best describes what you're making
+                            </div>
+                            <div class="examples" id="project-type-examples">
+                                <strong>Here's what each type covers:</strong><br>
+                                • <strong style="color: #6630E3;">Brand/Identity:</strong> Logo design, brand guidelines, visual identity systems<br>
+                                • <strong style="color: #6630E3;">Campaign/Marketing:</strong> Product launches, awareness campaigns, promotional content<br>
+                                • <strong style="color: #6630E3;">Content Creation:</strong> Video series, blog content, social media campaigns<br>
+                                • <strong style="color: #6630E3;">Product/Experience:</strong> Game development, app design, interactive installations
+                            </div>
+                        </fieldset>
+
+                        <fieldset class="form-group">
+                            <legend>
+                                <label for="teamSize">
+                                    Team Size
+                                    <span class="help-icon" title="Consider all people who will work on this project" aria-label="Help: Consider all people who will work on this project">?</span>
+                                </label>
+                            </legend>
+                            <select id="teamSize" name="teamSize" aria-describedby="team-size-help team-size-examples">
+                                <option value="">Select team size...</option>
+                                <option value="solo">Solo Creator</option>
+                                <option value="small">Small Team (2-5 people)</option>
+                                <option value="medium">Medium Team (6-15 people)</option>
+                                <option value="large">Large Team (15+ people)</option>
+                            </select>
+                            <div class="help-text" id="team-size-help">
+                                Count everyone who will work on this project, including freelancers and part-time people
+                            </div>
+                            <div class="examples" id="team-size-examples">
+                                <strong>Examples of each size:</strong><br>
+                                • <strong style="color: #6630E3;">Solo:</strong> Freelance designer working alone<br>
+                                • <strong style="color: #6630E3;">Small:</strong> Indie game studio, small agency team<br>
+                                • <strong style="color: #6630E3;">Medium:</strong> Mid-size agency, established indie studio<br>
+                                • <strong style="color: #6630E3;">Large:</strong> AAA game studio, major creative agency
+                            </div>
+                        </fieldset>
+
+                        <fieldset class="form-group">
+                            <legend>
+                                <label for="timeline">
+                                    Timeline
+                                    <span class="help-icon" title="Consider the total project duration from start to completion" aria-label="Help: Consider the total project duration from start to completion">?</span>
+                                </label>
+                            </legend>
+                            <select id="timeline" name="timeline" aria-describedby="timeline-help timeline-examples">
+                                <option value="">Select timeline...</option>
+                                <option value="short">1-4 weeks</option>
+                                <option value="medium">1-3 months</option>
+                                <option value="long">3+ months</option>
+                            </select>
+                            <div class="help-text" id="timeline-help">
+                                Think about how long the whole project will take from start to finish
+                            </div>
+                            <div class="examples" id="timeline-examples">
+                                <strong>Examples for each timeline:</strong><br>
+                                • <strong style="color: #6630E3;">1-4 weeks:</strong> Logo design, small marketing campaign, content series<br>
+                                • <strong style="color: #6630E3;">1-3 months:</strong> Website redesign, mobile app, brand identity system<br>
+                                • <strong style="color: #6630E3;">3+ months:</strong> Game development, major product launch, comprehensive rebrand
+                            </div>
+                        </fieldset>
+
+                        <fieldset class="form-group">
+                            <legend>
+                                <label for="clientType">
+                                    Client Relationship
+                                    <span class="help-icon" title="Consider your relationship and communication history" aria-label="Help: Consider your relationship and communication history">?</span>
+                                </label>
+                            </legend>
+                            <select id="clientType" name="clientType" aria-describedby="client-type-help client-type-examples">
+                                <option value="">Select relationship...</option>
+                                <option value="new">New Client</option>
+                                <option value="existing">Existing Client</option>
+                                <option value="internal">Internal Project</option>
+                            </select>
+                            <div class="help-text" id="client-type-help">
+                                This helps us know how much background information to include in your template
+                            </div>
+                            <div class="examples" id="client-type-examples">
+                                <strong>What each relationship means:</strong><br>
+                                • <strong style="color: #6630E3;">New Client:</strong> First project together, need to establish how you'll work together<br>
+                                • <strong style="color: #6630E3;">Existing Client:</strong> You've worked together before and have established ways of communicating<br>
+                                • <strong style="color: #6630E3;">Internal Project:</strong> Your own company's project with internal team members
+                            </div>
+                        </fieldset>
+                    </div>
+
+                    <button class="generate-btn" onclick="generateTemplate()" aria-describedby="generate-help">Generate Template</button>
+                    <div class="error-message hidden" id="error-message" role="alert"></div>
+                </div>
+
+                <div class="output-section">
+                    <div class="output-header">
+                        <h2>Generated Template</h2>
+                        <button class="copy-btn hidden" onclick="copyTemplate()" id="copyBtn" aria-describedby="copy-help">Copy Template</button>
+                    </div>
+                    <div class="usage-instructions hidden" id="usageInstructions">
+                        <strong>How to use your template:</strong><br>
+                        1. Copy the template below by clicking the "Copy Template" button<br>
+                        2. Paste it into Google Docs, Word, Notion, or your favorite writing app<br>
+                        3. Replace the [bracketed text like this] with your actual project details<br>
+                        4. Share with your team so everyone knows the plan<br>
+                        5. Keep updating it as your project moves forward
+                    </div>
+                    <div class="output-content" id="templateOutput">
+                        <div class="placeholder">
+                            <div style="text-align: center; max-width: 600px;">
+                                Answer the questions above and click "Generate Template" to get your custom planning document.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <div class="footer">
+            <h3>🎯 What's Next?</h3>
+            <p><strong>Ready to implement these insights?</strong></p>
+            
+            <div class="footer-links">
+                <a href="https://github.com/formsandphases/creative-project-management-resources" target="_blank">🛠️ More Free Tools</a>
+                <a href="https://www.formsandphases.com/blog" target="_blank">📖 Read Articles</a>
+                <a href="https://www.formsandphases.com" target="_blank">💬 Free Discovery Call</a>
+            </div>
+            
+            <hr>
+            
+            <p class="company-info">
+                <strong>Forms + Phases</strong> - Creative Project Management<br>
+                Where Creative Vision Meets Mindful Management
+            </p>
+        </div>
+    </div>
+
+    <!-- Live region for screen reader announcements -->
+    <div aria-live="polite" id="status-updates" class="sr-only"></div>
+
+    <script>
+        const templates = {
+            project: {
+                brand: {
+                    header: "BRAND/IDENTITY PROJECT PLANNING TEMPLATE\n\n",
+                    sections: {
+                        overview: "PROJECT OVERVIEW\n• Project Name: [Enter project name]\n• Project Type: Brand/Identity Development\n• Start Date: [Enter start date]\n• End Date: [Enter end date]\n• Project Lead: [Enter project lead name]\n\nPROJECT OBJECTIVES\n• Primary Goal: [What is the main objective of this brand project?]\n• Success Metrics: [How will you measure success?]\n• Key Deliverables: [List main deliverables]\n\n",
+                        
+                        audience: "TARGET AUDIENCE\n• Primary Audience: [Demographics, psychographics, behaviors]\n• Secondary Audience: [If applicable]\n• Current Brand Perception: [How does the audience currently view the brand?]\n• Desired Brand Perception: [How should they view the brand after this project?]\n\n",
+                        
+                        competitive: "COMPETITIVE LANDSCAPE\n• Direct Competitors: [List 3-5 direct competitors]\n• Indirect Competitors: [List relevant indirect competitors]\n• Competitive Advantages: [What sets this brand apart?]\n• Market Positioning: [Where does this brand fit in the market?]\n\n",
+                        
+                        creative: "CREATIVE DIRECTION\n• Brand Personality: [List 3-5 personality traits]\n• Visual Style: [Describe desired visual approach]\n• Tone of Voice: [How should the brand sound?]\n• Color Considerations: [Any color preferences or restrictions?]\n• Typography Notes: [Any font preferences or brand requirements?]\n\n",
+                        
+                        deliverables: "DELIVERABLES & SPECIFICATIONS\n• Logo/Mark: [Specifications and variants needed]\n• Brand Guidelines: [Scope of guidelines document]\n• Applications: [Where will the brand be applied?]\n• File Formats: [Required file formats and sizes]\n\n",
+                        
+                        timeline: "TIMELINE & MILESTONES\n• Discovery Phase: [Duration and key activities]\n• Concept Development: [Duration and deliverables]\n• Design Development: [Duration and refinement process]\n• Finalization: [Duration and final deliverables]\n• Key Review Points: [When are major reviews scheduled?]\n\n",
+                        
+                        team: "TEAM & RESPONSIBILITIES\n• Creative Lead: [Name and responsibilities]\n• Designer(s): [Names and responsibilities]\n• Project Manager: [Name and responsibilities]\n• Client Contact: [Primary client contact]\n• Approval Process: [Who approves what and when?]\n\n",
+                        
+                        budget: "BUDGET & RESOURCES\n• Total Project Budget: [Enter budget]\n• Design Hours: [Estimated hours for design work]\n• Revision Rounds: [Number of included revision rounds]\n• Additional Costs: [Any additional costs to consider?]\n\n",
+                        
+                        risks: "RISK MANAGEMENT\n• Potential Risks: [What could go wrong?]\n• Mitigation Strategies: [How will you handle risks?]\n• Contingency Plans: [Backup plans for major issues]\n\n",
+                        
+                        success: "SUCCESS CRITERIA\n• Launch Metrics: [How will you measure initial success?]\n• Long-term Goals: [What should this brand achieve over time?]\n• Review Schedule: [When will you evaluate success?]\n\n"
+                    }
+                },
+                
+                campaign: {
+                    header: "CAMPAIGN/MARKETING PROJECT PLANNING TEMPLATE\n\n",
+                    sections: {
+                        overview: "CAMPAIGN OVERVIEW\n• Campaign Name: [Enter campaign name]\n• Campaign Type: [Launch, awareness, conversion, etc.]\n• Start Date: [Campaign start date]\n• End Date: [Campaign end date]\n• Campaign Manager: [Enter manager name]\n\nCAMPAIGN OBJECTIVES\n• Primary Goal: [What is the main objective?]\n• Secondary Goals: [Supporting objectives]\n• Key Messages: [Core messages to communicate]\n• Call to Action: [What should the audience do?]\n\n",
+                        
+                        audience: "TARGET AUDIENCE\n• Primary Audience: [Demographics and psychographics]\n• Audience Segments: [Different audience groups if applicable]\n• Customer Journey Stage: [Awareness, consideration, decision, retention]\n• Pain Points: [What problems does the audience have?]\n• Motivations: [What drives the audience to action?]\n\n",
+                        
+                        strategy: "CAMPAIGN STRATEGY\n• Core Strategy: [Overall approach and positioning]\n• Channel Strategy: [Which channels will you use and why?]\n• Content Strategy: [Types of content and themes]\n• Timing Strategy: [Why this timing? Seasonal considerations?]\n\n",
+                        
+                        channels: "CHANNEL PLANNING\n• Primary Channels: [Main channels for campaign execution]\n• Secondary Channels: [Supporting channels]\n• Channel-Specific Adaptations: [How will content adapt per channel?]\n• Cross-Channel Integration: [How will channels work together?]\n\n",
+                        
+                        creative: "CREATIVE REQUIREMENTS\n• Creative Concept: [Big idea or theme]\n• Visual Style: [Visual direction and guidelines]\n• Messaging Framework: [Key messages and variations]\n• Asset Requirements: [List all creative assets needed]\n• Brand Guidelines: [Relevant brand requirements]\n\n",
+                        
+                        timeline: "TIMELINE & PRODUCTION SCHEDULE\n• Planning Phase: [Duration and key activities]\n• Creative Development: [Duration and deliverables]\n• Production Phase: [Duration and asset creation]\n• Launch Phase: [Launch sequence and timing]\n• Optimization Phase: [Ongoing optimization timeline]\n\n",
+                        
+                        budget: "BUDGET ALLOCATION\n• Total Campaign Budget: [Enter total budget]\n• Media Spend: [Budget for paid media]\n• Creative Production: [Budget for asset creation]\n• Team Costs: [Internal team costs]\n• Contingency: [Emergency budget allocation]\n\n",
+                        
+                        measurement: "MEASUREMENT & ANALYTICS\n• Key Performance Indicators: [Primary KPIs]\n• Measurement Tools: [Analytics platforms and tools]\n• Reporting Schedule: [When and how often will you report?]\n• Optimization Triggers: [What metrics will trigger changes?]\n\n"
+                    }
+                },
+                
+                content: {
+                    header: "CONTENT CREATION PROJECT PLANNING TEMPLATE\n\n",
+                    sections: {
+                        overview: "CONTENT PROJECT OVERVIEW\n• Project Name: [Enter project name]\n• Content Type: [Video, podcast, blog series, social campaign, etc.]\n• Start Date: [Project start date]\n• Launch Date: [Content launch date]\n• Content Lead: [Enter lead name]\n\nCONTENT OBJECTIVES\n• Primary Goal: [What should this content achieve?]\n• Audience Action: [What should viewers/readers do?]\n• Success Metrics: [How will you measure success?]\n• Content Pillars: [Main themes or topics]\n\n",
+                        
+                        audience: "TARGET AUDIENCE\n• Primary Audience: [Who is this content for?]\n• Audience Needs: [What does the audience need from this content?]\n• Content Consumption Habits: [How does the audience consume content?]\n• Platform Preferences: [Where does the audience spend time?]\n\n",
+                        
+                        content: "CONTENT STRATEGY\n• Content Format: [Blog posts, videos, infographics, etc.]\n• Content Volume: [How much content will be created?]\n• Publishing Schedule: [How often will content be published?]\n• Content Themes: [What topics will be covered?]\n• Content Mix: [Educational, entertaining, promotional ratio]\n\n",
+                        
+                        production: "PRODUCTION REQUIREMENTS\n• Content Creation Process: [Steps from idea to published content]\n• Equipment Needed: [Cameras, microphones, software, etc.]\n• Locations/Settings: [Where will content be created?]\n• Talent/Contributors: [Who will appear in or create content?]\n• Post-Production Needs: [Editing, graphics, music, etc.]\n\n",
+                        
+                        distribution: "DISTRIBUTION STRATEGY\n• Primary Platforms: [Where will content be published?]\n• Cross-Platform Adaptations: [How will content adapt per platform?]\n• Promotion Strategy: [How will you promote the content?]\n• Community Management: [How will you engage with audience responses?]\n\n",
+                        
+                        timeline: "CONTENT TIMELINE\n• Pre-Production: [Planning, scripting, preparation]\n• Production Phase: [Content creation period]\n• Post-Production: [Editing and finishing]\n• Launch Sequence: [Publishing and promotion timeline]\n• Content Calendar: [Ongoing publishing schedule]\n\n",
+                        
+                        team: "TEAM & RESPONSIBILITIES\n• Content Creator(s): [Names and responsibilities]\n• Producer/Manager: [Project management and oversight]\n• Editor(s): [Post-production responsibilities]\n• Marketing/Promotion: [Distribution and promotion lead]\n• Approval Process: [Who reviews and approves content?]\n\n"
+                    }
+                },
+                
+                product: {
+                    header: "PRODUCT/EXPERIENCE DEVELOPMENT PLANNING TEMPLATE\n\n",
+                    sections: {
+                        overview: "PRODUCT OVERVIEW\n• Product Name: [Enter product name]\n• Product Type: [App, game, installation, physical product, etc.]\n• Development Start: [Project start date]\n• Target Launch: [Planned launch date]\n• Product Lead: [Enter lead name]\n\nPRODUCT VISION\n• Core Purpose: [What problem does this product solve?]\n• Target Users: [Who is this product for?]\n• Unique Value Proposition: [What makes this product special?]\n• Success Definition: [What does success look like?]\n\n",
+                        
+                        users: "USER RESEARCH\n• Primary Users: [Main user demographic]\n• User Needs: [What do users need from this product?]\n• User Behaviors: [How do users currently solve this problem?]\n• Pain Points: [What frustrates users about current solutions?]\n• User Journey: [How will users discover and use this product?]\n\n",
+                        
+                        features: "FEATURE PLANNING\n• Core Features: [Essential features for MVP]\n• Nice-to-Have Features: [Features for future versions]\n• Feature Priorities: [How will you prioritize development?]\n• User Stories: [Key user stories to address]\n\n",
+                        
+                        technical: "TECHNICAL REQUIREMENTS\n• Platform/Technology: [What technology will you use?]\n• Technical Constraints: [Any technical limitations to consider?]\n• Integration Needs: [What systems need to connect?]\n• Performance Requirements: [Speed, scalability, etc.]\n• Security Considerations: [Any security requirements?]\n\n",
+                        
+                        design: "DESIGN & EXPERIENCE\n• Design Philosophy: [Overall design approach]\n• User Experience Goals: [How should users feel?]\n• Visual Style: [Design aesthetic and guidelines]\n• Accessibility Requirements: [How will you ensure accessibility?]\n• Prototype Plans: [How will you test and iterate?]\n\n",
+                        
+                        development: "DEVELOPMENT TIMELINE\n• Discovery Phase: [User research and planning]\n• Design Phase: [Wireframing, prototyping, visual design]\n• Development Phase: [Building and programming]\n• Testing Phase: [QA, user testing, bug fixes]\n• Launch Phase: [Release and initial monitoring]\n\n",
+                        
+                        launch: "LAUNCH STRATEGY\n• Beta Testing: [How will you test before launch?]\n• Launch Plan: [How will you release the product?]\n• Marketing/Promotion: [How will you promote the launch?]\n• Post-Launch Support: [How will you support users after launch?]\n• Iteration Plan: [How will you improve the product over time?]\n\n"
+                    }
+                }
+            },
+            
+            phase: {
+                brand: {
+                    header: "BRAND PROJECT PHASE PLANNING TEMPLATE\n\n",
+                    sections: {
+                        overview: "PHASE OVERVIEW\n• Phase Name: [Enter phase name]\n• Parent Project: [Link to main project]\n• Phase Start: [Phase start date]\n• Phase End: [Phase end date]\n• Phase Lead: [Enter lead name]\n\nPHASE OBJECTIVES\n• Phase Goal: [What will this phase accomplish?]\n• Key Deliverables: [What will be delivered?]\n• Success Criteria: [How will you know this phase succeeded?]\n• Dependencies: [What needs to happen before this phase?]\n\n",
+                        
+                        scope: "PHASE SCOPE\n• Included in This Phase: [What work is included?]\n• Excluded from This Phase: [What work is NOT included?]\n• Handoff Requirements: [What needs to be delivered to the next phase?]\n• Quality Standards: [What quality standards must be met?]\n\n",
+                        
+                        tasks: "KEY TASKS & ACTIVITIES\n• Major Tasks: [List main tasks for this phase]\n• Task Dependencies: [Which tasks depend on others?]\n• Resource Requirements: [What resources are needed?]\n• Risk Factors: [What could cause delays or issues?]\n\n",
+                        
+                        timeline: "PHASE TIMELINE\n• Week 1: [Key activities and milestones]\n• Week 2: [Key activities and milestones]\n• Week 3: [Key activities and milestones]\n• Week 4: [Key activities and milestones]\n• Review Points: [When will progress be reviewed?]\n\n",
+                        
+                        communication: "COMMUNICATION PLAN\n• Team Check-ins: [How often will the team sync?]\n• Client Updates: [How will you update stakeholders?]\n• Issue Escalation: [How will problems be escalated?]\n• Documentation: [How will progress be documented?]\n\n"
+                    }
+                },
+                
+                campaign: {
+                    header: "CAMPAIGN PHASE PLANNING TEMPLATE\n\n",
+                    sections: {
+                        overview: "PHASE OVERVIEW\n• Phase Name: [Enter phase name (Planning/Creative/Production/Launch/Optimization)]\n• Parent Campaign: [Link to main campaign]\n• Phase Start: [Phase start date]\n• Phase End: [Phase end date]\n• Phase Lead: [Enter lead name]\n\nPHASE OBJECTIVES\n• Phase Goal: [What will this phase accomplish?]\n• Key Deliverables: [What will be delivered?]\n• Success Criteria: [How will you know this phase succeeded?]\n• Dependencies: [What needs to happen before this phase?]\n\n",
+                        
+                        scope: "PHASE SCOPE\n• Included in This Phase: [What work is included?]\n• Excluded from This Phase: [What work is NOT included?]\n• Handoff Requirements: [What needs to be delivered to the next phase?]\n• Quality Standards: [What quality standards must be met?]\n\n",
+                        
+                        activities: "PHASE ACTIVITIES\n• Primary Activities: [Main activities for this phase]\n• Supporting Activities: [Secondary activities]\n• Critical Path Items: [Activities that cannot be delayed]\n• Resource Requirements: [What resources are needed?]\n\n",
+                        
+                        timeline: "PHASE TIMELINE\n• Week 1: [Key activities and milestones]\n• Week 2: [Key activities and milestones]\n• Week 3: [Key activities and milestones]\n• Week 4: [Key activities and milestones]\n• Key Deadlines: [Non-negotiable deadlines]\n\n",
+                        
+                        handoffs: "PHASE HANDOFFS\n• Input from Previous Phase: [What do you need to start?]\n• Output to Next Phase: [What will you deliver?]\n• Quality Checkpoints: [How will quality be verified?]\n• Approval Requirements: [Who needs to approve phase completion?]\n\n"
+                    }
+                },
+                
+                content: {
+                    header: "CONTENT PROJECT PHASE PLANNING TEMPLATE\n\n",
+                    sections: {
+                        overview: "PHASE OVERVIEW\n• Phase Name: [Enter phase name (Planning/Pre-Production/Production/Post-Production/Distribution)]\n• Parent Project: [Link to main content project]\n• Phase Start: [Phase start date]\n• Phase End: [Phase end date]\n• Phase Lead: [Enter lead name]\n\nPHASE OBJECTIVES\n• Phase Goal: [What will this phase accomplish?]\n• Content Deliverables: [What content will be created?]\n• Success Criteria: [How will you know this phase succeeded?]\n• Dependencies: [What needs to happen before this phase?]\n\n",
+                        
+                        scope: "PHASE SCOPE\n• Content Included: [What content is part of this phase?]\n• Content Excluded: [What content is NOT part of this phase?]\n• Production Requirements: [What production work is needed?]\n• Quality Standards: [What quality level is required?]\n\n",
+                        
+                        production: "PRODUCTION PLANNING\n• Content Format: [Video, audio, written, visual, etc.]\n• Production Schedule: [When will content be created?]\n• Equipment/Tools: [What tools are needed for this phase?]\n• Talent/Contributors: [Who will create or appear in content?]\n\n",
+                        
+                        workflow: "PHASE WORKFLOW\n• Process Steps: [Step-by-step workflow for this phase]\n• Review Points: [When will work be reviewed?]\n• Approval Process: [Who approves work at each step?]\n• Revision Handling: [How will revisions be managed?]\n\n",
+                        
+                        output: "PHASE OUTPUT\n• Deliverable Format: [What format will deliverables be in?]\n• File Organization: [How will files be organized?]\n• Handoff Process: [How will work be passed to next phase?]\n• Documentation: [What documentation is needed?]\n\n"
+                    }
+                },
+                
+                product: {
+                    header: "PRODUCT DEVELOPMENT PHASE PLANNING TEMPLATE\n\n",
+                    sections: {
+                        overview: "PHASE OVERVIEW\n• Phase Name: [Enter phase name (Discovery/Design/Development/Testing/Launch)]\n• Parent Product: [Link to main product project]\n• Phase Start: [Phase start date]\n• Phase End: [Phase end date]\n• Phase Lead: [Enter lead name]\n\nPHASE OBJECTIVES\n• Phase Goal: [What will this phase accomplish?]\n• Key Deliverables: [What will be delivered?]\n• Success Criteria: [How will you know this phase succeeded?]\n• Dependencies: [What needs to happen before this phase?]\n\n",
+                        
+                        scope: "PHASE SCOPE\n• Features Included: [What features are part of this phase?]\n• Features Excluded: [What features are NOT part of this phase?]\n• Technical Work: [What technical work is included?]\n• Quality Standards: [What quality level is required?]\n\n",
+                        
+                        development: "DEVELOPMENT PLANNING\n• Development Tasks: [Key development tasks for this phase]\n• Technical Requirements: [Technical specs and constraints]\n• Integration Points: [What systems need to connect?]\n• Testing Requirements: [What testing is needed?]\n\n",
+                        
+                        workflow: "PHASE WORKFLOW\n• Development Process: [Step-by-step development workflow]\n• Code Review Process: [How will code be reviewed?]\n• Testing Process: [How will features be tested?]\n• Deployment Process: [How will work be deployed?]\n\n",
+                        
+                        output: "PHASE OUTPUT\n• Deliverable Specifications: [Detailed specs for deliverables]\n• Documentation Requirements: [What documentation is needed?]\n• Handoff Criteria: [What criteria must be met for handoff?]\n• Next Phase Preparation: [How will you prepare for the next phase?]\n\n"
+                    }
+                }
+            },
+            
+            milestone: {
+                brand: {
+                    header: "BRAND MILESTONE PLANNING TEMPLATE\n\n",
+                    sections: {
+                        overview: "MILESTONE OVERVIEW\n• Milestone Name: [Enter milestone name]\n• Parent Project/Phase: [Link to parent]\n• Target Date: [When should this be completed?]\n• Milestone Owner: [Who is responsible?]\n\nMILESTONE DEFINITION\n• Deliverable: [What exactly will be delivered?]\n• Acceptance Criteria: [How will you know it's complete?]\n• Quality Standards: [What quality level is required?]\n• Stakeholder Impact: [Who is affected by this milestone?]\n\n",
+                        
+                        tasks: "REQUIRED TASKS\n• Task 1: [Specific task and owner]\n• Task 2: [Specific task and owner]\n• Task 3: [Specific task and owner]\n• Task 4: [Specific task and owner]\n• Critical Path: [Which tasks cannot be delayed?]\n\n",
+                        
+                        resources: "RESOURCES & REQUIREMENTS\n• Team Members Needed: [Who needs to work on this?]\n• Time Requirements: [How much time will this take?]\n• Tools/Software: [What tools are needed?]\n• External Dependencies: [What do you need from others?]\n\n",
+                        
+                        communication: "COMMUNICATION & HANDOFF\n• Progress Updates: [How will you communicate progress?]\n• Completion Notification: [Who needs to know when it's done?]\n• Handoff Process: [How will you deliver the milestone?]\n• Next Steps: [What happens after this milestone?]\n\n"
+                    }
+                },
+                
+                campaign: {
+                    header: "CAMPAIGN MILESTONE PLANNING TEMPLATE\n\n",
+                    sections: {
+                        overview: "MILESTONE OVERVIEW\n• Milestone Name: [Enter milestone name]\n• Parent Campaign/Phase: [Link to parent]\n• Target Date: [When should this be completed?]\n• Milestone Owner: [Who is responsible?]\n\nMILESTONE DEFINITION\n• Deliverable: [What exactly will be delivered?]\n• Acceptance Criteria: [How will you know it's complete?]\n• Quality Standards: [What quality level is required?]\n• Campaign Impact: [How does this affect the overall campaign?]\n\n",
+                        
+                        execution: "EXECUTION PLAN\n• Key Activities: [Main activities to complete this milestone]\n• Resource Requirements: [What resources are needed?]\n• Dependencies: [What must be completed first?]\n• Risk Mitigation: [What could go wrong and how will you handle it?]\n\n",
+                        
+                        measurement: "SUCCESS MEASUREMENT\n• Completion Criteria: [How will you know it's done?]\n• Quality Metrics: [How will you measure quality?]\n• Performance Indicators: [What metrics matter for this milestone?]\n• Review Process: [How will completion be verified?]\n\n",
+                        
+                        handoff: "MILESTONE HANDOFF\n• Deliverable Format: [What format will the deliverable be in?]\n• Handoff Process: [How will you deliver this milestone?]\n• Next Phase Preparation: [How does this prepare for what's next?]\n• Documentation: [What documentation needs to be provided?]\n\n"
+                    }
+                },
+                
+                content: {
+                    header: "CONTENT MILESTONE PLANNING TEMPLATE\n\n",
+                    sections: {
+                        overview: "MILESTONE OVERVIEW\n• Milestone Name: [Enter milestone name]\n• Parent Content Project: [Link to parent]\n• Target Date: [When should this be completed?]\n• Milestone Owner: [Who is responsible?]\n\nCONTENT DELIVERABLE\n• Content Type: [What type of content will be delivered?]\n• Content Specifications: [Detailed specs for the content]\n• Acceptance Criteria: [How will you know it's complete?]\n• Distribution Requirements: [Where will this content be used?]\n\n",
+                        
+                        production: "PRODUCTION REQUIREMENTS\n• Creation Tasks: [What tasks are needed to create this content?]\n• Production Timeline: [When will each task be completed?]\n• Resource Needs: [What tools, people, or assets are needed?]\n• Quality Checkpoints: [When will quality be reviewed?]\n\n",
+                        
+                        review: "REVIEW & APPROVAL\n• Review Process: [How will the content be reviewed?]\n• Approval Workflow: [Who needs to approve this content?]\n• Revision Plan: [How will revisions be handled?]\n• Final Approval: [Who gives final approval?]\n\n",
+                        
+                        delivery: "CONTENT DELIVERY\n• Delivery Format: [What format will the content be delivered in?]\n• File Organization: [How will files be organized and named?]\n• Distribution Plan: [How will the content be distributed?]\n• Usage Guidelines: [Any guidelines for how the content should be used?]\n\n"
+                    }
+                },
+                
+                product: {
+                    header: "PRODUCT MILESTONE PLANNING TEMPLATE\n\n",
+                    sections: {
+                        overview: "MILESTONE OVERVIEW\n• Milestone Name: [Enter milestone name]\n• Parent Product/Phase: [Link to parent]\n• Target Date: [When should this be completed?]\n• Milestone Owner: [Who is responsible?]\n\nFEATURE/COMPONENT DEFINITION\n• Feature/Component: [What exactly will be delivered?]\n• Functionality: [What should this feature/component do?]\n• Acceptance Criteria: [How will you know it's complete and working?]\n• User Impact: [How does this affect the user experience?]\n\n",
+                        
+                        development: "DEVELOPMENT PLAN\n• Development Tasks: [Specific development tasks needed]\n• Technical Requirements: [Technical specs and constraints]\n• Testing Requirements: [What testing needs to be done?]\n• Integration Needs: [What systems need to connect?]\n\n",
+                        
+                        validation: "VALIDATION & TESTING\n• Testing Plan: [How will this be tested?]\n• User Testing: [Any user testing required?]\n• Performance Testing: [Performance requirements to test?]\n• Quality Assurance: [QA process for this milestone?]\n\n",
+                        
+                        deployment: "DEPLOYMENT & HANDOFF\n• Deployment Process: [How will this be deployed?]\n• Documentation: [What documentation is needed?]\n• Training Needs: [Any training required for team/users?]\n• Next Steps: [What happens after this milestone?]\n\n"
+                    }
+                }
+            }
+        };
+
+        function generateTemplate() {
+            const planningLevel = document.getElementById('planningLevel').value;
+            const projectType = document.getElementById('projectType').value;
+            const teamSize = document.getElementById('teamSize').value;
+            const timeline = document.getElementById('timeline').value;
+            const clientType = document.getElementById('clientType').value;
+
+            // Clear any previous error messages
+            const errorElement = document.getElementById('error-message');
+            errorElement.classList.add('hidden');
+
+            if (!planningLevel || !projectType) {
+                errorElement.textContent = 'Please select at least Planning Level and Project Type to generate a template.';
+                errorElement.classList.remove('hidden');
+                errorElement.focus();
+                announceToScreenReader('Error: Please select at least Planning Level and Project Type to generate a template.');
+                return;
+            }
+
+            let template = '';
+            
+            // Get base template
+            const baseTemplate = templates[planningLevel][projectType];
+            if (!baseTemplate) {
+                errorElement.textContent = 'Template not available for this combination yet. More templates coming soon!';
+                errorElement.classList.remove('hidden');
+                errorElement.focus();
+                announceToScreenReader('Error: Template not available for this combination yet.');
+                return;
+            }
+
+            // Start with header
+            template += baseTemplate.header;
+
+            // Add configuration info
+            template += `CONFIGURATION\n• Planning Level: ${getDisplayText('planningLevel', planningLevel)}\n• Project Type: ${getDisplayText('projectType', projectType)}\n• Team Size: ${getDisplayText('teamSize', teamSize)}\n• Timeline: ${getDisplayText('timeline', timeline)}\n• Client Relationship: ${getDisplayText('clientType', clientType)}\n\n---\n\n`;
+
+            // Add all sections
+            for (const section in baseTemplate.sections) {
+                template += baseTemplate.sections[section];
+            }
+
+            // Add team-specific and timeline-specific sections
+            template += getAdditionalSections(teamSize, timeline, clientType, planningLevel);
+
+            // Display the template
+            document.getElementById('templateOutput').textContent = template;
+            document.getElementById('copyBtn').classList.remove('hidden');
+            document.getElementById('usageInstructions').classList.remove('hidden');
+
+            // Announce success to screen reader
+            announceToScreenReader('Template generated successfully. You can now copy the template or scroll down to view it.');
+            
+            // Scroll to the template section smoothly
+            const outputSection = document.querySelector('.output-section');
+            if (outputSection) {
+                outputSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+        }
+
+        function getDisplayText(field, value) {
+            if (!value) return 'Not specified';
+            
+            const options = {
+                planningLevel: {
+                    'project': 'Full Project Kickoff',
+                    'phase': 'Project Phase Planning',
+                    'milestone': 'Milestone/Deliverable Planning'
+                },
+                projectType: {
+                    'brand': 'Brand/Identity Project',
+                    'campaign': 'Campaign/Marketing Project',
+                    'content': 'Content Creation Project',
+                    'product': 'Product/Experience Development'
+                },
+                teamSize: {
+                    'solo': 'Solo Creator',
+                    'small': 'Small Team (2-5 people)',
+                    'medium': 'Medium Team (6-15 people)',
+                    'large': 'Large Team (15+ people)'
+                },
+                timeline: {
+                    'short': '1-4 weeks',
+                    'medium': '1-3 months',
+                    'long': '3+ months'
+                },
+                clientType: {
+                    'new': 'New Client',
+                    'existing': 'Existing Client',
+                    'internal': 'Internal Project'
+                }
+            };
+            
+            return options[field][value] || value;
+        }
+
+        function getAdditionalSections(teamSize, timeline, clientType, planningLevel) {
+            let additional = '';
+
+            // Add team-specific sections
+            if (teamSize === 'large') {
+                additional += "COMMUNICATION PROTOCOLS\n• Daily Standups: [When and how will the team sync daily?]\n• Weekly Reviews: [When are weekly progress reviews?]\n• Escalation Process: [How are issues escalated?]\n• Documentation Standards: [How will work be documented?]\n\n";
+            }
+
+            if (teamSize === 'solo') {
+                additional += "SOLO CREATOR CONSIDERATIONS\n• Time Management: [How will you structure your time?]\n• Quality Checks: [How will you review your own work?]\n• Client Communication: [How will you keep clients updated?]\n• Backup Plans: [What if you get sick or have emergencies?]\n\n";
+            }
+
+            // Add client-specific sections
+            if (clientType === 'new') {
+                additional += "NEW CLIENT ONBOARDING\n• Expectation Setting: [How will you align expectations?]\n• Communication Preferences: [How does the client prefer updates?]\n• Approval Process: [How does the client make decisions?]\n• Relationship Building: [How will you build trust?]\n\n";
+            }
+
+            // Add timeline-specific sections
+            if (timeline === 'short') {
+                additional += "FAST-TRACK CONSIDERATIONS\n• Priority Focus: [What are the absolute must-haves?]\n• Quick Decision Points: [When do decisions need to be made?]\n• Resource Availability: [Are all resources available quickly?]\n• Quality vs. Speed: [How will you balance quality and speed?]\n\n";
+            }
+
+            if (timeline === 'long') {
+                additional += "LONG-TERM PROJECT MANAGEMENT\n• Momentum Maintenance: [How will you keep energy high?]\n• Regular Check-ins: [When are major project reviews?]\n• Scope Evolution: [How will you handle changing requirements?]\n• Team Changes: [How will you handle team member changes?]\n\n";
+            }
+
+            return additional;
+        }
+
+        function copyTemplate() {
+            const template = document.getElementById('templateOutput').textContent;
+            navigator.clipboard.writeText(template).then(() => {
+                const btn = document.getElementById('copyBtn');
+                const originalText = btn.textContent;
+                btn.textContent = 'Copied!';
+                btn.style.background = '#27ae60';
+                
+                announceToScreenReader('Template copied to clipboard successfully.');
+                
+                setTimeout(() => {
+                    btn.textContent = originalText;
+                    btn.style.background = '#F759B7';
+                }, 2000);
+            }).catch(() => {
+                announceToScreenReader('Failed to copy template. Please select and copy the text manually.');
+            });
+        }
+
+        function announceToScreenReader(message) {
+            const statusElement = document.getElementById('status-updates');
+            statusElement.textContent = message;
+        }
+
+        // Initialize the tool when page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            // Set focus to the first form element for keyboard users
+            document.getElementById('planningLevel').focus();
+        });
+    </script>
+</body>
+</html>
