@@ -6,6 +6,12 @@ This section contains interactive tools like assessments, evaluations, and self-
 
 ## 🎯 Available Tools
 
+### Project Plan Template Generator
+**[📊 Generate Your Project Plan Template →](https://formsandphases.github.io/creative-project-management-resources/self-serve-tools/project-planning-template-generator.html)**
+
+No more blank page paralysis - generate a template that gives you a head start on planning your next project, phase, or milestone.
+
+
 ### Project Health Assessment
 **[📊 Take Assessment →](https://ali-ip20vxic.scoreapp.com)**
 
